@@ -1,0 +1,573 @@
+import 'package:flutter/material.dart';
+import '../../core/audio/audio_controller.dart';
+import '../../models/animal.dart';
+
+/// 动物驱赶功能页面
+class AnimalDeterrentPage extends StatefulWidget {
+  const AnimalDeterrentPage({super.key});
+
+  @override
+  State<AnimalDeterrentPage> createState() => _AnimalDeterrentPageState();
+}
+
+class _AnimalDeterrentPageState extends State<AnimalDeterrentPage> {
+  AnimalCategory activeCategory = AnimalCategory.all;
+  bool isPlaying = false;
+  Animal? currentAnimal;
+  Animal? selectedAnimal;
+
+  List<Animal> get filteredAnimals => AnimalDatabase.findByCategory(activeCategory);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: ScrollConfiguration(
+        behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
+        child: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [Color(0xFFEFF6FF), Color(0xFFECFEFF)],
+            ),
+          ),
+          child: Stack(
+            children: [
+              CustomScrollView(
+                slivers: [
+                  SliverToBoxAdapter(child: _buildNavBar()),
+                  SliverToBoxAdapter(child: _buildSmartBanner()),
+                  SliverToBoxAdapter(child: _buildCategoryTabs()),
+                  SliverPadding(
+                    padding: const EdgeInsets.fromLTRB(16, 0, 16, 140),
+                    sliver: SliverList(
+                      delegate: SliverChildBuilderDelegate(
+                        (context, index) => _buildAnimalCard(filteredAnimals[index]),
+                        childCount: filteredAnimals.length,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              Positioned(
+                left: 0,
+                right: 0,
+                bottom: 0,
+                child: _buildBottomPlayer(),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  // ============ 导航栏 ============
+  Widget _buildNavBar() {
+    return Container(
+      padding: EdgeInsets.fromLTRB(16, MediaQuery.paddingOf(context).top + 8, 16, 12),
+      color: Colors.transparent,
+      child: Row(
+        children: [
+          const Icon(Icons.pets, color: Color(0xFFF97316), size: 22),
+          const SizedBox(width: 8),
+          const Text(
+            '防兽神器',
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Color(0xFF1F2937)),
+          ),
+          const Spacer(),
+          IconButton(
+            icon: const Icon(Icons.history, color: Color(0xFF4B5563)),
+            onPressed: () {},
+            iconSize: 22,
+          ),
+          IconButton(
+            icon: const Icon(Icons.settings, color: Color(0xFF4B5563)),
+            onPressed: () {},
+            iconSize: 22,
+          ),
+        ],
+      ),
+    );
+  }
+
+  // ============ 智能推荐横幅 ============
+  Widget _buildSmartBanner() {
+    return Container(
+      margin: const EdgeInsets.fromLTRB(16, 16, 16, 20),
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        gradient: const LinearGradient(
+          colors: [Color(0xFFFB923C), Color(0xFFEF4444)],
+        ),
+        borderRadius: BorderRadius.circular(12),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.orange.withValues(alpha: 0.35),
+            blurRadius: 16,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
+      child: Row(
+        children: [
+          const Icon(Icons.lightbulb, color: Color(0xFFFDE047), size: 26),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  '智能推荐',
+                  style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600, fontSize: 16),
+                ),
+                const SizedBox(height: 2),
+                Text(
+                  '当前时段建议：防蛇/野猪',
+                  style: TextStyle(color: Colors.white.withValues(alpha: 0.9), fontSize: 13),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  // ============ 分类标签 ============
+  Widget _buildCategoryTabs() {
+    return Container(
+      height: 36,
+      margin: const EdgeInsets.symmetric(vertical: 8),
+      child: ListView.separated(
+        scrollDirection: Axis.horizontal,
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        itemCount: AnimalCategory.values.length,
+        separatorBuilder: (_, __) => const SizedBox(width: 8),
+        itemBuilder: (context, index) {
+          final cat = AnimalCategory.values[index];
+          final isActive = activeCategory == cat;
+          return GestureDetector(
+            onTap: () => setState(() => activeCategory = cat),
+            child: AnimatedContainer(
+              duration: const Duration(milliseconds: 200),
+              curve: Curves.easeInOut,
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              decoration: BoxDecoration(
+                color: isActive ? const Color(0xFFF97316) : Colors.white,
+                borderRadius: BorderRadius.circular(20),
+                boxShadow: isActive
+                    ? [BoxShadow(color: const Color(0xFFF97316).withValues(alpha: 0.35), blurRadius: 10, offset: const Offset(0, 2))]
+                    : [BoxShadow(color: Colors.black.withValues(alpha: 0.06), blurRadius: 4, offset: const Offset(0, 1))],
+              ),
+              child: Center(
+                child: Text(
+                  '${cat.emoji} ${cat.name}',
+                  style: TextStyle(
+                    color: isActive ? Colors.white : const Color(0xFF4B5563),
+                    fontWeight: isActive ? FontWeight.w600 : FontWeight.w500,
+                    fontSize: 14,
+                  ),
+                ),
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
+
+  // ============ 动物卡片 ============
+  Widget _buildAnimalCard(Animal animal) {
+    final catColor = _catColor(animal.category);
+    return Container(
+      margin: const EdgeInsets.symmetric(vertical: 6),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: const Color(0xFFF3F4F6)),
+        boxShadow: [
+          BoxShadow(color: Colors.black.withValues(alpha: 0.06), blurRadius: 8, offset: const Offset(0, 2)),
+        ],
+      ),
+      child: Material(
+        color: Colors.transparent,
+        borderRadius: BorderRadius.circular(12),
+        child: InkWell(
+          onTap: () => _showAnimalDetail(animal),
+          borderRadius: BorderRadius.circular(12),
+          child: Padding(
+            padding: const EdgeInsets.all(12),
+            child: Row(
+              children: [
+                // 动物图标
+                Container(
+                  width: 64,
+                  height: 64,
+                  decoration: BoxDecoration(
+                    color: catColor.withValues(alpha: 0.1),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Icon(_animalIconData(animal.iconName), color: catColor, size: 32),
+                ),
+                const SizedBox(width: 12),
+                // 内容区
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(animal.name, style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 16, color: Color(0xFF1F2937))),
+                      const SizedBox(height: 4),
+                      Text(animal.description, style: const TextStyle(color: Color(0xFF4B5563), fontSize: 14)),
+                      const SizedBox(height: 6),
+                      Row(
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                            decoration: BoxDecoration(color: const Color(0xFFDCFCE7), borderRadius: BorderRadius.circular(6)),
+                            child: const Text('克制声音', style: TextStyle(color: Color(0xFF15803D), fontSize: 12, fontWeight: FontWeight.w500)),
+                          ),
+                          const SizedBox(width: 6),
+                          Text(animal.counterSound, style: const TextStyle(color: Color(0xFF6B7280), fontSize: 12)),
+                        ],
+                      ),
+                      const SizedBox(height: 6),
+                      Row(
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                            decoration: BoxDecoration(
+                              color: _getDbColor(animal.recommendedDb).withValues(alpha: 0.1),
+                              borderRadius: BorderRadius.circular(4),
+                            ),
+                            child: Row(mainAxisSize: MainAxisSize.min, children: [
+                              Icon(Icons.graphic_eq, size: 11, color: _getDbColor(animal.recommendedDb)),
+                              const SizedBox(width: 2),
+                              Text('${animal.recommendedDb.round()}dB',
+                                style: TextStyle(fontSize: 10, color: _getDbColor(animal.recommendedDb), fontWeight: FontWeight.w600)),
+                            ]),
+                          ),
+                          const SizedBox(width: 6),
+                          Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                            decoration: BoxDecoration(
+                              color: catColor.withValues(alpha: 0.1),
+                              borderRadius: BorderRadius.circular(4),
+                            ),
+                            child: Row(mainAxisSize: MainAxisSize.min, children: [
+                              Icon(Icons.straighten, size: 11, color: catColor),
+                              const SizedBox(width: 2),
+                              Text('${animal.effectiveRange.round()}m',
+                                style: TextStyle(fontSize: 10, color: catColor, fontWeight: FontWeight.w600)),
+                            ]),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+                Icon(Icons.chevron_right, color: Colors.grey[400]),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Color _getDbColor(double db) {
+    if (db < 50) return Colors.blue;
+    if (db < 65) return Colors.green;
+    if (db < 75) return Colors.lightGreen;
+    if (db < 85) return Colors.orange;
+    if (db < 95) return Colors.deepOrange;
+    return Colors.red;
+  }
+
+  // ============ 底部播放控制 ============
+  Widget _buildBottomPlayer() {
+    final displayAnimal = currentAnimal ?? AnimalDatabase.animals.first;
+    final displayName = displayAnimal.name;
+    final displaySound = displayAnimal.counterSound;
+
+    return Container(
+      padding: const EdgeInsets.fromLTRB(16, 12, 16, 36),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        border: Border(top: BorderSide(color: Colors.grey[200]!)),
+        boxShadow: [
+          BoxShadow(color: Colors.black.withValues(alpha: 0.08), blurRadius: 12, offset: const Offset(0, -2)),
+        ],
+      ),
+      child: Row(
+        children: [
+          Container(
+            width: 48,
+            height: 48,
+            decoration: BoxDecoration(
+              color: _catColor(displayAnimal.category).withValues(alpha: 0.1),
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Icon(_animalIconData(displayAnimal.iconName), color: _catColor(displayAnimal.category), size: 24),
+          ),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(displayName, style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 15, color: Color(0xFF1F2937))),
+                const SizedBox(height: 2),
+                Text(displaySound, style: TextStyle(color: Colors.grey[500], fontSize: 12)),
+              ],
+            ),
+          ),
+          GestureDetector(
+            onTap: () {
+              final audio = AudioController.instance;
+              if (isPlaying) {
+                audio.pause();
+              } else if (audio.currentSound != null) {
+                audio.resume();
+              }
+              setState(() => isPlaying = !isPlaying);
+            },
+            child: Container(
+              width: 48,
+              height: 48,
+              decoration: BoxDecoration(
+                color: const Color(0xFFF97316),
+                shape: BoxShape.circle,
+                boxShadow: [
+                  BoxShadow(color: const Color(0xFFF97316).withValues(alpha: 0.4), blurRadius: 12, offset: const Offset(0, 4)),
+                ],
+              ),
+              child: Icon(isPlaying ? Icons.pause : Icons.play_arrow, color: Colors.white, size: 28),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  // ============ 动物详情弹窗 ============
+  void _showAnimalDetail(Animal animal) {
+    showGeneralDialog<void>(
+      context: context,
+      barrierDismissible: true,
+      barrierLabel: 'Close animal detail',
+      barrierColor: Colors.black54,
+      transitionDuration: const Duration(milliseconds: 250),
+      pageBuilder: (ctx, _, __) {
+        final mediaQuery = MediaQuery.of(ctx);
+        final maxHeight = mediaQuery.size.height - mediaQuery.padding.top - 12;
+        return SafeArea(
+          child: Align(
+            alignment: Alignment.bottomCenter,
+            child: ScrollConfiguration(
+              behavior: ScrollConfiguration.of(ctx).copyWith(scrollbars: false),
+              child: Container(
+                width: double.infinity,
+                height: maxHeight,
+                margin: const EdgeInsets.symmetric(horizontal: 8),
+                decoration: const BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+                ),
+                clipBehavior: Clip.antiAlias,
+                child: _AnimalDetailSheet(
+                  animal: animal,
+                  onPlaySound: (sound) {
+                    AudioController.instance.play(animal, sound);
+                    setState(() {
+                      currentAnimal = animal;
+                      isPlaying = true;
+                    });
+                    Navigator.pop(ctx);
+                  },
+                ),
+              ),
+            ),
+          ),
+        );
+      },
+      transitionBuilder: (ctx, animation, _, child) {
+        final curvedAnimation = CurvedAnimation(
+          parent: animation,
+          curve: Curves.easeOutCubic,
+        );
+        return SlideTransition(
+          position: Tween<Offset>(
+            begin: const Offset(0, 1),
+            end: Offset.zero,
+          ).animate(curvedAnimation),
+          child: child,
+        );
+      },
+    );
+  }
+}
+
+// ============ 动物详情弹窗组件 ============
+class _AnimalDetailSheet extends StatelessWidget {
+  final Animal animal;
+  final void Function(RecommendedSound sound) onPlaySound;
+
+  const _AnimalDetailSheet({required this.animal, required this.onPlaySound});
+
+  @override
+  Widget build(BuildContext context) {
+    final catColor = _catColor(animal.category);
+    return SizedBox(
+      height: MediaQuery.of(context).size.height,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Row(
+              children: [
+                Text('${animal.name} 详情', style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Color(0xFF1F2937))),
+                const Spacer(),
+                IconButton(
+                  icon: const Icon(Icons.close, color: Color(0xFF6B7280)),
+                  onPressed: () => Navigator.pop(context),
+                ),
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  width: 80,
+                  height: 80,
+                  decoration: BoxDecoration(
+                    color: catColor.withValues(alpha: 0.1),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Icon(_animalIconData(animal.iconName), size: 40, color: catColor),
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: Text(
+                    animal.fullDescription,
+                    style: TextStyle(color: Colors.grey[600], fontSize: 13, height: 1.5),
+                    maxLines: 4,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 12),
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20),
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: Text('推荐声音', style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16, color: Color(0xFF1F2937))),
+            ),
+          ),
+          const SizedBox(height: 8),
+          Expanded(
+            child: ListView.separated(
+              padding: const EdgeInsets.fromLTRB(20, 0, 20, 24),
+              itemCount: animal.sounds.length,
+              separatorBuilder: (_, __) => const SizedBox(height: 8),
+              itemBuilder: (context, index) {
+                final sound = animal.sounds[index];
+                return Container(
+                  padding: const EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFF9FAFB),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(children: [
+                              Text(sound.name, style: const TextStyle(fontWeight: FontWeight.w500)),
+                              const SizedBox(width: 8),
+                              // 声音组标签
+                              Container(
+                                padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 1),
+                                decoration: BoxDecoration(
+                                  color: catColor.withValues(alpha: 0.1),
+                                  borderRadius: BorderRadius.circular(4),
+                                ),
+                                child: Text(sound.soundGroup,
+                                  style: TextStyle(fontSize: 10, color: catColor, fontWeight: FontWeight.w500)),
+                              ),
+                              if (sound.soundCount > 1) ...[
+                                const SizedBox(width: 4),
+                                Container(
+                                  padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 1),
+                                  decoration: BoxDecoration(
+                                    color: Colors.blue.withValues(alpha: 0.1),
+                                    borderRadius: BorderRadius.circular(4),
+                                  ),
+                                  child: Text('${sound.soundCount}首',
+                                    style: const TextStyle(fontSize: 10, color: Colors.blue, fontWeight: FontWeight.w500)),
+                                ),
+                              ],
+                            ]),
+                            const SizedBox(height: 2),
+                            // 星级评分
+                            Row(children: List.generate(5, (i) => Icon(
+                              i < sound.rating ? Icons.star : Icons.star_border,
+                              color: const Color(0xFFFBBF24), size: 14,
+                            ))),
+                          ],
+                        ),
+                      ),
+                      SizedBox(
+                        height: 32,
+                        child: FilledButton(
+                          onPressed: () => onPlaySound(sound),
+                          style: FilledButton.styleFrom(
+                            backgroundColor: const Color(0xFFF97316),
+                            padding: const EdgeInsets.symmetric(horizontal: 12),
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                          ),
+                          child: const Text('播放', style: TextStyle(fontSize: 13)),
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              },
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+// ============ 工具方法 ============
+
+Color _catColor(AnimalCategory category) {
+  switch (category) {
+    case AnimalCategory.beast: return Colors.orange;
+    case AnimalCategory.reptile: return Colors.green;
+    case AnimalCategory.primate: return Colors.brown;
+    case AnimalCategory.rodent: return Colors.blueGrey;
+    case AnimalCategory.insect: return Colors.purple;
+    case AnimalCategory.bird: return Colors.blue;
+    case AnimalCategory.all: return Colors.orange;
+  }
+}
+
+IconData _animalIconData(String iconName) {
+  const map = {
+    'pets': Icons.pets, 'dangerous': Icons.dangerous, 'forest': Icons.forest,
+    'cottage': Icons.cottage, 'emoji_nature': Icons.emoji_nature, 'pest_control': Icons.pest_control,
+    'nights_stay': Icons.nights_stay, 'bug_report': Icons.bug_report, 'hive': Icons.hive,
+    'grass': Icons.grass, 'flutter_dash': Icons.flutter_dash,
+  };
+  return map[iconName] ?? Icons.pets;
+}

@@ -1,0 +1,67 @@
+{
+  "version": "1.0.0",
+  "description": "防兽神器（Shoo）手机↔手表统一通信协议定义",
+  "commands": {
+    "phone_to_watch": {
+      "play": {
+        "type": "play",
+        "soundId": "string - 声音ID",
+        "volume": "number - 音量 0.0-1.0",
+        "mode": "string - continuous|interval|pulse"
+      },
+      "stop": {
+        "type": "stop",
+        "soundId": "string - 声音ID"
+      },
+      "stop_all": {
+        "type": "stop_all"
+      },
+      "sync_sounds": {
+        "type": "sync_sounds",
+        "sounds": [
+          {
+            "id": "string - 声音ID",
+            "name": "string - 声音名称",
+            "category": "string - 分类ID",
+            "duration": "number - 时长(秒)"
+          }
+        ]
+      }
+    },
+    "watch_to_phone": {
+      "remote_play": {
+        "type": "remote_play",
+        "soundId": "string - 声音ID",
+        "volume": "number - 音量 0.0-1.0"
+      },
+      "status": {
+        "type": "status",
+        "playing": "boolean",
+        "soundId": "string - 声音ID (可选)",
+        "elapsed": "number - 已播放秒数 (可选)"
+      },
+      "emergency": {
+        "type": "emergency",
+        "soundIds": ["string - 声音ID列表"],
+        "volume": "number - 音量 0.0-1.0"
+      }
+    }
+  },
+  "platform_implementations": {
+    "ios": {
+      "framework": "WatchConnectivity",
+      "method": "WCSession.sendMessage",
+      "complication": "CLKComplicationDataSource"
+    },
+    "android": {
+      "framework": "Wearable API (Google Play Services)",
+      "method": "MessageClient.sendMessage",
+      "complication": "ComplicationProviderService"
+    },
+    "harmony": {
+      "framework": "@ohos.wearengine",
+      "method": "wearEngine.sendData",
+      "complication": "FormExtension"
+    }
+  }
+}

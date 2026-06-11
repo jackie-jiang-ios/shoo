@@ -1,0 +1,75 @@
+name: shoo
+description: 防兽神器 - 用声音驱赶野兽的多平台应用
+
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.3.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+
+  # 音频播放
+  just_audio: ^0.9.37
+  audio_session: ^0.1.18
+
+  # 状态管理
+  flutter_riverpod: ^2.5.1
+  riverpod_annotation: ^2.3.5
+
+  # 本地存储
+  shared_preferences: ^2.2.3
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
+
+  # 路由
+  go_router: ^13.2.0
+
+  # UI 组件
+  flutter_screenutil: ^5.9.0
+  lottie: ^3.1.0
+  shimmer: ^3.0.0
+
+  # 工具
+  uuid: ^4.3.3
+  intl: ^0.20.2
+  permission_handler: ^11.3.0
+  vibration: ^1.8.4
+  wakelock_plus: ^1.2.1
+  url_launcher: ^6.2.5
+
+  # 图标
+  cupertino_icons: ^1.0.6
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^3.0.1
+  riverpod_generator: ^2.4.0
+  build_runner: ^2.4.8
+  hive_generator: ^2.0.1
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/images/
+    - assets/images/icons/v1/
+    - assets/images/icons/v2/
+    - assets/images/icons/v3/
+    - assets/sounds/tiger/
+    - assets/sounds/lion/
+    - assets/sounds/wolf/
+    - assets/sounds/dog/
+    - assets/sounds/cat/
+    - assets/sounds/rooster/
+    - assets/sounds/eagle/
+    - assets/sounds/gunshot/
+    - assets/sounds/low_freq/
+    - assets/sounds/vibration/
