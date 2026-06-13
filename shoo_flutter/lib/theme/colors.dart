@@ -1,8 +1,24 @@
 import 'package:flutter/material.dart';
 
-/// 应用色彩系统
+/// 根据亮度选择颜色
+Color _colorByBrightness(BuildContext context, Color light, Color dark) {
+  return Theme.of(context).brightness == Brightness.dark ? dark : light;
+}
+
+/// 应用色彩系统 - 便捷访问方法，自动适配深色模式
 class AppColors {
   AppColors._();
+
+  /// 根据 context 亮度自动选择颜色
+  static Color of(BuildContext context) => _colorByBrightness(context, const Color(0xFFF97316), const Color(0xFFFB923C));
+  static Color backgroundOf(BuildContext context) => _colorByBrightness(context, background, AppColorsDark.background);
+  static Color cardBackgroundOf(BuildContext context) => _colorByBrightness(context, cardBackground, AppColorsDark.cardBackground);
+  static Color dividerOf(BuildContext context) => _colorByBrightness(context, divider, AppColorsDark.divider);
+  static Color textPrimaryOf(BuildContext context) => _colorByBrightness(context, textPrimary, AppColorsDark.textPrimary);
+  static Color textSecondaryOf(BuildContext context) => _colorByBrightness(context, textSecondary, AppColorsDark.textSecondary);
+  static Color textHintOf(BuildContext context) => _colorByBrightness(context, textHint, AppColorsDark.textHint);
+  static Color dangerOf(BuildContext context) => _colorByBrightness(context, danger, AppColorsDark.danger);
+  static Color successOf(BuildContext context) => _colorByBrightness(context, success, AppColorsDark.success);
 
   // ============ 主色调 ============
   /// 主色 - 橘色

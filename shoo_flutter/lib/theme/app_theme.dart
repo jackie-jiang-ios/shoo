@@ -115,7 +115,7 @@ class AppTheme {
         colorSchemeSeed: AppColorsDark.primary,
         scaffoldBackgroundColor: AppColorsDark.background,
         appBarTheme: const AppBarTheme(
-          backgroundColor: AppColorsDark.primaryDark,
+          backgroundColor: Color(0xFF1A1A1A),
           foregroundColor: Colors.white,
           elevation: 0,
           centerTitle: true,

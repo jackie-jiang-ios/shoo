@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../core/timer/play_scheduler.dart';
+import '../../l10n/app_localizations.dart';
 import '../../theme/colors.dart';
 
 /// 定时器页面
@@ -43,8 +44,9 @@ class _TimerPageState extends ConsumerState<TimerPage> {
         // 停止所有播放
         // 通过 ref 或回调通知音频引擎
         if (mounted) {
+          final s = S.of(context);
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('定时结束，已停止播放')),
+            SnackBar(content: Text(s.timerFinished)),
           );
         }
       },
@@ -59,12 +61,13 @@ class _TimerPageState extends ConsumerState<TimerPage> {
 
   @override
   Widget build(BuildContext context) {
+    final s = S.of(context);
     final theme = Theme.of(context);
     final isCounting = _remainingDuration != null;
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('定时播放'),
+        title: Text(s.timer),
       ),
       body: Padding(
         padding: const EdgeInsets.all(20),
@@ -88,9 +91,9 @@ class _TimerPageState extends ConsumerState<TimerPage> {
                                   (_selectedMinutes * 60)
                               : 1.0,
                           strokeWidth: 8,
-                          backgroundColor: AppColors.divider,
+                          backgroundColor: AppColors.dividerOf(context),
                           valueColor: AlwaysStoppedAnimation<Color>(
-                            isCounting ? AppColors.primary : AppColors.textHint,
+                            isCounting ? AppColors.of(context) : AppColors.textHintOf(context),
                           ),
                         ),
                         // 时间文字
@@ -110,9 +113,9 @@ class _TimerPageState extends ConsumerState<TimerPage> {
                                     ),
                                     const SizedBox(height: 8),
                                     Text(
-                                      '设置定时',
+                                      s.setTimer,
                                       style: theme.textTheme.bodyMedium?.copyWith(
-                                        color: AppColors.textHint,
+                                        color: AppColors.textHintOf(context),
                                       ),
                                     ),
                                   ],
@@ -128,7 +131,7 @@ class _TimerPageState extends ConsumerState<TimerPage> {
 
             // 预设时间选择
             Text(
-              '选择时长',
+              s.selectDuration,
               style: theme.textTheme.titleMedium?.copyWith(
                 fontWeight: FontWeight.w600,
               ),
@@ -140,7 +143,7 @@ class _TimerPageState extends ConsumerState<TimerPage> {
               children: _presetMinutes.map((minutes) {
                 final isSelected = _selectedMinutes == minutes && !isCounting;
                 return ChoiceChip(
-                  label: Text(minutes >= 60 ? '${minutes ~/ 60}小时' : '$minutes分钟'),
+                  label: Text(minutes >= 60 ? '${minutes ~/ 60} ${s.hours}' : '$minutes ${s.minutes}'),
                   selected: isSelected,
                   onSelected: isCounting
                       ? null
@@ -157,7 +160,7 @@ class _TimerPageState extends ConsumerState<TimerPage> {
             // 自定义时间
             if (!isCounting) ...[
               Text(
-                '自定义时长',
+                s.customDuration,
                 style: theme.textTheme.titleMedium?.copyWith(
                   fontWeight: FontWeight.w600,
                 ),
@@ -168,9 +171,9 @@ class _TimerPageState extends ConsumerState<TimerPage> {
                   Expanded(
                     child: TextFormField(
                       keyboardType: TextInputType.number,
-                      decoration: const InputDecoration(
-                        labelText: '分钟',
-                        border: OutlineInputBorder(),
+                      decoration: InputDecoration(
+                        labelText: s.minutes,
+                        border: const OutlineInputBorder(),
                       ),
                       onFieldSubmitted: (value) {
                         final minutes = int.tryParse(value);
@@ -196,9 +199,9 @@ class _TimerPageState extends ConsumerState<TimerPage> {
                 icon: Icon(
                   isCounting ? Icons.stop_rounded : Icons.play_arrow_rounded,
                 ),
-                label: Text(isCounting ? '取消定时' : '开始定时'),
+                label: Text(isCounting ? s.cancelTimer : s.startTimer),
                 style: FilledButton.styleFrom(
-                  backgroundColor: isCounting ? AppColors.danger : AppColors.primary,
+                  backgroundColor: isCounting ? AppColors.dangerOf(context) : AppColors.of(context),
                   padding: const EdgeInsets.symmetric(vertical: 16),
                 ),
               ),

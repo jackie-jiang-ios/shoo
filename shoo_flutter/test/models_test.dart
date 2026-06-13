@@ -59,10 +59,9 @@ void main() {
 
   group('PlayMode Tests', () {
     test('PlayMode should have correct values', () {
-      expect(PlayMode.values.length, 3);
+      expect(PlayMode.values.length, 2);
       expect(PlayMode.continuous.id, 'continuous');
       expect(PlayMode.interval.name, '间隔播放');
-      expect(PlayMode.pulse.nameEn, 'Pulse');
     });
 
     test('PlayConfig default values', () {

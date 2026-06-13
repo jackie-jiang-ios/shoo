@@ -151,7 +151,7 @@ Shoo/
   "animalId": "wild_dog",
   "soundId": "tiger_roar",
   "volume": 0.8,
-  "mode": "continuous"   // continuous | interval | pulse
+  "mode": "continuous"   // continuous | interval
 }
 
 // 停止命令
@@ -254,7 +254,7 @@ Shoo/
 | 3 | 分类筛选 | P0 | ✅ 已完成 | 猛兽/爬行/灵长/啮齿/昆虫/鸟类 |
 | 4 | 声音播放 | P0 | 🔧 框架完成 | 播放/停止/暂停（待接入真实音频资源） |
 | 5 | 音量控制 | P0 | ✅ 已完成 | 滑块调节 |
-| 6 | 播放模式 | P0 | ✅ 已完成 | 持续/间隔/脉冲三种模式 |
+| 6 | 播放模式 | P0 | ✅ 已完成 | 持续/间隔两种模式 |
 | 7 | 国际化（中/英） | P0 | ✅ 已完成 | 所有文案中英双语 |
 | 8 | 后台播放 | P0 | 🔧 框架完成 | 需接入 flutter_background_service |
 | 9 | 超声波播放 | P1 | 🔧 框架完成 | UltrasonicGenerator + iOS 原生实现 |

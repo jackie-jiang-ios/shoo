@@ -1,7 +1,6 @@
 import UIKit
 import Flutter
 import AVFoundation
-import CoreHaptics
 
 @main
 @objc class AppDelegate: FlutterAppDelegate, FlutterImplicitEngineDelegate {
@@ -12,8 +11,8 @@ import CoreHaptics
         _ application: UIApplication,
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
     ) -> Bool {
-        // 配置音频会话 - 必须在插件注册之前完成，
-        // 否则 CHHapticEngine 会因 Invalid audio session ID: 0 报错
+        // 仅设置基础 category，激活时机交给 Flutter 侧 audio_session 管理，
+        // 避免启动阶段与插件初始化竞争音频会话。
         configureAudioSession()
         
         // 注意：使用 UIScene 生命周期时，不再在这里手动调用
@@ -32,6 +31,7 @@ import CoreHaptics
         // 使用 applicationRegistrar 的 messenger 设置平台通道
         let messenger = engineBridge.applicationRegistrar.messenger()
         setupPlatformChannel(messenger: messenger)
+        setupNativeLogChannel(messenger: messenger)
         setupWatchChannel(messenger: messenger)
         setupBackgroundChannel(messenger: messenger)
     }
@@ -46,10 +46,9 @@ import CoreHaptics
                 mode: .default,
                 options: [.mixWithOthers]
             )
-            try audioSession.setActive(true)
             
-            // Skip eager haptic warm-up during launch; some devices report
-            // an invalid shared audio session here and emit noisy startup errors.
+            // Skip eager activation during launch; audio_session will activate
+            // the shared session when playback actually needs it.
         } catch {
             print("Failed to set audio session: \(error)")
         }
@@ -107,6 +106,48 @@ import CoreHaptics
             default:
                 result(FlutterMethodNotImplemented)
             }
+        }
+    }
+
+    private func setupNativeLogChannel(messenger: FlutterBinaryMessenger) {
+        let nativeLogChannel = FlutterMethodChannel(
+            name: "com.shoo.app/native_log",
+            binaryMessenger: messenger
+        )
+
+        nativeLogChannel.setMethodCallHandler { call, result in
+            guard call.method == "log" else {
+                result(FlutterMethodNotImplemented)
+                return
+            }
+
+            guard let args = call.arguments as? [String: Any] else {
+                result(
+                    FlutterError(
+                        code: "INVALID_ARGS",
+                        message: "Missing log arguments",
+                        details: nil
+                    )
+                )
+                return
+            }
+
+            let scope = args["scope"] as? String ?? "flutter"
+            let level = args["level"] as? String ?? "info"
+            let message = args["message"] as? String ?? ""
+            let timestamp = args["timestamp"] as? String ?? ""
+            let data = args["data"] as? [String: Any] ?? [:]
+
+            let dataText: String
+            if let jsonData = try? JSONSerialization.data(withJSONObject: data, options: [.sortedKeys]),
+               let jsonString = String(data: jsonData, encoding: .utf8) {
+                dataText = jsonString
+            } else {
+                dataText = "\(data)"
+            }
+
+            NSLog("[Shoo][%@][%@] %@ %@ %@", level.uppercased(), scope, timestamp, message, dataText)
+            result(nil)
         }
     }
     

@@ -1,0 +1,171 @@
+-- LLDB integration loaded --
+AddInstanceForFactory: No factory registered for id <CFUUID 0x60000022c120> F8BB1C28-BAE8-11D6-9C31-00039315CD46
+FlutterView implements focusItemsInRect: - caching for linear focus movement is limited as long as this view is on screen.
+flutter: The Dart VM service is listening on http://127.0.0.1:50901/xLunerIS5hk=/
+FlutterSemanticsScrollView implements focusItemsInRect: - caching for linear focus movement is limited as long as this view is on screen.
+FlutterSemanticsScrollView implements focusItemsInRect: - caching for linear focus movement is limited as long as this view is on screen.
+[Shoo][DEBUG][bottom_player:_onTap] 2026-06-13T20:52:16.315695 tap triggered {"audioCurrentAnimal":null,"audioCurrentAssetPath":null,"audioIsPlaying":false,"hasActiveContent":false,"isPlayPending":false,"providerCurrentAnimal":null,"providerIsPlaying":false,"widgetAnimal":null,"widgetIsPlaying":false}
+[Shoo][DEBUG][bottom_player:_playDefault] 2026-06-13T20:52:16.317659 starting playDefault {"audioCurrentAnimal":null,"audioCurrentAssetPath":null,"audioIsPlaying":false,"lastPlayedAnimalId":"wild_dog","lastPlayedSoundGroup":"gunshot"}
+[Shoo][DEBUG][bottom_player:_playDefault] 2026-06-13T20:52:16.319142 resolved target {"playMode":"single","selectedIndex":1,"targetAnimalId":"wild_dog","targetSoundGroup":"gunshot"}
+[Shoo][DEBUG][audio_controller:_startPlayback] 2026-06-13T20:52:16.322892 start playback {"animalId":"wild_dog","appVolume":"1.00","paths":"assets\/sounds\/gunshot\/gunshot_2.mp3","pathsCount":1,"playMode":"single","soundGroup":"gunshot"}
+[Shoo][DEBUG][audio_controller:_startPlayback] 2026-06-13T20:52:16.323119 entering single interval loop mode {"assetPath":"assets\/sounds\/gunshot\/gunshot_2.mp3","intervalSeconds":3}
+       LoudnessManager.mm:1755  ReadPListFile: unable to open stream for LoudnessManager plist
+       LoudnessManager.mm:1261  GetHardwarePlatformKey: cannot get acoustic ID
+       LoudnessManager.mm:1215  IsHardwareSupported: no plist loaded, returning false
+       LoudnessManager.mm:1215  IsHardwareSupported: no plist loaded, returning false
+<<<< FigFilePlayer >>>> signalled err=-12864 at <>:10026
+<<<< FigFilePlayer >>>> signalled err=-12864 at <>:10026
+         HALC_ProxyIOContext.cpp:1623  HALC_ProxyIOContext::IOWorkLoop: skipping cycle due to overload
+[Shoo][DEBUG][bottom_player:_playDefault] 2026-06-13T20:52:16.965442 audio.play completed {"audioCurrentAnimal":"wild_dog","audioCurrentAssetPath":"assets\/sounds\/gunshot\/gunshot_2.mp3","audioIsPlaying":true,"mounted":true}
+<<<< FigFilePlayer >>>> signalled err=-12864 at <>:10026
+[Shoo][DEBUG][bottom_player:_onTap] 2026-06-13T20:52:20.556590 tap triggered {"audioCurrentAnimal":"wild_dog","audioCurrentAssetPath":"assets\/sounds\/gunshot\/gunshot_2.mp3","audioIsPlaying":true,"hasActiveContent":true,"isPlayPending":false,"providerCurrentAnimal":"wild_dog","providerIsPlaying":true,"widgetAnimal":"wild_dog","widgetIsPlaying":true}
+[Shoo][DEBUG][bottom_player:_onTap] 2026-06-13T20:52:20.559506 togglePlay completed {"audioCurrentAnimal":"wild_dog","audioIsPlaying":false,"mounted":true}
+<<<< FigFilePlayer >>>> signalled err=-12864 at <>:10026
+FlutterSemanticsScrollView implements focusItemsInRect: - caching for linear focus movement is limited as long as this view is on screen.
+<<<< FigFilePlayer >>>> signalled err=-12864 at <>:10026
+[Shoo][DEBUG][audio_controller:_startPlayback] 2026-06-13T20:52:23.373930 start playback {"animalId":"wild_dog","appVolume":"1.00","paths":"assets\/sounds\/tiger\/tiger_2.mp3, assets\/sounds\/tiger\/tiger_3.mp3","pathsCount":2,"playMode":"sequence","soundGroup":"tiger"}
+[Shoo][DEBUG][audio_controller:_startPlayback] 2026-06-13T20:52:23.374344 entering sequence mode {"firstPath":"assets\/sounds\/tiger\/tiger_2.mp3","sequenceIndex":0}
+[Shoo][DEBUG][audio_controller:_playSequenceCurrent] 2026-06-13T20:52:23.374676 playing sequence item {"assetPath":"assets\/sounds\/tiger\/tiger_2.mp3","generation":2,"sequenceIndex":0,"totalPaths":2}
+<<<< FigFilePlayer >>>> signalled err=-12864 at <>:10026
+       LoudnessManager.mm:1215  IsHardwareSupported: no plist loaded, returning false
+       LoudnessManager.mm:1215  IsHardwareSupported: no plist loaded, returning false
+<<<< FigFilePlayer >>>> signalled err=-12864 at <>:10026
+<<<< FigFilePlayer >>>> signalled err=-12864 at <>:10026
+<<<< FigFilePlayer >>>> signalled err=-12864 at <>:10026
+[Shoo][DEBUG][audio_controller:_startPlayback] 2026-06-13T20:52:25.276560 start playback {"animalId":"wild_dog","appVolume":"1.00","paths":"assets\/sounds\/tiger\/tiger_1.mp3, assets\/sounds\/tiger\/tiger_2.mp3, assets\/sounds\/tiger\/tiger_3.mp3","pathsCount":3,"playMode":"sequence","soundGroup":"tiger"}
+[Shoo][DEBUG][audio_controller:_startPlayback] 2026-06-13T20:52:25.276685 entering sequence mode {"firstPath":"assets\/sounds\/tiger\/tiger_1.mp3","sequenceIndex":0}
+[Shoo][DEBUG][audio_controller:_playSequenceCurrent] 2026-06-13T20:52:25.276767 playing sequence item {"assetPath":"assets\/sounds\/tiger\/tiger_1.mp3","generation":3,"sequenceIndex":0,"totalPaths":3}
+<<<< FigFilePlayer >>>> signalled err=-12864 at <>:10026
+       LoudnessManager.mm:1215  IsHardwareSupported: no plist loaded, returning false
+       LoudnessManager.mm:1215  IsHardwareSupported: no plist loaded, returning false
+<<<< FigFilePlayer >>>> signalled err=-12864 at <>:10026
+(Fig) signalled err=-12785 at <>:1469
+<<<< FigFilePlayer >>>> signalled err=-12864 at <>:10026
+(Fig) signalled err=-12785 at <>:1469
+<<<< FigFilePlayer >>>> signalled err=-12864 at <>:10026
+<<<< FigFilePlayer >>>> signalled err=-12864 at <>:10026
+<<<< FigFilePlayer >>>> signalled err=-12864 at <>:10026
+<<<< FigFilePlayer >>>> signalled err=-12864 at <>:10026
+<<<< FigFilePlayer >>>> signalled err=-12864 at <>:10026
+<<<< FigFilePlayer >>>> signalled err=-12864 at <>:10026
+FlutterSemanticsScrollView implements focusItemsInRect: - caching for linear focus movement is limited as long as this view is on screen.
+FlutterSemanticsScrollView implements focusItemsInRect: - caching for linear focus movement is limited as long as this view is on screen.
+FlutterSemanticsScrollView implements focusItemsInRect: - caching for linear focus movement is limited as long as this view is on screen.
+FlutterSemanticsScrollView implements focusItemsInRect: - caching for linear focus movement is limited as long as this view is on screen.
+FlutterSemanticsScrollView implements focusItemsInRect: - caching for linear focus movement is limited as long as this view is on screen.
+FlutterSemanticsScrollView implements focusItemsInRect: - caching for linear focus movement is limited as long as this view is on screen.
+FlutterSemanticsScrollView implements focusItemsInRect: - caching for linear focus movement is limited as long as this view is on screen.
+[Shoo][DEBUG][bottom_player:_onTap] 2026-06-13T20:53:00.779533 tap triggered {"audioCurrentAnimal":"wild_dog","audioCurrentAssetPath":"assets\/sounds\/tiger\/tiger_1.mp3","audioIsPlaying":false,"hasActiveContent":true,"isPlayPending":false,"providerCurrentAnimal":"wild_dog","providerIsPlaying":false,"widgetAnimal":"wild_dog","widgetIsPlaying":false}
+[Shoo][DEBUG][bottom_player:_onTap] 2026-06-13T20:53:00.781977 togglePlay completed {"audioCurrentAnimal":"wild_dog","audioIsPlaying":true,"mounted":true}
+<<<< FigFilePlayer >>>> signalled err=-12864 at <>:10026
+[ConcreteOutputContext] WARNING: AVF context unavailable for +[MRAVConcreteOutputContext sharedAudioPresentationContext]_block_invoke
+[ConcreteOutputContext] WARNING: AVF context unavailable for +[MRAVConcreteOutputContext sharedSystemAudioContext]_block_invoke
+[ConcreteOutputContext] WARNING: AVF context unavailable for SYSTEM
+         HALC_ProxyIOContext.cpp:1623  HALC_ProxyIOContext::IOWorkLoop: skipping cycle due to overload
+FlutterSemanticsScrollView implements focusItemsInRect: - caching for linear focus movement is limited as long as this view is on screen.
+<<<< FigFilePlayer >>>> signalled err=-12864 at <>:10026
+[Shoo][DEBUG][audio_controller:_onPlaybackCompleted] 2026-06-13T20:53:16.777892 track completed, advancing sequence {"completedAssetPath":"assets\/sounds\/tiger\/tiger_1.mp3","generation":3,"nextSequenceIndex":1,"totalPaths":3}
+<<<< FigFilePlayer >>>> signalled err=-12864 at <>:10026
+[Shoo][DEBUG][audio_controller:_playSequenceCurrent] 2026-06-13T20:53:16.780580 playing sequence item {"assetPath":"assets\/sounds\/tiger\/tiger_2.mp3","generation":3,"sequenceIndex":1,"totalPaths":3}
+<<<< FigFilePlayer >>>> signalled err=-12864 at <>:10026
+       LoudnessManager.mm:1215  IsHardwareSupported: no plist loaded, returning false
+       LoudnessManager.mm:1215  IsHardwareSupported: no plist loaded, returning false
+<<<< FigFilePlayer >>>> signalled err=-12864 at <>:10026
+<<<< FigFilePlayer >>>> signalled err=-12864 at <>:10026
+<<<< FigFilePlayer >>>> signalled err=-12864 at <>:10026
+[Shoo][DEBUG][audio_controller:_startPlayback] 2026-06-13T20:53:18.028036 start playback {"animalId":"wolf","appVolume":"1.00","paths":"assets\/sounds\/gunshot\/gunshot_1.mp3","pathsCount":1,"playMode":"single","soundGroup":"gunshot"}
+[Shoo][DEBUG][audio_controller:_startPlayback] 2026-06-13T20:53:18.028262 entering single interval loop mode {"assetPath":"assets\/sounds\/gunshot\/gunshot_1.mp3","intervalSeconds":3}
+<<<< FigFilePlayer >>>> signalled err=-12864 at <>:10026
+<<<< FigFilePlayer >>>> signalled err=-12864 at <>:10026
+(Fig) signalled err=-12785 at <>:1469
+(Fig) signalled err=-12785 at <>:1469
+<<<< FigFilePlayer >>>> signalled err=-12864 at <>:10026
+       LoudnessManager.mm:1215  IsHardwareSupported: no plist loaded, returning false
+       LoudnessManager.mm:1215  IsHardwareSupported: no plist loaded, returning false
+<<<< FigFilePlayer >>>> signalled err=-12864 at <>:10026
+<<<< FigFilePlayer >>>> signalled err=-12864 at <>:10026
+<<<< FigFilePlayer >>>> signalled err=-12864 at <>:10026
+FlutterSemanticsScrollView implements focusItemsInRect: - caching for linear focus movement is limited as long as this view is on screen.
+FlutterSemanticsScrollView implements focusItemsInRect: - caching for linear focus movement is limited as long as this view is on screen.
+FlutterSemanticsScrollView implements focusItemsInRect: - caching for linear focus movement is limited as long as this view is on screen.
+[Shoo][DEBUG][audio_controller:_startPlayback] 2026-06-13T20:53:30.871157 start playback {"animalId":"fox","appVolume":"1.00","paths":"assets\/sounds\/dog\/dog_1.mp3","pathsCount":1,"playMode":"single","soundGroup":"dog"}
+[Shoo][DEBUG][audio_controller:_startPlayback] 2026-06-13T20:53:30.871341 entering single interval loop mode {"assetPath":"assets\/sounds\/dog\/dog_1.mp3","intervalSeconds":3}
+<<<< FigFilePlayer >>>> signalled err=-12864 at <>:10026
+<<<< FigFilePlayer >>>> signalled err=-12864 at <>:10026
+(Fig) signalled err=-12785 at <>:1469
+       LoudnessManager.mm:1215  IsHardwareSupported: no plist loaded, returning false
+       LoudnessManager.mm:1215  IsHardwareSupported: no plist loaded, returning false
+(Fig) signalled err=-12785 at <>:1469
+<<<< FigFilePlayer >>>> signalled err=-12864 at <>:10026
+<<<< FigFilePlayer >>>> signalled err=-12864 at <>:10026
+<<<< FigFilePlayer >>>> signalled err=-12864 at <>:10026
+<<<< FigFilePlayer >>>> signalled err=-12864 at <>:10026
+FlutterSemanticsScrollView implements focusItemsInRect: - caching for linear focus movement is limited as long as this view is on screen.
+FlutterSemanticsScrollView implements focusItemsInRect: - caching for linear focus movement is limited as long as this view is on screen.
+[Shoo][DEBUG][bottom_player:_onTap] 2026-06-13T20:53:43.147569 tap triggered {"audioCurrentAnimal":"fox","audioCurrentAssetPath":"assets\/sounds\/dog\/dog_1.mp3","audioIsPlaying":true,"hasActiveContent":true,"isPlayPending":false,"providerCurrentAnimal":"fox","providerIsPlaying":true,"widgetAnimal":"fox","widgetIsPlaying":true}
+[Shoo][DEBUG][bottom_player:_onTap] 2026-06-13T20:53:43.149454 togglePlay completed {"audioCurrentAnimal":"fox","audioIsPlaying":false,"mounted":true}
+<<<< FigFilePlayer >>>> signalled err=-12864 at <>:10026
+FlutterSemanticsScrollView implements focusItemsInRect: - caching for linear focus movement is limited as long as this view is on screen.
+FlutterSemanticsScrollView implements focusItemsInRect: - caching for linear focus movement is limited as long as this view is on screen.
+FlutterSemanticsScrollView implements focusItemsInRect: - caching for linear focus movement is limited as long as this view is on screen.
+FlutterSemanticsScrollView implements focusItemsInRect: - caching for linear focus movement is limited as long as this view is on screen.
+FlutterSemanticsScrollView implements focusItemsInRect: - caching for linear focus movement is limited as long as this view is on screen.
+FlutterSemanticsScrollView implements focusItemsInRect: - caching for linear focus movement is limited as long as this view is on screen.
+FlutterSemanticsScrollView implements focusItemsInRect: - caching for linear focus movement is limited as long as this view is on screen.
+FlutterSemanticsScrollView implements focusItemsInRect: - caching for linear focus movement is limited as long as this view is on screen.
+FlutterSemanticsScrollView implements focusItemsInRect: - caching for linear focus movement is limited as long as this view is on screen.
+FlutterSemanticsScrollView implements focusItemsInRect: - caching for linear focus movement is limited as long as this view is on screen.
+<<<< FigFilePlayer >>>> signalled err=-12864 at <>:10026
+[Shoo][DEBUG][audio_controller:_startPlayback] 2026-06-13T20:54:08.611922 start playback {"animalId":"wolf","appVolume":"1.00","paths":"assets\/sounds\/wolf\/wolf_1.mp3","pathsCount":1,"playMode":"single","soundGroup":"wolf"}
+[Shoo][DEBUG][audio_controller:_startPlayback] 2026-06-13T20:54:08.612157 entering single interval loop mode {"assetPath":"assets\/sounds\/wolf\/wolf_1.mp3","intervalSeconds":3}
+<<<< FigFilePlayer >>>> signalled err=-12864 at <>:10026
+       LoudnessManager.mm:1215  IsHardwareSupported: no plist loaded, returning false
+       LoudnessManager.mm:1215  IsHardwareSupported: no plist loaded, returning false
+<<<< FigFilePlayer >>>> signalled err=-12864 at <>:10026
+<<<< FigFilePlayer >>>> signalled err=-12864 at <>:10026
+<<<< FigFilePlayer >>>> signalled err=-12864 at <>:10026
+FlutterSemanticsScrollView implements focusItemsInRect: - caching for linear focus movement is limited as long as this view is on screen.
+FlutterSemanticsScrollView implements focusItemsInRect: - caching for linear focus movement is limited as long as this view is on screen.
+<<<< FigFilePlayer >>>> signalled err=-12864 at <>:10026
+[Shoo][DEBUG][audio_controller:_onIntervalLoopCompleted] 2026-06-13T20:54:16.631647 track completed, entering interval gap {"generation":6,"intervalSeconds":3}
+[Shoo][DEBUG][audio_controller:_onIntervalLoopCompleted] 2026-06-13T20:54:19.634732 interval gap ended, restarting playback {"generation":6}
+<<<< FigFilePlayer >>>> signalled err=-12864 at <>:10026
+<<<< FigFilePlayer >>>> signalled err=-12864 at <>:10026
+[Shoo][DEBUG][audio_controller:_onIntervalLoopCompleted] 2026-06-13T20:54:27.617737 track completed, entering interval gap {"generation":6,"intervalSeconds":3}
+[Shoo][DEBUG][audio_controller:_onIntervalLoopCompleted] 2026-06-13T20:54:30.620673 interval gap ended, restarting playback {"generation":6}
+<<<< FigFilePlayer >>>> signalled err=-12864 at <>:10026
+FlutterSemanticsScrollView implements focusItemsInRect: - caching for linear focus movement is limited as long as this view is on screen.
+<<<< FigFilePlayer >>>> signalled err=-12864 at <>:10026
+[Shoo][DEBUG][audio_controller:_onIntervalLoopCompleted] 2026-06-13T20:54:38.602088 track completed, entering interval gap {"generation":6,"intervalSeconds":3}
+FlutterSemanticsScrollView implements focusItemsInRect: - caching for linear focus movement is limited as long as this view is on screen.
+FlutterSemanticsScrollView implements focusItemsInRect: - caching for linear focus movement is limited as long as this view is on screen.
+[Shoo][DEBUG][audio_controller:_onIntervalLoopCompleted] 2026-06-13T20:54:41.604654 interval gap ended, restarting playback {"generation":6}
+<<<< FigFilePlayer >>>> signalled err=-12864 at <>:10026
+FlutterSemanticsScrollView implements focusItemsInRect: - caching for linear focus movement is limited as long as this view is on screen.
+FlutterSemanticsScrollView implements focusItemsInRect: - caching for linear focus movement is limited as long as this view is on screen.
+[Shoo][DEBUG][bottom_player:_onTap] 2026-06-13T20:54:46.307582 tap triggered {"audioCurrentAnimal":"wolf","audioCurrentAssetPath":"assets\/sounds\/wolf\/wolf_1.mp3","audioIsPlaying":true,"hasActiveContent":true,"isPlayPending":false,"providerCurrentAnimal":"wolf","providerIsPlaying":true,"widgetAnimal":"wolf","widgetIsPlaying":true}
+[Shoo][DEBUG][bottom_player:_onTap] 2026-06-13T20:54:46.308620 togglePlay completed {"audioCurrentAnimal":"wolf","audioIsPlaying":false,"mounted":true}
+<<<< FigFilePlayer >>>> signalled err=-12864 at <>:10026
+FlutterSemanticsScrollView implements focusItemsInRect: - caching for linear focus movement is limited as long as this view is on screen.
+FlutterSemanticsScrollView implements focusItemsInRect: - caching for linear focus movement is limited as long as this view is on screen.
+FlutterSemanticsScrollView implements focusItemsInRect: - caching for linear focus movement is limited as long as this view is on screen.
+FlutterSemanticsScrollView implements focusItemsInRect: - caching for linear focus movement is limited as long as this view is on screen.
+FlutterSemanticsScrollView implements focusItemsInRect: - caching for linear focus movement is limited as long as this view is on screen.
+FlutterSemanticsScrollView implements focusItemsInRect: - caching for linear focus movement is limited as long as this view is on screen.
+FlutterSemanticsScrollView implements focusItemsInRect: - caching for linear focus movement is limited as long as this view is on screen.
+FlutterSemanticsScrollView implements focusItemsInRect: - caching for linear focus movement is limited as long as this view is on screen.
+FlutterSemanticsScrollView implements focusItemsInRect: - caching for linear focus movement is limited as long as this view is on screen.
+<<<< FigFilePlayer >>>> signalled err=-12864 at <>:10026
+[Shoo][DEBUG][audio_controller:_startPlayback] 2026-06-13T20:55:37.859805 start playback {"animalId":"wild_dog","appVolume":"1.00","paths":"assets\/sounds\/tiger\/tiger_1.mp3","pathsCount":1,"playMode":"single","soundGroup":"tiger"}
+[Shoo][DEBUG][audio_controller:_startPlayback] 2026-06-13T20:55:37.860023 entering single interval loop mode {"assetPath":"assets\/sounds\/tiger\/tiger_1.mp3","intervalSeconds":3}
+<<<< FigFilePlayer >>>> signalled err=-12864 at <>:10026
+       LoudnessManager.mm:1215  IsHardwareSupported: no plist loaded, returning false
+       LoudnessManager.mm:1215  IsHardwareSupported: no plist loaded, returning false
+<<<< FigFilePlayer >>>> signalled err=-12864 at <>:10026
+<<<< FigFilePlayer >>>> signalled err=-12864 at <>:10026
+<<<< FigFilePlayer >>>> signalled err=-12864 at <>:10026
+FlutterSemanticsScrollView implements focusItemsInRect: - caching for linear focus movement is limited as long as this view is on screen.
+FlutterSemanticsScrollView implements focusItemsInRect: - caching for linear focus movement is limited as long as this view is on screen.
+[Shoo][DEBUG][bottom_player:_onTap] 2026-06-13T20:55:45.198317 tap triggered {"audioCurrentAnimal":"wild_dog","audioCurrentAssetPath":"assets\/sounds\/tiger\/tiger_1.mp3","audioIsPlaying":true,"hasActiveContent":true,"isPlayPending":false,"providerCurrentAnimal":"wild_dog","providerIsPlaying":true,"widgetAnimal":"wild_dog","widgetIsPlaying":true}
+[Shoo][DEBUG][bottom_player:_onTap] 2026-06-13T20:55:45.200037 togglePlay completed {"audioCurrentAnimal":"wild_dog","audioIsPlaying":false,"mounted":true}
+<<<< FigFilePlayer >>>> signalled err=-12864 at <>:10026 

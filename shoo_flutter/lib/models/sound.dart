@@ -1,16 +1,19 @@
 import 'package:uuid/uuid.dart';
 
+/// 多语言翻译查找工具方法
+String _t(Map<String, String> translations, String langCode) {
+  return translations[langCode] ?? translations['en'] ?? translations.values.first;
+}
+
 /// 声音模型
 class Sound {
   final String id;
-  final String name;
-  final String nameEn;
+  final Map<String, String> nameMap;
   final String _assetPath;
   final List<String> _assetPaths;
   final SoundCategory category;
   final double duration; // 秒
-  final String description;
-  final String descriptionEn;
+  final Map<String, String> descriptionMap;
   final String targetAnimal; // 驱赶目标
   final String frequencyRange; // 频率范围
   final bool isUltrasonic; // 是否为超声波
@@ -19,14 +22,12 @@ class Sound {
 
   const Sound({
     required this.id,
-    required this.name,
-    required this.nameEn,
+    required this.nameMap,
     required String assetPath,
     List<String>? assetPaths,
     required this.category,
     required this.duration,
-    required this.description,
-    required this.descriptionEn,
+    required this.descriptionMap,
     required this.targetAnimal,
     required this.frequencyRange,
     this.isUltrasonic = false,
@@ -41,16 +42,20 @@ class Sound {
   /// 如果设置了 assetPaths 则返回该列表，否则返回 [_assetPath]
   List<String> get assetPaths => _assetPaths.isNotEmpty ? _assetPaths : [_assetPath];
 
+  /// 根据语言代码获取本地化名称
+  String getLocalizedName(String langCode) => _t(nameMap, langCode);
+
+  /// 根据语言代码获取本地化描述
+  String getLocalizedDescription(String langCode) => _t(descriptionMap, langCode);
+
   Sound copyWith({
     String? id,
-    String? name,
-    String? nameEn,
+    Map<String, String>? nameMap,
     String? assetPath,
     List<String>? assetPaths,
     SoundCategory? category,
     double? duration,
-    String? description,
-    String? descriptionEn,
+    Map<String, String>? descriptionMap,
     String? targetAnimal,
     String? frequencyRange,
     bool? isUltrasonic,
@@ -59,14 +64,12 @@ class Sound {
   }) {
     return Sound(
       id: id ?? this.id,
-      name: name ?? this.name,
-      nameEn: nameEn ?? this.nameEn,
+      nameMap: nameMap ?? this.nameMap,
       assetPath: assetPath ?? _assetPath,
       assetPaths: assetPaths ?? _assetPaths,
       category: category ?? this.category,
       duration: duration ?? this.duration,
-      description: description ?? this.description,
-      descriptionEn: descriptionEn ?? this.descriptionEn,
+      descriptionMap: descriptionMap ?? this.descriptionMap,
       targetAnimal: targetAnimal ?? this.targetAnimal,
       frequencyRange: frequencyRange ?? this.frequencyRange,
       isUltrasonic: isUltrasonic ?? this.isUltrasonic,
@@ -86,21 +89,22 @@ class Sound {
 
 /// 声音分类
 enum SoundCategory {
-  ultrasonic('ultrasonic', '超声波', 'Ultrasonic', '🔊'),
-  animal('animal', '动物威慑', 'Animal Deterrent', '🐅'),
-  firecracker('firecracker', '炮仗', 'Firecracker', '🧨'),
-  alarm('alarm', '警报', 'Alarm', '🚨'),
-  metal('metal', '金属撞击', 'Metal Impact', '🔔');
+  ultrasonic('ultrasonic', const {'zh': '超声波', 'en': 'Ultrasonic', 'ja': '超音波', 'ko': '초음파', 'fr': 'Ultrason', 'de': 'Ultraschall', 'es': 'Ultrasonido', 'ru': 'Ультразвук', 'pt': 'Ultrassom', 'th': 'อัลตราซาวด์'}, '🔊'),
+  animal('animal', const {'zh': '动物威慑', 'en': 'Animal Deterrent', 'ja': '動物威嚇', 'ko': '동물 억제', 'fr': 'Dissuasion animale', 'de': 'Tierabschreckung', 'es': 'Disuasión animal', 'ru': 'Отпугивание животных', 'pt': 'Dissuasão animal', 'th': 'ไล่สัตว์'}, '🐅'),
+  firecracker('firecracker', const {'zh': '炮仗', 'en': 'Firecracker', 'ja': '爆竹', 'ko': '폭죽', 'fr': 'Pétard', 'de': 'Feuerwerkskörper', 'es': 'Petardo', 'ru': 'Хлопушка', 'pt': 'Foguete', 'th': 'ประทัด'}, '🧨'),
+  alarm('alarm', const {'zh': '警报', 'en': 'Alarm', 'ja': '警報', 'ko': '경보', 'fr': 'Alarme', 'de': 'Alarm', 'es': 'Alarma', 'ru': 'Тревога', 'pt': 'Alarme', 'th': 'สัญญาณเตือน'}, '🚨'),
+  metal('metal', const {'zh': '金属撞击', 'en': 'Metal Impact', 'ja': '金属衝突', 'ko': '금속 충돌', 'fr': 'Impact métallique', 'de': 'Metallaufprall', 'es': 'Impacto metálico', 'ru': 'Металлический удар', 'pt': 'Impacto metálico', 'th': 'เสียงโลหะกระแทก'}, '🔔');
 
   const SoundCategory(
     this.id,
-    this.name,
-    this.nameEn,
+    this.nameMap,
     this.emoji,
   );
 
   final String id;
-  final String name;
-  final String nameEn;
+  final Map<String, String> nameMap;
   final String emoji;
+
+  /// 根据语言代码获取本地化名称
+  String getLocalizedName(String langCode) => _t(nameMap, langCode);
 }

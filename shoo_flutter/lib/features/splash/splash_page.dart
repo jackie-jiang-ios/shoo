@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import '../../l10n/app_localizations.dart';
 import '../../theme/colors.dart';
+import '../../main.dart';
 
 /// 闪屏页 - 应用启动时展示品牌 Logo
+/// 等待后台初始化（AudioSession 等）完成后再跳转首页
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
 
@@ -47,12 +50,20 @@ class _SplashPageState extends State<SplashPage> with SingleTickerProviderStateM
 
     _controller.forward();
 
-    // 2 秒后跳转到首页
-    Future.delayed(const Duration(seconds: 2), () {
-      if (mounted) {
-        context.go('/');
-      }
-    });
+    // 等待初始化完成 + 最少展示 1.5 秒动画，然后跳转首页
+    _navigateToHome();
+  }
+
+  Future<void> _navigateToHome() async {
+    // 并行等待：初始化完成 + 最少展示时间
+    await Future.wait([
+      appInitialized,
+      Future.delayed(const Duration(milliseconds: 1500)),
+    ]);
+
+    if (mounted) {
+      context.go('/');
+    }
   }
 
   @override
@@ -63,6 +74,7 @@ class _SplashPageState extends State<SplashPage> with SingleTickerProviderStateM
 
   @override
   Widget build(BuildContext context) {
+    final s = S.of(context);
     return Scaffold(
       backgroundColor: AppColors.primary,
       body: Container(
@@ -92,8 +104,6 @@ class _SplashPageState extends State<SplashPage> with SingleTickerProviderStateM
                         width: 120,
                         height: 120,
                         decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(28),
                           boxShadow: [
                             BoxShadow(
                               color: Colors.black.withValues(alpha: 0.15),
@@ -102,11 +112,11 @@ class _SplashPageState extends State<SplashPage> with SingleTickerProviderStateM
                             ),
                           ],
                         ),
-                        child: const Center(
-                          child: Icon(
-                            Icons.volume_up_rounded,
-                            size: 64,
-                            color: AppColors.primary,
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(28),
+                          child: Image.asset(
+                            'assets/images/logo/1.png',
+                            fit: BoxFit.cover,
                           ),
                         ),
                       ),
@@ -116,9 +126,9 @@ class _SplashPageState extends State<SplashPage> with SingleTickerProviderStateM
                   // 标题
                   Opacity(
                     opacity: _textFadeAnimation.value,
-                    child: const Text(
-                      '防兽神器',
-                      style: TextStyle(
+                    child: Text(
+                      s.appName,
+                      style: const TextStyle(
                         fontSize: 32,
                         fontWeight: FontWeight.bold,
                         color: Colors.white,
@@ -130,9 +140,9 @@ class _SplashPageState extends State<SplashPage> with SingleTickerProviderStateM
                   // 副标题
                   Opacity(
                     opacity: _subtitleFadeAnimation.value,
-                    child: const Text(
-                      '用声音守护你的安全',
-                      style: TextStyle(
+                    child: Text(
+                      s.appSubtitle,
+                      style: const TextStyle(
                         fontSize: 16,
                         color: Colors.white70,
                         letterSpacing: 1,

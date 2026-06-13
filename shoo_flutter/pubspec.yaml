@@ -17,6 +17,7 @@ dependencies:
   # 音频播放
   just_audio: ^0.9.37
   audio_session: ^0.1.18
+  volume_controller: ^2.0.7
 
   # 状态管理
   flutter_riverpod: ^2.5.1
@@ -39,9 +40,9 @@ dependencies:
   uuid: ^4.3.3
   intl: ^0.20.2
   permission_handler: ^11.3.0
-  vibration: ^1.8.4
   wakelock_plus: ^1.2.1
   url_launcher: ^6.2.5
+  webview_flutter: ^4.8.0
 
   # 图标
   cupertino_icons: ^1.0.6
@@ -60,9 +61,11 @@ flutter:
 
   assets:
     - assets/images/
+    - assets/images/logo/
     - assets/images/icons/v1/
     - assets/images/icons/v2/
     - assets/images/icons/v3/
+    - assets/waveforms/
     - assets/sounds/tiger/
     - assets/sounds/lion/
     - assets/sounds/wolf/

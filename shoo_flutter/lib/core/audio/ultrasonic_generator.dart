@@ -90,23 +90,6 @@ class UltrasonicGenerator {
     return samples;
   }
 
-  /// 生成脉冲模式的 PCM 数据
-  static Float32List generatePulsePcm({
-    required double frequency,
-    required double pulseDuration,
-    required double pulseGap,
-    required double totalDuration,
-    double volume = 0.8,
-  }) {
-    return generateIntervalPcm(
-      frequency: frequency,
-      playDuration: pulseDuration,
-      gapDuration: pulseGap,
-      totalDuration: totalDuration,
-      volume: volume,
-    );
-  }
-
   /// 将 Float32 PCM 转为 16-bit PCM 字节流
   static Uint8List float32ToInt16(Float32List float32Samples) {
     final int16Samples = Uint8List(float32Samples.length * 2);

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../core/platform/watch_channel.dart';
+import '../../l10n/app_localizations.dart';
 import '../../models/watch_command.dart';
 import '../../theme/colors.dart';
 
@@ -50,11 +51,12 @@ class _WatchConnectPageState extends State<WatchConnectPage> {
 
   @override
   Widget build(BuildContext context) {
+    final s = S.of(context);
     final theme = Theme.of(context);
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('手表连接'),
+        title: Text(s.watchConnect),
         actions: [
           IconButton(
             icon: const Icon(Icons.refresh),
@@ -79,8 +81,8 @@ class _WatchConnectPageState extends State<WatchConnectPage> {
                       height: 64,
                       decoration: BoxDecoration(
                         color: _isConnected
-                            ? AppColors.success.withValues(alpha: 0.1)
-                            : AppColors.textHint.withValues(alpha: 0.1),
+                            ? AppColors.successOf(context).withValues(alpha: 0.1)
+                            : AppColors.textHintOf(context).withValues(alpha: 0.1),
                         borderRadius: BorderRadius.circular(20),
                       ),
                       child: _isChecking
@@ -89,8 +91,8 @@ class _WatchConnectPageState extends State<WatchConnectPage> {
                               _isConnected ? Icons.watch : Icons.watch_outlined,
                               size: 32,
                               color: _isConnected
-                                  ? AppColors.success
-                                  : AppColors.textHint,
+                                  ? AppColors.successOf(context)
+                                  : AppColors.textHintOf(context),
                             ),
                     ),
                     const SizedBox(width: 16),
@@ -99,7 +101,7 @@ class _WatchConnectPageState extends State<WatchConnectPage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            _isConnected ? '手表已连接' : '未检测到手表',
+                            _isConnected ? s.watchConnected : s.watchDisconnected,
                             style: theme.textTheme.titleMedium?.copyWith(
                               fontWeight: FontWeight.w600,
                             ),
@@ -107,10 +109,10 @@ class _WatchConnectPageState extends State<WatchConnectPage> {
                           const SizedBox(height: 4),
                           Text(
                             _isConnected
-                                ? '可以通过手表遥控播放'
-                                : '请确保手表已配对并靠近手机',
-                            style: theme.textTheme.bodySmall?.copyWith(
-                              color: AppColors.textSecondary,
+                                ? s.watchConnectedHint
+                                : s.watchDisconnectedHint,
+                          style: theme.textTheme.bodySmall?.copyWith(
+                            color: AppColors.textSecondaryOf(context),
                             ),
                           ),
                         ],
@@ -121,7 +123,7 @@ class _WatchConnectPageState extends State<WatchConnectPage> {
                       width: 12,
                       height: 12,
                       decoration: BoxDecoration(
-                        color: _isConnected ? AppColors.success : AppColors.textHint,
+                        color: _isConnected ? AppColors.successOf(context) : AppColors.textHintOf(context),
                         shape: BoxShape.circle,
                       ),
                     ),
@@ -133,7 +135,7 @@ class _WatchConnectPageState extends State<WatchConnectPage> {
 
             // 功能说明
             Text(
-              '手表遥控功能',
+              s.watchRemoteFeature,
               style: theme.textTheme.titleMedium?.copyWith(
                 fontWeight: FontWeight.w600,
               ),
@@ -141,20 +143,20 @@ class _WatchConnectPageState extends State<WatchConnectPage> {
             const SizedBox(height: 12),
             _FeatureItem(
               icon: Icons.play_circle_outline,
-              title: '遥控播放',
-              description: '在手表上选择并播放声音',
+              title: s.remotePlay,
+              description: s.remotePlayDesc,
               enabled: _isConnected,
             ),
             _FeatureItem(
               icon: Icons.emergency,
-              title: '紧急按钮',
-              description: '一键播放最大音量警报',
+              title: s.emergencyBtn,
+              description: s.emergencyBtnDesc,
               enabled: _isConnected,
             ),
             _FeatureItem(
               icon: Icons.vibration,
-              title: '触觉反馈',
-              description: '播放时手表振动提醒',
+              title: s.hapticFeedback,
+              description: s.hapticFeedbackDesc,
               enabled: _isConnected,
             ),
 
@@ -163,7 +165,7 @@ class _WatchConnectPageState extends State<WatchConnectPage> {
             // 通信日志
             if (_watchLogs.isNotEmpty) ...[
               Text(
-                '通信日志',
+                s.communicationLog,
                 style: theme.textTheme.titleMedium?.copyWith(
                   fontWeight: FontWeight.w600,
                 ),
@@ -198,7 +200,7 @@ class _WatchConnectPageState extends State<WatchConnectPage> {
               child: OutlinedButton.icon(
                 onPressed: _checkConnection,
                 icon: const Icon(Icons.bluetooth),
-                label: const Text('重新搜索手表'),
+                label: Text(s.rescanWatchFull),
                 style: OutlinedButton.styleFrom(
                   padding: const EdgeInsets.symmetric(vertical: 14),
                 ),
@@ -235,7 +237,7 @@ class _FeatureItem extends StatelessWidget {
           Icon(
             icon,
             size: 20,
-            color: enabled ? AppColors.primary : AppColors.textHint,
+            color: enabled ? AppColors.of(context) : AppColors.textHintOf(context),
           ),
           const SizedBox(width: 12),
           Expanded(
@@ -246,13 +248,13 @@ class _FeatureItem extends StatelessWidget {
                   title,
                   style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                         fontWeight: FontWeight.w500,
-                        color: enabled ? null : AppColors.textHint,
+                        color: enabled ? null : AppColors.textHintOf(context),
                       ),
                 ),
                 Text(
                   description,
                   style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                        color: AppColors.textSecondary,
+                        color: AppColors.textSecondaryOf(context),
                       ),
                 ),
               ],

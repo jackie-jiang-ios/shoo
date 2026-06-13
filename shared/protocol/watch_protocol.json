@@ -7,7 +7,7 @@
         "type": "play",
         "soundId": "string - 声音ID",
         "volume": "number - 音量 0.0-1.0",
-        "mode": "string - continuous|interval|pulse"
+        "mode": "string - continuous|interval"
       },
       "stop": {
         "type": "stop",

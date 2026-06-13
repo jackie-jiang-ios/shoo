@@ -16,8 +16,6 @@ class Preferences {
   static const String _keyDefaultVolume = 'default_volume';
   static const String _keyDefaultPlayMode = 'default_play_mode';
   static const String _keyIntervalSeconds = 'interval_seconds';
-  static const String _keyPulseDuration = 'pulse_duration';
-  static const String _keyPulseGap = 'pulse_gap';
   static const String _keyAutoStopMinutes = 'auto_stop_minutes';
   static const String _keyKeepScreenOn = 'keep_screen_on';
   static const String _keyFavorites = 'favorites';
@@ -27,17 +25,28 @@ class Preferences {
   static const String _keyIconTheme = 'icon_theme';
   static const String _keyAnimalIconThemes = 'animal_icon_themes';
   static const String _keyAnimalSoundSelections = 'animal_sound_selections';
+  static const String _keyLastPlayedAnimalId = 'last_played_animal_id';
+  static const String _keyLastPlayedSoundGroup = 'last_played_sound_group';
 
   late SharedPreferences _prefs;
-  late Box _favoritesBox;
-  late Box _presetsBox;
+  Box? _favoritesBox;
+  Box? _presetsBox;
 
-  /// 初始化
+  /// 初始化（只做必须同步的操作，Hive 延迟加载）
   Future<void> init() async {
     _prefs = await SharedPreferences.getInstance();
+    // Hive 初始化延迟到首次访问时
     await Hive.initFlutter();
-    _favoritesBox = await Hive.openBox('favorites');
-    _presetsBox = await Hive.openBox('mix_presets');
+  }
+
+  /// 确保收藏 Box 已打开
+  Future<void> _ensureFavoritesBox() async {
+    _favoritesBox ??= await Hive.openBox('favorites');
+  }
+
+  /// 确保预设 Box 已打开
+  Future<void> _ensurePresetsBox() async {
+    _presetsBox ??= await Hive.openBox('mix_presets');
   }
 
   // ============ 主题 ============
@@ -65,14 +74,6 @@ class Preferences {
   /// 间隔播放间隔秒数
   double get intervalSeconds => _prefs.getDouble(_keyIntervalSeconds) ?? 3.0;
   set intervalSeconds(double value) => _prefs.setDouble(_keyIntervalSeconds, value);
-
-  /// 脉冲持续时间
-  double get pulseDuration => _prefs.getDouble(_keyPulseDuration) ?? 0.5;
-  set pulseDuration(double value) => _prefs.setDouble(_keyPulseDuration, value);
-
-  /// 脉冲间隔时间
-  double get pulseGap => _prefs.getDouble(_keyPulseGap) ?? 1.0;
-  set pulseGap(double value) => _prefs.setDouble(_keyPulseGap, value);
 
   /// 自动停止分钟数 (0 = 不自动停止)
   int get autoStopMinutes => _prefs.getInt(_keyAutoStopMinutes) ?? 0;
@@ -207,19 +208,41 @@ class Preferences {
     await setAnimalSoundSelection(animalId, selection);
   }
 
-  /// 获取指定动物指定声音组的选中声音索引
+  /// 获取指定动物指定声音组的选中声音索引（single 模式）
   int getAnimalSoundSelectedIndex(String animalId, String soundGroup) {
     final selection = getAnimalSoundSelection(animalId);
     final indices = selection['soundSelectedIndices'] as Map<String, dynamic>? ?? {};
     return indices[soundGroup] as int? ?? 0;
   }
 
-  /// 设置指定动物指定声音组的选中声音索引
+  /// 设置指定动物指定声音组的选中声音索引（single 模式）
   Future<void> setAnimalSoundSelectedIndex(String animalId, String soundGroup, int index) async {
     final selection = getAnimalSoundSelection(animalId);
     final indices = (selection['soundSelectedIndices'] as Map<String, dynamic>?) ?? {};
     indices[soundGroup] = index;
     selection['soundSelectedIndices'] = indices;
+    await setAnimalSoundSelection(animalId, selection);
+  }
+
+  /// 获取指定动物指定声音组的多选索引集合（sequence 模式）
+  Set<int> getAnimalSoundMultiSelectedIndices(String animalId, String soundGroup) {
+    final selection = getAnimalSoundSelection(animalId);
+    final multiIndices = selection['soundMultiSelectedIndices'] as Map<String, dynamic>? ?? {};
+    final list = multiIndices[soundGroup];
+    if (list == null) return {0};
+    if (list is List) {
+      final set = list.whereType<int>().toSet();
+      return set.isEmpty ? {0} : set;
+    }
+    return {0};
+  }
+
+  /// 设置指定动物指定声音组的多选索引集合（sequence 模式）
+  Future<void> setAnimalSoundMultiSelectedIndices(String animalId, String soundGroup, Set<int> indices) async {
+    final selection = getAnimalSoundSelection(animalId);
+    final multiIndices = (selection['soundMultiSelectedIndices'] as Map<String, dynamic>?) ?? {};
+    multiIndices[soundGroup] = indices.toList();
+    selection['soundMultiSelectedIndices'] = multiIndices;
     await setAnimalSoundSelection(animalId, selection);
   }
 
@@ -234,6 +257,22 @@ class Preferences {
     }
   }
 
+  // ============ 上次播放记录 ===========
+
+  /// 获取上次播放的动物ID
+  String? get lastPlayedAnimalId => _prefs.getString(_keyLastPlayedAnimalId);
+
+  /// 设置上次播放的动物ID
+  Future<void> setLastPlayedAnimalId(String animalId) =>
+      _prefs.setString(_keyLastPlayedAnimalId, animalId);
+
+  /// 获取上次播放的声音组
+  String? get lastPlayedSoundGroup => _prefs.getString(_keyLastPlayedSoundGroup);
+
+  /// 设置上次播放的声音组
+  Future<void> setLastPlayedSoundGroup(String soundGroup) =>
+      _prefs.setString(_keyLastPlayedSoundGroup, soundGroup);
+
   // ============ 屏幕常亮 ============
 
   /// 是否保持屏幕常亮
@@ -243,23 +282,28 @@ class Preferences {
   // ============ 收藏 ============
 
   /// 获取收藏声音 ID 列表
-  List<String> get favoriteSoundIds =>
-      _favoritesBox.get(_keyFavorites, defaultValue: <String>[])?.cast<String>() ?? [];
+  List<String> get favoriteSoundIds {
+    final box = _favoritesBox;
+    if (box == null) return [];
+    return box.get(_keyFavorites, defaultValue: <String>[])?.cast<String>() ?? [];
+  }
 
   /// 添加收藏
   Future<void> addFavorite(String soundId) async {
+    await _ensureFavoritesBox();
     final favorites = favoriteSoundIds;
     if (!favorites.contains(soundId)) {
       favorites.add(soundId);
-      await _favoritesBox.put(_keyFavorites, favorites);
+      await _favoritesBox!.put(_keyFavorites, favorites);
     }
   }
 
   /// 移除收藏
   Future<void> removeFavorite(String soundId) async {
+    await _ensureFavoritesBox();
     final favorites = favoriteSoundIds;
     favorites.remove(soundId);
-    await _favoritesBox.put(_keyFavorites, favorites);
+    await _favoritesBox!.put(_keyFavorites, favorites);
   }
 
   /// 是否已收藏
@@ -277,20 +321,25 @@ class Preferences {
   // ============ 混合预设 ============
 
   /// 获取所有预设
-  Map<String, dynamic> get mixPresets =>
-      _presetsBox.get(_keyMixPresets, defaultValue: <String, dynamic>{}) ?? {};
+  Map<String, dynamic> get mixPresets {
+    final box = _presetsBox;
+    if (box == null) return {};
+    return box.get(_keyMixPresets, defaultValue: <String, dynamic>{}) ?? {};
+  }
 
   /// 保存预设
   Future<void> saveMixPreset(String name, Map<String, dynamic> preset) async {
+    await _ensurePresetsBox();
     final presets = mixPresets;
     presets[name] = preset;
-    await _presetsBox.put(_keyMixPresets, presets);
+    await _presetsBox!.put(_keyMixPresets, presets);
   }
 
   /// 删除预设
   Future<void> deleteMixPreset(String name) async {
+    await _ensurePresetsBox();
     final presets = mixPresets;
     presets.remove(name);
-    await _presetsBox.put(_keyMixPresets, presets);
+    await _presetsBox!.put(_keyMixPresets, presets);
   }
 }

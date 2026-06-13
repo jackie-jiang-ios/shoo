@@ -197,8 +197,6 @@ class AudioEngine {
         await _playContinuous(sound, player, playConfig);
       case PlayMode.interval:
         await _playInterval(sound, player, playConfig);
-      case PlayMode.pulse:
-        await _playPulse(sound, player, playConfig);
     }
 
     // 设置自动停止
@@ -271,53 +269,6 @@ class AudioEngine {
         }
       },
     );
-  }
-
-  /// 脉冲播放
-  Future<void> _playPulse(Sound sound, AudioPlayer player, PlayConfig config) async {
-    await player.setLoopMode(LoopMode.off);
-    await _runPulseCycle(sound, player, config);
-  }
-
-  Future<void> _runPulseCycle(Sound sound, AudioPlayer player, PlayConfig config) async {
-    if (_playStates[sound.id]?.state == PlayState.idle) return;
-
-    try {
-      await player.seek(Duration.zero);
-      await player.play();
-
-      _playStates[sound.id] = SoundPlayState(
-        sound: sound,
-        state: PlayState.playing,
-        config: config,
-        player: player,
-      );
-      _notifyStateChange();
-
-      // 脉冲持续后暂停
-      _timers[sound.id]?.cancel();
-      _timers[sound.id] = Timer(
-        Duration(milliseconds: (config.pulseDuration * 1000).round()),
-        () async {
-          if (_playStates[sound.id]?.state != PlayState.playing) return;
-
-          await player.pause();
-          _playStates[sound.id] = _playStates[sound.id]!.copyWith(
-            state: PlayState.inGap,
-          );
-          _notifyStateChange();
-
-          // 脉冲间隔后开始下一轮
-          _gapTimers[sound.id]?.cancel();
-          _gapTimers[sound.id] = Timer(
-            Duration(milliseconds: (config.pulseGap * 1000).round()),
-            () => _runPulseCycle(sound, player, config),
-          );
-        },
-      );
-    } catch (e) {
-      print('脉冲播放错误: $e');
-    }
   }
 
   /// 停止指定声音
