@@ -18,6 +18,7 @@
 		97C146FE1CF9000F007C117D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FD1CF9000F007C117D /* Assets.xcassets */; };
 		97C147011CF9000F007C117D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FF1CF9000F007C117D /* LaunchScreen.storyboard */; };
 		D2768DC228DAEDFC5BC1DAF1 /* Pods_RunnerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8B2E96FE806CC73769DA272 /* Pods_RunnerTests.framework */; };
+		8A0001 /* ShooWatchApp.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = C10001 /* ShooWatchApp.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -27,6 +28,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 97C146ED1CF9000F007C117D;
 			remoteInfo = Runner;
+		};
+		8A0002 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8A0003 /* ShooWatchApp.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = F10001;
+			remoteInfo = ShooWatchApp;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -41,6 +49,17 @@
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 	};
+		8A0004 /* Embed Watch Content */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
+			dstSubfolderSpec = 16;
+			files = (
+				8A0001 /* ShooWatchApp.app in Embed Watch Content */,
+			);
+			name = "Embed Watch Content";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
@@ -69,6 +88,8 @@
 		B8B2E96FE806CC73769DA272 /* Pods_RunnerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RunnerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9B61456C2C73501F58346F1 /* Pods-Runner.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.release.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.release.xcconfig"; sourceTree = "<group>"; };
 		DB7E28C21847F34CD923D47B /* Pods-Runner.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.debug.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.debug.xcconfig"; sourceTree = "<group>"; };
+		8A0003 /* ShooWatchApp.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = wrapper.pb-project; name = ShooWatchApp.xcodeproj; path = ../../ShooWatchApp.xcodeproj; sourceTree = "<group>"; };
+		C10001 /* ShooWatchApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShooWatchApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -125,6 +146,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		8A0005 /* ShooWatchApp */ = {
+			isa = PBXGroup;
+			children = (
+				8A0003 /* ShooWatchApp.xcodeproj */,
+			);
+			name = ShooWatchApp;
+			sourceTree = "<group>";
+		};
 		9740EEB11CF90186004384FC /* Flutter */ = {
 			isa = PBXGroup;
 			children = (
@@ -146,6 +175,7 @@
 				331C8082294A63A400263BE5 /* RunnerTests */,
 				1273F429FBBF4D74D60AC097 /* Pods */,
 				8F7E520E08F918721899C1DD /* Frameworks */,
+				8A0005 /* ShooWatchApp */,
 			);
 			sourceTree = "<group>";
 		};
@@ -154,6 +184,7 @@
 			children = (
 				97C146EE1CF9000F007C117D /* Runner.app */,
 				331C8081294A63A400263BE5 /* RunnerTests.xctest */,
+				C10001 /* ShooWatchApp.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -208,10 +239,12 @@
 				9705A1C41CF9048500538489 /* Embed Frameworks */,
 				3B06AD1E1E4923F5004D2608 /* Thin Binary */,
 				A1B8462834E5D02729F1D5B1 /* [CP] Embed Pods Frameworks */,
+				8A0004 /* Embed Watch Content */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				8A0006 /* PBXTargetDependency */,
 			);
 			name = Runner;
 			packageProductDependencies = (
@@ -410,6 +443,11 @@
 			isa = PBXTargetDependency;
 			target = 97C146ED1CF9000F007C117D /* Runner */;
 			targetProxy = 331C8085294A63A400263BE5 /* PBXContainerItemProxy */;
+		};
+		8A0006 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F10001 /* ShooWatchApp */;
+			targetProxy = 8A0002 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
