@@ -1,5 +1,4 @@
 import 'package:flutter/services.dart';
-import '../../models/watch_command.dart';
 
 /// 原生通道统一接口
 ///

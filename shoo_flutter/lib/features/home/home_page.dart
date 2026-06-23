@@ -78,7 +78,6 @@ class _HomePageState extends ConsumerState<HomePage> {
     super.dispose();
   }
 
-
   @override
   Widget build(BuildContext context) {
     final s = S.of(context);
@@ -95,7 +94,8 @@ class _HomePageState extends ConsumerState<HomePage> {
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return Scaffold(
-      backgroundColor: isDark ? AppColorsDark.background : const Color(0xFFF0F7FF),
+      backgroundColor:
+          isDark ? AppColorsDark.background : const Color(0xFFF0F7FF),
       body: Stack(
         children: [
           CustomScrollView(
@@ -356,7 +356,9 @@ class _AnimalCard extends ConsumerWidget {
                             color: Colors.orange,
                             shape: BoxShape.circle,
                             border: Border.all(
-                                color: isDark ? AppColorsDark.cardBackground : Colors.white,
+                                color: isDark
+                                    ? AppColorsDark.cardBackground
+                                    : Colors.white,
                                 width: 1.5),
                           ),
                           child: const Icon(Icons.refresh,
@@ -374,12 +376,17 @@ class _AnimalCard extends ConsumerWidget {
                         style: TextStyle(
                             fontWeight: FontWeight.w600,
                             fontSize: 16,
-                            color: isDark ? AppColorsDark.textPrimary : const Color(0xFF1F2937))),
+                            color: isDark
+                                ? AppColorsDark.textPrimary
+                                : const Color(0xFF1F2937))),
                     const SizedBox(height: 4),
                     // text-sm text-gray-600 → #4B5563
                     Text(desc,
                         style: TextStyle(
-                            color: isDark ? AppColorsDark.textSecondary : const Color(0xFF4B5563), fontSize: 14)),
+                            color: isDark
+                                ? AppColorsDark.textSecondary
+                                : const Color(0xFF4B5563),
+                            fontSize: 14)),
                     const SizedBox(height: 6),
                     Row(children: [
                       // bg-green-100 text-green-700 → bg: #DCFCE7, text: #15803D
@@ -387,21 +394,29 @@ class _AnimalCard extends ConsumerWidget {
                           padding: const EdgeInsets.symmetric(
                               horizontal: 8, vertical: 3),
                           decoration: BoxDecoration(
-                              color: isDark ? Colors.green.withValues(alpha: 0.15) : const Color(0xFFDCFCE7),
+                              color: isDark
+                                  ? Colors.green.withValues(alpha: 0.15)
+                                  : const Color(0xFFDCFCE7),
                               borderRadius: BorderRadius.circular(6)),
                           child: Text(s.counterSound,
                               style: TextStyle(
-                                  color: isDark ? AppColorsDark.success : const Color(0xFF15803D),
+                                  color: isDark
+                                      ? AppColorsDark.success
+                                      : const Color(0xFF15803D),
                                   fontSize: 12,
                                   fontWeight: FontWeight.w500))),
                       const SizedBox(width: 6),
                       // text-xs text-gray-500 → #6B7280
                       Text(counter,
                           style: TextStyle(
-                              color: isDark ? AppColorsDark.textSecondary : const Color(0xFF6B7280), fontSize: 12)),
+                              color: isDark
+                                  ? AppColorsDark.textSecondary
+                                  : const Color(0xFF6B7280),
+                              fontSize: 12)),
                     ]),
                   ])),
-              Icon(Icons.chevron_right, color: isDark ? AppColorsDark.textHint : Colors.grey[400]),
+              Icon(Icons.chevron_right,
+                  color: isDark ? AppColorsDark.textHint : Colors.grey[400]),
             ]),
           ),
         ),
@@ -479,7 +494,8 @@ class _AnimalDetailSheetState extends ConsumerState<_AnimalDetailSheet> {
       _soundSelectedIndices[sound.soundGroup] =
           prefs.getAnimalSoundSelectedIndex(widget.animal.id, sound.soundGroup);
       _soundMultiSelectedIndices[sound.soundGroup] =
-          prefs.getAnimalSoundMultiSelectedIndices(widget.animal.id, sound.soundGroup);
+          prefs.getAnimalSoundMultiSelectedIndices(
+              widget.animal.id, sound.soundGroup);
 
       // 同步到 RecommendedSound 对象
       sound.playMode = _soundPlayModes[sound.soundGroup] ?? sound.playMode;
@@ -513,7 +529,8 @@ class _AnimalDetailSheetState extends ConsumerState<_AnimalDetailSheet> {
     prefs.setAnimalSelectedSoundIndex(widget.animal.id, index);
   }
 
-  Future<void> _onSoundPlayModeChanged(String soundGroup, SoundPlayMode mode) async {
+  Future<void> _onSoundPlayModeChanged(
+      String soundGroup, SoundPlayMode mode) async {
     // 守卫防止 _playSoundSelection → _onSoundPlayModeChanged 递归
     if (_isApplyingModeChange) return;
     setState(() => _soundPlayModes[soundGroup] = mode);
@@ -525,14 +542,17 @@ class _AnimalDetailSheetState extends ConsumerState<_AnimalDetailSheet> {
 
     // 切换到列表循环模式时，将当前单曲选中的文件索引同步到多选集合
     if (mode == SoundPlayMode.sequence) {
-      final singleSelected = _soundSelectedIndices[soundGroup] ?? sound.selectedSoundIndex;
-      final currentMulti = Set<int>.from(_soundMultiSelectedIndices[soundGroup] ?? {singleSelected});
+      final singleSelected =
+          _soundSelectedIndices[soundGroup] ?? sound.selectedSoundIndex;
+      final currentMulti = Set<int>.from(
+          _soundMultiSelectedIndices[soundGroup] ?? {singleSelected});
       // 确保当前选中的文件在多选集合中
       if (!currentMulti.contains(singleSelected)) {
         currentMulti.add(singleSelected);
       }
       setState(() => _soundMultiSelectedIndices[soundGroup] = currentMulti);
-      prefs.setAnimalSoundMultiSelectedIndices(widget.animal.id, soundGroup, currentMulti);
+      prefs.setAnimalSoundMultiSelectedIndices(
+          widget.animal.id, soundGroup, currentMulti);
       sound.selectedIndices = currentMulti;
     }
 
@@ -560,7 +580,8 @@ class _AnimalDetailSheetState extends ConsumerState<_AnimalDetailSheet> {
 
   /// 多选模式下切换某个声音文件的选中状态
   void _onSoundMultiSelectionToggled(String soundGroup, int index) {
-    final current = Set<int>.from(_soundMultiSelectedIndices[soundGroup] ?? {0});
+    final current =
+        Set<int>.from(_soundMultiSelectedIndices[soundGroup] ?? {0});
     if (current.contains(index)) {
       // 至少保留一个选中
       if (current.length <= 1) return;
@@ -569,7 +590,8 @@ class _AnimalDetailSheetState extends ConsumerState<_AnimalDetailSheet> {
       current.add(index);
     }
     setState(() => _soundMultiSelectedIndices[soundGroup] = current);
-    prefs.setAnimalSoundMultiSelectedIndices(widget.animal.id, soundGroup, current);
+    prefs.setAnimalSoundMultiSelectedIndices(
+        widget.animal.id, soundGroup, current);
     // 同步到 RecommendedSound 对象
     final sound =
         widget.animal.sounds.firstWhere((s) => s.soundGroup == soundGroup);
@@ -610,13 +632,22 @@ class _AnimalDetailSheetState extends ConsumerState<_AnimalDetailSheet> {
     final isSameAnimal = audio.currentAnimal?.id == widget.animal.id;
     final isSameSoundGroup = audio.currentSound?.soundGroup == sound.soundGroup;
     final isSameAssetPath = audio.currentAssetPath == targetAssetPath;
-    if (isSameAnimal && isSameSoundGroup && isSameAssetPath && isSamePlayMode && audio.isPlaying) {
+    if (isSameAnimal &&
+        isSameSoundGroup &&
+        isSameAssetPath &&
+        isSamePlayMode &&
+        audio.isPlaying) {
       await audio.pause();
       ref.read(isPlayingProvider.notifier).state = false;
       return;
     }
     // 如果暂停状态点击同一声音（且模式相同），则恢复播放
-    if (isSameAnimal && isSameSoundGroup && isSameAssetPath && isSamePlayMode && !audio.isPlaying && audio.currentAssetPath != null) {
+    if (isSameAnimal &&
+        isSameSoundGroup &&
+        isSameAssetPath &&
+        isSamePlayMode &&
+        !audio.isPlaying &&
+        audio.currentAssetPath != null) {
       await audio.resume();
       ref.read(isPlayingProvider.notifier).state = audio.isPlaying;
       return;
@@ -628,7 +659,8 @@ class _AnimalDetailSheetState extends ConsumerState<_AnimalDetailSheet> {
     // 导致重复 _startPlayback（generation 疯狂递增），而本方法已经在下方调用了 audio.play()
     if (_soundPlayModes[sound.soundGroup] != playMode) {
       setState(() => _soundPlayModes[sound.soundGroup] = playMode);
-      prefs.setAnimalSoundPlayMode(widget.animal.id, sound.soundGroup, playMode.id);
+      prefs.setAnimalSoundPlayMode(
+          widget.animal.id, sound.soundGroup, playMode.id);
     }
     _onSoundSelectedIndexChanged(sound.soundGroup, selectedFileIndex);
 
@@ -707,6 +739,10 @@ class _AnimalDetailSheetState extends ConsumerState<_AnimalDetailSheet> {
 
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final isTablet = MediaQuery.of(context).size.shortestSide >= 600;
+    final screenWidth = MediaQuery.of(context).size.width;
+    final detailMaxWidth = isTablet
+        ? (screenWidth > 960 ? 960.0 : screenWidth - 32)
+        : double.infinity;
 
     return Container(
       decoration: BoxDecoration(
@@ -714,219 +750,244 @@ class _AnimalDetailSheetState extends ConsumerState<_AnimalDetailSheet> {
           borderRadius: const BorderRadius.vertical(top: Radius.circular(24))),
       child: Center(
         child: ConstrainedBox(
-          constraints: BoxConstraints(maxWidth: isTablet ? 600 : double.infinity),
+          constraints: BoxConstraints(maxWidth: detailMaxWidth),
           child: SafeArea(
             top: false,
             child: ListView(
               controller: widget.scrollController,
               padding: EdgeInsets.only(
                   bottom: MediaQuery.of(context).padding.bottom + 28),
-          children: [
-            const SizedBox(height: 12),
-            Center(
-              child: Container(
-                width: 44,
-                height: 5,
-                decoration: BoxDecoration(
-                  color: isDark ? Colors.grey.withValues(alpha: 0.5) : Colors.grey.withValues(alpha: 0.3),
-                  borderRadius: BorderRadius.circular(999),
+              children: [
+                const SizedBox(height: 12),
+                Center(
+                  child: Container(
+                    width: 44,
+                    height: 5,
+                    decoration: BoxDecoration(
+                      color: isDark
+                          ? Colors.grey.withValues(alpha: 0.5)
+                          : Colors.grey.withValues(alpha: 0.3),
+                      borderRadius: BorderRadius.circular(999),
+                    ),
+                  ),
                 ),
-              ),
-            ),
-            const SizedBox(height: 8),
-            // 标题栏
-            Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Row(children: [
-                  Text('$name ${s.detail}',
-                      style: TextStyle(
-                          fontSize: 18, fontWeight: FontWeight.bold,
-                          color: isDark ? AppColorsDark.textPrimary : null)),
-                  const Spacer(),
-                  IconButton(
-                      icon: Icon(Icons.close,
-                          color: isDark ? AppColorsDark.textSecondary : null),
-                      onPressed: () => Navigator.pop(context)),
-                ])),
-
-            // ============ 图标 + 描述 + 图标点击切换 ============
-            Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      // 图标 + 主题切换
-                      Column(children: [
-                        GestureDetector(
-                          onTap: availableThemes.length > 1
-                              ? () {
-                                  final currentIndex =
-                                      availableThemes.indexWhere(
-                                          (t) => t.id == _selectedIconTheme);
-                                  final nextIndex = (currentIndex + 1) %
-                                      availableThemes.length;
-                                  _onIconThemeChanged(
-                                      availableThemes[nextIndex].id);
-                                }
-                              : null,
-                          child: Stack(children: [
-                            ClipRRect(
-                                borderRadius: BorderRadius.circular(12),
-                                child: Image.asset(imagePath,
-                                    width: 64,
-                                    height: 64,
-                                    fit: BoxFit.cover,
-                                    errorBuilder: (_, __, ___) => Container(
-                                        width: 64,
-                                        height: 64,
-                                        decoration: BoxDecoration(
-                                            color:
-                                                catColor.withValues(alpha: 0.1),
-                                            borderRadius:
-                                                BorderRadius.circular(12)),
-                                        child: Icon(
-                                            _animalIcon(animal.iconName),
-                                            size: 28,
-                                            color: catColor)))),
-                            // 多主题切换角标
-                            if (availableThemes.length > 1)
-                              Positioned(
-                                  right: 0,
-                                  bottom: 0,
-                                  child: Container(
-                                    width: 22,
-                                    height: 22,
-                                    decoration: BoxDecoration(
-                                      color: catColor,
-                                      shape: BoxShape.circle,
-                                      border: Border.all(
-                                          color: Colors.white, width: 1.5),
-                                    ),
-                                    child: const Icon(Icons.refresh,
-                                        size: 12, color: Colors.white),
-                                  )),
-                          ]),
-                        ),
-                        // 当前主题名称
-                        const SizedBox(height: 4),
-                        Text(_selectedIconTheme.toUpperCase(),
-                            style: TextStyle(
-                                fontSize: 10,
-                                color: catColor,
-                                fontWeight: FontWeight.w600)),
-                      ]),
-                      const SizedBox(width: 10),
-                      Expanded(
-                          child: Text(fullDesc,
-                              style: TextStyle(
-                                  color: isDark ? AppColorsDark.textSecondary : Colors.grey[600],
-                                  fontSize: 12,
-                                  height: 1.4),
-                              maxLines: 3,
-                              overflow: TextOverflow.ellipsis)),
+                const SizedBox(height: 8),
+                // 标题栏
+                Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: Row(children: [
+                      Text('$name ${s.detail}',
+                          style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color:
+                                  isDark ? AppColorsDark.textPrimary : null)),
+                      const Spacer(),
+                      IconButton(
+                          icon: Icon(Icons.close,
+                              color:
+                                  isDark ? AppColorsDark.textSecondary : null),
+                          onPressed: () => Navigator.pop(context)),
                     ])),
 
-            // ============ 图标主题选择器 ============
-            if (availableThemes.length > 1) ...[
-              const SizedBox(height: 12),
-              Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(s.iconStyle,
-                            style: TextStyle(
-                                fontWeight: FontWeight.w600, fontSize: 14,
-                                color: isDark ? AppColorsDark.textPrimary : null)),
-                        const SizedBox(height: 8),
-                        Row(
-                            children: availableThemes.map((theme) {
-                          final isSelected = _selectedIconTheme == theme.id;
-                          final themeImagePath = animal.getIconPath(theme.id);
-                          return GestureDetector(
-                            onTap: () => _onIconThemeChanged(theme.id),
-                            child: Container(
-                              margin: const EdgeInsets.only(right: 10),
-                              padding: const EdgeInsets.all(4),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(12),
-                                border: Border.all(
-                                  color: isSelected
-                                      ? catColor
-                                      : (isDark ? Colors.grey.withValues(alpha: 0.3) : Colors.grey.withValues(alpha: 0.2)),
-                                  width: isSelected ? 2.0 : 1.0,
-                                ),
-                              ),
-                              child: Column(children: [
+                // ============ 图标 + 描述 + 图标点击切换 ============
+                Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          // 图标 + 主题切换
+                          Column(children: [
+                            GestureDetector(
+                              onTap: availableThemes.length > 1
+                                  ? () {
+                                      final currentIndex =
+                                          availableThemes.indexWhere((t) =>
+                                              t.id == _selectedIconTheme);
+                                      final nextIndex = (currentIndex + 1) %
+                                          availableThemes.length;
+                                      _onIconThemeChanged(
+                                          availableThemes[nextIndex].id);
+                                    }
+                                  : null,
+                              child: Stack(children: [
                                 ClipRRect(
-                                    borderRadius: BorderRadius.circular(8),
-                                    child: Image.asset(themeImagePath,
-                                        width: 48,
-                                        height: 48,
+                                    borderRadius: BorderRadius.circular(12),
+                                    child: Image.asset(imagePath,
+                                        width: 64,
+                                        height: 64,
                                         fit: BoxFit.cover,
                                         errorBuilder: (_, __, ___) => Container(
-                                            width: 48,
-                                            height: 48,
+                                            width: 64,
+                                            height: 64,
                                             decoration: BoxDecoration(
                                                 color: catColor.withValues(
                                                     alpha: 0.1),
                                                 borderRadius:
-                                                    BorderRadius.circular(8)),
+                                                    BorderRadius.circular(12)),
                                             child: Icon(
                                                 _animalIcon(animal.iconName),
-                                                size: 24,
+                                                size: 28,
                                                 color: catColor)))),
-                                const SizedBox(height: 2),
-                                Text(theme.getLocalizedName(Localizations.localeOf(context).languageCode),
-                                    style: TextStyle(
-                                        fontSize: 10,
-                                        color: isSelected
-                                            ? catColor
-                                            : AppColors.textSecondary,
-                                        fontWeight: isSelected
-                                            ? FontWeight.w600
-                                            : FontWeight.normal)),
+                                // 多主题切换角标
+                                if (availableThemes.length > 1)
+                                  Positioned(
+                                      right: 0,
+                                      bottom: 0,
+                                      child: Container(
+                                        width: 22,
+                                        height: 22,
+                                        decoration: BoxDecoration(
+                                          color: catColor,
+                                          shape: BoxShape.circle,
+                                          border: Border.all(
+                                              color: Colors.white, width: 1.5),
+                                        ),
+                                        child: const Icon(Icons.refresh,
+                                            size: 12, color: Colors.white),
+                                      )),
                               ]),
                             ),
-                          );
-                        }).toList()),
-                      ])),
-            ],
-            const SizedBox(height: 16),
+                            // 当前主题名称
+                            const SizedBox(height: 4),
+                            Text(_selectedIconTheme.toUpperCase(),
+                                style: TextStyle(
+                                    fontSize: 10,
+                                    color: catColor,
+                                    fontWeight: FontWeight.w600)),
+                          ]),
+                          const SizedBox(width: 10),
+                          Expanded(
+                              child: Text(fullDesc,
+                                  style: TextStyle(
+                                      color: isDark
+                                          ? AppColorsDark.textSecondary
+                                          : Colors.grey[600],
+                                      fontSize: 12,
+                                      height: 1.4),
+                                  maxLines: 3,
+                                  overflow: TextOverflow.ellipsis)),
+                        ])),
 
-            // ============ 推荐声音列表 ============
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  s.recommendedSounds,
-                  style: TextStyle(
-                      fontWeight: FontWeight.w600, fontSize: 15,
-                      color: isDark ? AppColorsDark.textPrimary : null),
+                // ============ 图标主题选择器 ============
+                if (availableThemes.length > 1) ...[
+                  const SizedBox(height: 12),
+                  Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(s.iconStyle,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 14,
+                                    color: isDark
+                                        ? AppColorsDark.textPrimary
+                                        : null)),
+                            const SizedBox(height: 8),
+                            Row(
+                                children: availableThemes.map((theme) {
+                              final isSelected = _selectedIconTheme == theme.id;
+                              final themeImagePath =
+                                  animal.getIconPath(theme.id);
+                              return GestureDetector(
+                                onTap: () => _onIconThemeChanged(theme.id),
+                                child: Container(
+                                  margin: const EdgeInsets.only(right: 10),
+                                  padding: const EdgeInsets.all(4),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(12),
+                                    border: Border.all(
+                                      color: isSelected
+                                          ? catColor
+                                          : (isDark
+                                              ? Colors.grey
+                                                  .withValues(alpha: 0.3)
+                                              : Colors.grey
+                                                  .withValues(alpha: 0.2)),
+                                      width: isSelected ? 2.0 : 1.0,
+                                    ),
+                                  ),
+                                  child: Column(children: [
+                                    ClipRRect(
+                                        borderRadius: BorderRadius.circular(8),
+                                        child: Image.asset(themeImagePath,
+                                            width: 48,
+                                            height: 48,
+                                            fit: BoxFit.cover,
+                                            errorBuilder: (_, __, ___) =>
+                                                Container(
+                                                    width: 48,
+                                                    height: 48,
+                                                    decoration: BoxDecoration(
+                                                        color:
+                                                            catColor
+                                                                .withValues(
+                                                                    alpha: 0.1),
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(8)),
+                                                    child: Icon(
+                                                        _animalIcon(
+                                                            animal.iconName),
+                                                        size: 24,
+                                                        color: catColor)))),
+                                    const SizedBox(height: 2),
+                                    Text(
+                                        theme.getLocalizedName(
+                                            Localizations.localeOf(context)
+                                                .languageCode),
+                                        style: TextStyle(
+                                            fontSize: 10,
+                                            color: isSelected
+                                                ? catColor
+                                                : AppColors.textSecondary,
+                                            fontWeight: isSelected
+                                                ? FontWeight.w600
+                                                : FontWeight.normal)),
+                                  ]),
+                                ),
+                              );
+                            }).toList()),
+                          ])),
+                ],
+                const SizedBox(height: 16),
+
+                // ============ 推荐声音列表 ============
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      s.recommendedSounds,
+                      style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 15,
+                          color: isDark ? AppColorsDark.textPrimary : null),
+                    ),
+                  ),
                 ),
-              ),
-            ),
-            const SizedBox(height: 6),
-            ...animal.sounds.asMap().entries.map((entry) {
-              final idx = entry.key;
-              final sound = entry.value;
-              final soundName = sound.getLocalizedName(Localizations.localeOf(context).languageCode);
-              final isSelected = idx == _selectedSoundIndex;
-              return _buildSoundCard(
-                idx,
-                sound,
-                soundName,
-                isSelected,
-                isCurrentAnimal,
-                playingGroup,
-                catColor,
-              );
-            }),
+                const SizedBox(height: 6),
+                ...animal.sounds.asMap().entries.map((entry) {
+                  final idx = entry.key;
+                  final sound = entry.value;
+                  final soundName = sound.getLocalizedName(
+                      Localizations.localeOf(context).languageCode);
+                  final isSelected = idx == _selectedSoundIndex;
+                  return _buildSoundCard(
+                    idx,
+                    sound,
+                    soundName,
+                    isSelected,
+                    isCurrentAnimal,
+                    playingGroup,
+                    catColor,
+                  );
+                }),
 
-            const SizedBox(height: 24),
-          ],
-        ),
+                const SizedBox(height: 24),
+              ],
+            ),
           ),
         ),
       ),
@@ -945,9 +1006,8 @@ class _AnimalDetailSheetState extends ConsumerState<_AnimalDetailSheet> {
   ) {
     final s = S.of(context);
     final currentPlayMode = _soundPlayModes[sound.soundGroup] ?? sound.playMode;
-    final fileCountLabel = sound.soundCount > 1
-        ? '${sound.soundCount}${s.nFiles}'
-        : s.singleFile;
+    final fileCountLabel =
+        sound.soundCount > 1 ? '${sound.soundCount}${s.nFiles}' : s.singleFile;
     final multiSelectedIndices =
         _soundMultiSelectedIndices[sound.soundGroup] ?? sound.selectedIndices;
 
@@ -960,7 +1020,9 @@ class _AnimalDetailSheetState extends ConsumerState<_AnimalDetailSheet> {
         decoration: BoxDecoration(
           color: isSelected
               ? catColor.withValues(alpha: 0.06)
-              : (isDark ? AppColorsDark.divider.withValues(alpha: 0.3) : const Color(0xFFF5F5F5)),
+              : (isDark
+                  ? AppColorsDark.divider.withValues(alpha: 0.3)
+                  : const Color(0xFFF5F5F5)),
           borderRadius: BorderRadius.circular(12),
           border: isSelected
               ? Border.all(color: catColor.withValues(alpha: 0.3))
@@ -983,9 +1045,8 @@ class _AnimalDetailSheetState extends ConsumerState<_AnimalDetailSheet> {
                   const SizedBox(width: 6),
                   Text(soundName,
                       style: TextStyle(
-                          fontWeight: isSelected
-                              ? FontWeight.w600
-                              : FontWeight.normal,
+                          fontWeight:
+                              isSelected ? FontWeight.w600 : FontWeight.normal,
                           color: isDark ? AppColorsDark.textPrimary : null)),
                 ]),
               ),
@@ -1005,9 +1066,7 @@ class _AnimalDetailSheetState extends ConsumerState<_AnimalDetailSheet> {
               runSpacing: 8,
               children: [
                 _buildInfoChip(
-                    Icons.multitrack_audio_outlined,
-                    fileCountLabel,
-                    catColor),
+                    Icons.multitrack_audio_outlined, fileCountLabel, catColor),
                 if (sound.frequencyRange.isNotEmpty)
                   _buildInfoChip(
                       Icons.waves, sound.frequencyRange, Colors.purple),
@@ -1072,8 +1131,8 @@ class _AnimalDetailSheetState extends ConsumerState<_AnimalDetailSheet> {
       children: [
         // 单曲循环
         GestureDetector(
-          onTap: () => _onSoundPlayModeChanged(
-              sound.soundGroup, SoundPlayMode.single),
+          onTap: () =>
+              _onSoundPlayModeChanged(sound.soundGroup, SoundPlayMode.single),
           child: AnimatedContainer(
             duration: const Duration(milliseconds: 200),
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
@@ -1111,8 +1170,8 @@ class _AnimalDetailSheetState extends ConsumerState<_AnimalDetailSheet> {
         const SizedBox(width: 8),
         // 列表循环
         GestureDetector(
-          onTap: () => _onSoundPlayModeChanged(
-              sound.soundGroup, SoundPlayMode.sequence),
+          onTap: () =>
+              _onSoundPlayModeChanged(sound.soundGroup, SoundPlayMode.sequence),
           child: AnimatedContainer(
             duration: const Duration(milliseconds: 200),
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
@@ -1268,13 +1327,18 @@ class _BottomPlayerState extends ConsumerState<_BottomPlayer> {
 
     if (target != null && targetSound != null) {
       // 恢复上次的声音选择偏好
-      final savedIndex = prefs.getAnimalSoundSelectedIndex(target.id, targetSound.soundGroup);
+      final savedIndex =
+          prefs.getAnimalSoundSelectedIndex(target.id, targetSound.soundGroup);
       targetSound.selectedSoundIndex = savedIndex;
-      final savedModeStr = prefs.getAnimalSoundPlayMode(target.id, targetSound.soundGroup);
-      targetSound.playMode = savedModeStr == 'sequence' ? SoundPlayMode.sequence : SoundPlayMode.single;
+      final savedModeStr =
+          prefs.getAnimalSoundPlayMode(target.id, targetSound.soundGroup);
+      targetSound.playMode = savedModeStr == 'sequence'
+          ? SoundPlayMode.sequence
+          : SoundPlayMode.single;
       // 恢复多选索引（sequence 模式下使用）
       if (targetSound.playMode == SoundPlayMode.sequence) {
-        targetSound.selectedIndices = prefs.getAnimalSoundMultiSelectedIndices(target.id, targetSound.soundGroup);
+        targetSound.selectedIndices = prefs.getAnimalSoundMultiSelectedIndices(
+            target.id, targetSound.soundGroup);
       }
 
       unawaited(NativeLogger.log(
@@ -1373,16 +1437,21 @@ class _BottomPlayerState extends ConsumerState<_BottomPlayer> {
     _systemVolume = systemVolume;
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
-    final name =
-        hasContent ? effectiveAnimal!.getLocalizedName(Localizations.localeOf(context).languageCode) : s.appName;
+    final name = hasContent
+        ? effectiveAnimal!
+            .getLocalizedName(Localizations.localeOf(context).languageCode)
+        : s.appName;
     final currentSound = audio.currentSound;
     final counter = hasContent
         ? (currentSound != null
-            ? currentSound.getLocalizedName(Localizations.localeOf(context).languageCode)
-            : effectiveAnimal!.getLocalizedCounterSound(Localizations.localeOf(context).languageCode))
+            ? currentSound
+                .getLocalizedName(Localizations.localeOf(context).languageCode)
+            : effectiveAnimal!.getLocalizedCounterSound(
+                Localizations.localeOf(context).languageCode))
         : s.tapToPreview;
-    final themeId =
-        hasContent ? prefs.getAnimalIconTheme(effectiveAnimal!.id) : prefs.iconTheme;
+    final themeId = hasContent
+        ? prefs.getAnimalIconTheme(effectiveAnimal!.id)
+        : prefs.iconTheme;
     final imagePath = effectiveAnimal?.getIconPath(themeId);
     final fallbackIcon = Container(
       width: 48,
@@ -1396,104 +1465,121 @@ class _BottomPlayerState extends ConsumerState<_BottomPlayer> {
     );
 
     return Container(
-      padding: const EdgeInsets.fromLTRB(16, 12, 16, 36),
-      decoration: BoxDecoration(
-        color: isDark ? AppColorsDark.cardBackground : Colors.white,
-        border: Border(top: BorderSide(color: isDark ? AppColorsDark.divider : Colors.grey[200]!)),
-        boxShadow: [
-          BoxShadow(
-              color: Colors.black.withValues(alpha: isDark ? 0.02 : 0.08),
-              blurRadius: 12,
-              offset: const Offset(0, -2))
-        ],
-      ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-      Row(children: [
-        ClipRRect(
-            borderRadius: BorderRadius.circular(12),
-            child: hasContent && imagePath != null
-                ? Image.asset(imagePath,
-                    width: 48,
-                    height: 48,
-                    fit: BoxFit.cover,
-                    errorBuilder: (_, __, ___) => fallbackIcon)
-                : fallbackIcon),
-        const SizedBox(width: 12),
-        Expanded(
-            child:
-                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          Text(name,
-              style:
-                  TextStyle(fontWeight: FontWeight.w600, fontSize: 15,
-                      color: isDark ? AppColorsDark.textPrimary : null)),
-          const SizedBox(height: 2),
-          // 声音名称
-          Text(counter,
-              style: TextStyle(
-                  color: hasContent
-                      ? (isDark ? AppColorsDark.textSecondary : Colors.grey[500])
-                      : Colors.orange,
-                  fontSize: 12,
-                  fontWeight: hasContent ? FontWeight.normal : FontWeight.w500)),
-        ])),
-        // 音量按钮
-        if (hasContent) GestureDetector(
-          onTap: () => setState(() => _showVolumeSlider = !_showVolumeSlider),
-          child: Container(
-            width: 36,
-            height: 36,
-            margin: const EdgeInsets.only(right: 8),
-            decoration: BoxDecoration(
-              color: _showVolumeSlider
-                  ? Colors.orange.withValues(alpha: 0.12)
-                  : Colors.grey.withValues(alpha: 0.08),
-              shape: BoxShape.circle,
-            ),
-            child: Icon(
-                systemVolume > 0.5
-                    ? Icons.volume_up_rounded
-                    : (systemVolume > 0.2
-                        ? Icons.volume_down_rounded
-                        : Icons.volume_mute_rounded),
-                size: 18,
-                color: _showVolumeSlider ? Colors.orange : (isDark ? AppColorsDark.textSecondary : Colors.grey[600])),
-          ),
+        padding: const EdgeInsets.fromLTRB(16, 12, 16, 36),
+        decoration: BoxDecoration(
+          color: isDark ? AppColorsDark.cardBackground : Colors.white,
+          border: Border(
+              top: BorderSide(
+                  color: isDark ? AppColorsDark.divider : Colors.grey[200]!)),
+          boxShadow: [
+            BoxShadow(
+                color: Colors.black.withValues(alpha: isDark ? 0.02 : 0.08),
+                blurRadius: 12,
+                offset: const Offset(0, -2))
+          ],
         ),
-        // 播放/暂停按钮
-        GestureDetector(
-          onTap: _onTap,
-          child: Container(
-            width: 48,
-            height: 48,
-            decoration: BoxDecoration(
-              color: effectiveIsPlaying ? Colors.red : Colors.orange,
-              shape: BoxShape.circle,
-              boxShadow: [
-                BoxShadow(
-                    color: (effectiveIsPlaying ? Colors.red : Colors.orange)
-                        .withValues(alpha: 0.4),
-                    blurRadius: 12,
-                    offset: const Offset(0, 4))
-              ],
-            ),
-            child: Icon(
-                effectiveIsPlaying
-                    ? Icons.pause
-                    : (hasContent ? Icons.play_arrow : Icons.volume_up_rounded),
-                color: Colors.white,
-                size: 28),
-          ),
-        ),
-      ]),
-      // 系统音量滑块区域
-      if (_showVolumeSlider && hasContent) ...[
-        const SizedBox(height: 8),
-        _SystemVolumeSlider(currentVolume: systemVolume),
-      ],
-      ],
-    ));
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Row(children: [
+              ClipRRect(
+                  borderRadius: BorderRadius.circular(12),
+                  child: hasContent && imagePath != null
+                      ? Image.asset(imagePath,
+                          width: 48,
+                          height: 48,
+                          fit: BoxFit.cover,
+                          errorBuilder: (_, __, ___) => fallbackIcon)
+                      : fallbackIcon),
+              const SizedBox(width: 12),
+              Expanded(
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                    Text(name,
+                        style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 15,
+                            color: isDark ? AppColorsDark.textPrimary : null)),
+                    const SizedBox(height: 2),
+                    // 声音名称
+                    Text(counter,
+                        style: TextStyle(
+                            color: hasContent
+                                ? (isDark
+                                    ? AppColorsDark.textSecondary
+                                    : Colors.grey[500])
+                                : Colors.orange,
+                            fontSize: 12,
+                            fontWeight: hasContent
+                                ? FontWeight.normal
+                                : FontWeight.w500)),
+                  ])),
+              // 音量按钮
+              if (hasContent)
+                GestureDetector(
+                  onTap: () =>
+                      setState(() => _showVolumeSlider = !_showVolumeSlider),
+                  child: Container(
+                    width: 36,
+                    height: 36,
+                    margin: const EdgeInsets.only(right: 8),
+                    decoration: BoxDecoration(
+                      color: _showVolumeSlider
+                          ? Colors.orange.withValues(alpha: 0.12)
+                          : Colors.grey.withValues(alpha: 0.08),
+                      shape: BoxShape.circle,
+                    ),
+                    child: Icon(
+                        systemVolume > 0.5
+                            ? Icons.volume_up_rounded
+                            : (systemVolume > 0.2
+                                ? Icons.volume_down_rounded
+                                : Icons.volume_mute_rounded),
+                        size: 18,
+                        color: _showVolumeSlider
+                            ? Colors.orange
+                            : (isDark
+                                ? AppColorsDark.textSecondary
+                                : Colors.grey[600])),
+                  ),
+                ),
+              // 播放/暂停按钮
+              GestureDetector(
+                onTap: _onTap,
+                child: Container(
+                  width: 48,
+                  height: 48,
+                  decoration: BoxDecoration(
+                    color: effectiveIsPlaying ? Colors.red : Colors.orange,
+                    shape: BoxShape.circle,
+                    boxShadow: [
+                      BoxShadow(
+                          color:
+                              (effectiveIsPlaying ? Colors.red : Colors.orange)
+                                  .withValues(alpha: 0.4),
+                          blurRadius: 12,
+                          offset: const Offset(0, 4))
+                    ],
+                  ),
+                  child: Icon(
+                      effectiveIsPlaying
+                          ? Icons.pause
+                          : (hasContent
+                              ? Icons.play_arrow
+                              : Icons.volume_up_rounded),
+                      color: Colors.white,
+                      size: 28),
+                ),
+              ),
+            ]),
+            // 系统音量滑块区域
+            if (_showVolumeSlider && hasContent) ...[
+              const SizedBox(height: 8),
+              _SystemVolumeSlider(currentVolume: systemVolume),
+            ],
+          ],
+        ));
   }
 }
 
@@ -1576,7 +1662,8 @@ class _SystemVolumeSliderState extends State<_SystemVolumeSlider> {
     return Row(
       children: [
         Icon(Icons.volume_mute_rounded,
-            size: 16, color: isDark ? AppColorsDark.textSecondary : Colors.grey[500]),
+            size: 16,
+            color: isDark ? AppColorsDark.textSecondary : Colors.grey[500]),
         Expanded(
           child: SliderTheme(
             data: SliderThemeData(
@@ -1610,7 +1697,8 @@ class _SystemVolumeSliderState extends State<_SystemVolumeSlider> {
           ),
         ),
         Icon(Icons.volume_up_rounded,
-            size: 16, color: isDark ? AppColorsDark.textSecondary : Colors.grey[500]),
+            size: 16,
+            color: isDark ? AppColorsDark.textSecondary : Colors.grey[500]),
         const SizedBox(width: 4),
         Text('${(_sliderValue * 100).round()}%',
             style: TextStyle(

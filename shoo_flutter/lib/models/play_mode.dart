@@ -4,7 +4,7 @@ enum PlayMode {
   continuous('continuous', const {'zh': '持续播放', 'en': 'Continuous', 'ja': '連続再生', 'ko': '연속 재생', 'fr': 'Continu', 'de': 'Durchgehend', 'es': 'Continuo', 'ru': 'Непрерывный', 'pt': 'Contínuo', 'th': 'เล่นต่อเนื่อง'}),
 
   /// 间隔播放
-  interval('interval', const {'zh': '间隔播放', 'en': 'Interval', 'ja': '間隔再生', 'ko': '간격 재생', 'fr': 'Intervalle', 'de': 'Intervall', 'es': 'Intervalo', 'ru': 'Интервальный', 'pt': 'Intervalado', 'th': 'เล่นเว้นช่วง'}),
+  interval('interval', const {'zh': '间隔播放', 'en': 'Interval', 'ja': '間隔再生', 'ko': '간격 재생', 'fr': 'Intervalle', 'de': 'Intervall', 'es': 'Intervalo', 'ru': 'Интервальный', 'pt': 'Intervalado', 'th': 'เล่นเว้นช่วง'});
 
   const PlayMode(
     this.id,

@@ -8,6 +8,7 @@ import 'package:volume_controller/volume_controller.dart';
 import '../../models/animal.dart';
 import '../platform/native_logger.dart';
 import '../storage/preferences.dart';
+import 'playback_auto_stop.dart';
 import 'sequence_playback_context.dart';
 
 class AudioController {
@@ -27,6 +28,7 @@ class AudioController {
   SequencePlaybackContext? _sequenceContext;
   Timer? _intervalTimer;
   bool _isInIntervalGap = false;
+  final PlaybackAutoStop _autoStop = PlaybackAutoStop();
 
   /// 用户是否手动设置过系统音量（防止自动调大逻辑覆盖用户意图）
   bool _userManuallySetVolume = false;
@@ -34,9 +36,6 @@ class AudioController {
   /// 应用内播放音量，始终为 1.0（满格）
   /// 实际输出音量完全由系统音量控制
   static const double _appVolume = 1.0;
-
-  /// 系统音量过低阈值：低于此值时自动调大系统音量
-  static const double systemVolumeLowThreshold = 0.5;
 
   /// 自动调大系统音量时的目标值
   static const double autoVolumeTarget = 0.8;
@@ -78,13 +77,14 @@ class AudioController {
     }
   }
 
-  /// 设置系统音量
-  Future<void> setSystemVolume(double volume) async {
+  Future<void> _setSystemVolumeInternal(
+    double volume, {
+    required bool markAsUserOverride,
+  }) async {
     try {
-      final clamped = volume.clamp(0.0, 1.0);
+      final clamped = (volume.clamp(0.0, 1.0) as num).toDouble();
       VolumeController().setVolume(clamped, showSystemUI: false);
-      // 标记用户手动设置了音量，防止自动调大逻辑覆盖
-      _userManuallySetVolume = true;
+      _userManuallySetVolume = markAsUserOverride;
       // 立即通知回调，避免 provider 持有旧值导致滑块回弹
       onSystemVolumeChanged?.call(clamped);
     } catch (e) {
@@ -92,37 +92,40 @@ class AudioController {
     }
   }
 
-  /// 如果系统音量太低，自动调大到目标值
-  /// 当用户手动设置过音量时，不再自动调大，尊重用户选择
+  /// 设置系统音量
+  Future<void> setSystemVolume(double volume) async {
+    await _setSystemVolumeInternal(volume, markAsUserOverride: true);
+  }
+
+  /// 根据设置中的默认音量初始化播放音量。
+  /// 当用户在当前会话手动调过音量时，尊重用户选择，不再覆盖。
   Future<void> ensureMinSystemVolume() async {
     if (_userManuallySetVolume) {
       unawaited(NativeLogger.log(
         scope: 'audio_controller:ensureMinSystemVolume',
         level: 'debug',
-        message: 'skipping auto volume adjustment, user manually set volume',
+        message: 'skipping default volume apply, user manually set volume',
       ));
       return;
     }
     try {
       final currentVol = await VolumeController().getVolume();
+      final defaultVol = (prefs.defaultVolume.clamp(0.0, 1.0) as num).toDouble();
       unawaited(NativeLogger.log(
         scope: 'audio_controller:ensureMinSystemVolume',
         level: 'debug',
-        message: 'checking system volume',
+        message: 'applying configured default volume',
         data: {
           'currentVolume': currentVol.toStringAsFixed(2),
-          'threshold': systemVolumeLowThreshold.toStringAsFixed(2),
-          'targetVolume': autoVolumeTarget.toStringAsFixed(2),
-          'willAdjust': currentVol < systemVolumeLowThreshold,
+          'defaultVolume': defaultVol.toStringAsFixed(2),
+          'willAdjust': (currentVol - defaultVol).abs() >= 0.01,
         },
       ));
-      if (currentVol < systemVolumeLowThreshold) {
-        VolumeController().setVolume(autoVolumeTarget, showSystemUI: false);
-        // 同步通知 UI 更新
-        onSystemVolumeChanged?.call(autoVolumeTarget);
+      if ((currentVol - defaultVol).abs() >= 0.01) {
+        await _setSystemVolumeInternal(defaultVol, markAsUserOverride: false);
       }
     } catch (e) {
-      debugPrint('自动调大系统音量失败: $e');
+      debugPrint('应用默认系统音量失败: $e');
     }
   }
 
@@ -138,9 +141,8 @@ class AudioController {
 
   Future<void> _startPlayback(
     Animal animal,
-    RecommendedSound sound, {
-    double? volumeOverride, // 保留参数兼容性，但不再使用
-  }) async {
+    RecommendedSound sound,
+  ) async {
     final generation = _invalidatePlayback();
     final paths = sound.assetPaths;
 
@@ -150,7 +152,9 @@ class AudioController {
     _currentSound = sound;
     if (paths.isEmpty) return;
 
-    // 如果系统音量太低，自动调大
+    _scheduleAutoStopForNewPlayback();
+
+    // 进入播放前应用默认音量设置
     await ensureMinSystemVolume();
 
     unawaited(NativeLogger.log(
@@ -364,6 +368,7 @@ class AudioController {
         debugPrint('音频播放失败: $assetPath, 错误: $error');
         await _enqueue(() async {
           if (_isCurrentPlayer(player, generation)) {
+            _autoStop.cancel();
             await _disposeCurrentPlayer();
           } else {
             await _safeStop(player);
@@ -378,6 +383,7 @@ class AudioController {
     } catch (e) {
       debugPrint('音频播放失败: $assetPath, 错误: $e');
       if (_isCurrentPlayer(player, generation)) {
+        _autoStop.cancel();
         await _disposeCurrentPlayer();
       } else {
         await _safeStop(player);
@@ -422,6 +428,7 @@ class AudioController {
 
   Future<void> _pauseInternal() async {
     final player = _player;
+    _autoStop.pause();
     // 暂停间隔定时器
     _intervalTimer?.cancel();
     _intervalTimer = null;
@@ -454,8 +461,8 @@ class AudioController {
         await ensureMinSystemVolume();
 
         // 如果当前处于间隔暂停中，重新启动间隔定时器
-    if (_isInIntervalGap && prefs.intervalSeconds > 0) {
-      final intervalSec = prefs.intervalSeconds;
+        if (_isInIntervalGap && prefs.intervalSeconds > 0) {
+          final intervalSec = prefs.intervalSeconds;
           _intervalTimer?.cancel();
           _intervalTimer = Timer(Duration(milliseconds: (intervalSec * 1000).round()), () {
             _intervalTimer = null;
@@ -478,6 +485,7 @@ class AudioController {
           return;
         }
 
+        _resumeAutoStopAfterPause();
         unawaited(player.play().catchError((Object error, StackTrace stackTrace) async {
           debugPrint('音频恢复失败: $error');
         }));
@@ -490,6 +498,7 @@ class AudioController {
     }
     if (_sequenceContext != null) {
       _isPlaying = true;
+      _resumeAutoStopAfterPause();
       await _playSequenceCurrent(_playbackGeneration);
     }
   }
@@ -511,6 +520,7 @@ class AudioController {
   Future<void> _stopInternal() async {
     _invalidatePlayback();
     _isPlaying = false;
+    _autoStop.cancel();
     _isInIntervalGap = false;
     _intervalTimer?.cancel();
     _intervalTimer = null;
@@ -580,6 +590,53 @@ class AudioController {
     try {
       await player.dispose();
     } catch (_) {}
+  }
+
+  Duration? _configuredAutoStopDuration() {
+    final minutes = prefs.autoStopMinutes;
+    if (minutes <= 0) return null;
+    return Duration(minutes: minutes);
+  }
+
+  void _scheduleAutoStopForNewPlayback() {
+    final duration = _configuredAutoStopDuration();
+    if (duration == null) {
+      _autoStop.cancel();
+      return;
+    }
+    _autoStop.start(
+      duration: duration,
+      onElapsed: _handleAutoStopElapsed,
+    );
+  }
+
+  void _resumeAutoStopAfterPause() {
+    final duration = _configuredAutoStopDuration();
+    if (duration == null) {
+      _autoStop.cancel();
+      return;
+    }
+    if (_autoStop.hasRemaining) {
+      _autoStop.resume(_handleAutoStopElapsed);
+      return;
+    }
+    _autoStop.start(
+      duration: duration,
+      onElapsed: _handleAutoStopElapsed,
+    );
+  }
+
+  void _handleAutoStopElapsed() {
+    unawaited(NativeLogger.log(
+      scope: 'audio_controller:auto_stop',
+      level: 'info',
+      message: 'auto stop elapsed, stopping playback',
+      data: {
+        'animalId': _currentAnimal?.id,
+        'soundGroup': _currentSound?.soundGroup,
+      },
+    ));
+    unawaited(_enqueue(_stopInternal));
   }
 
   Future<void> _enqueue(Future<void> Function() action) {

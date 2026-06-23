@@ -32,7 +32,6 @@ import AVFoundation
         let messenger = engineBridge.applicationRegistrar.messenger()
         setupPlatformChannel(messenger: messenger)
         setupNativeLogChannel(messenger: messenger)
-        setupWatchChannel(messenger: messenger)
         setupBackgroundChannel(messenger: messenger)
     }
     
@@ -148,24 +147,6 @@ import AVFoundation
 
             NSLog("[Shoo][%@][%@] %@ %@ %@", level.uppercased(), scope, timestamp, message, dataText)
             result(nil)
-        }
-    }
-    
-    private func setupWatchChannel(messenger: FlutterBinaryMessenger) {
-        let watchChannel = FlutterMethodChannel(
-            name: "com.shoo.app/watch",
-            binaryMessenger: messenger
-        )
-        
-        watchChannel.setMethodCallHandler { (call, result) in
-            switch call.method {
-            case "isWatchConnected":
-                result(false) // TODO: WatchConnectivity
-            case "sendCommand":
-                result(false)
-            default:
-                result(FlutterMethodNotImplemented)
-            }
         }
     }
     
