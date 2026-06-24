@@ -1,0 +1,36 @@
+/* Shoo Watch App - 한국어 */
+
+"app_name" = "Shoo!";
+"quick_repel" = "원터치 퇴치";
+"repelling" = "퇴치 중";
+"quick_repel_sound" = "원터치 퇴치";
+"playing" = "재생 중";
+"stop" = "정지";
+"category_beast" = "맹수";
+"category_reptile" = "파충류";
+"category_primate" = "영장류";
+"category_rodent" = "설치류";
+"category_insect" = "곤충";
+"category_bird" = "조류";
+"animal_wild_dog" = "들개";
+"animal_wild_boar" = "멧돼지";
+"animal_bear" = "곰";
+"animal_wolf" = "늑대";
+"animal_fox" = "여우";
+"animal_snake" = "독사";
+"animal_monkey" = "원숭이";
+"animal_mouse" = "쥐";
+"animal_rabbit" = "토끼";
+"animal_spider" = "독거미";
+"animal_wasp" = "말벌";
+"animal_crow" = "까마귀";
+"sound_tiger" = "호랑이 포효";
+"sound_lion" = "사자 포효";
+"sound_gunshot" = "총소리";
+"sound_wolf" = "늑대 울음소리";
+"sound_dog" = "개 짖는 소리";
+"sound_rooster" = "수탉 울음소리";
+"sound_eagle" = "독수리 울음소리";
+"sound_cat" = "고양이 울음소리";
+"sound_vibration" = "진동음";
+"sound_low_freq" = "저주파음";

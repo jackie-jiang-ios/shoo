@@ -1,0 +1,36 @@
+/* Shoo Watch App - 日本語 */
+
+"app_name" = "Shoo!";
+"quick_repel" = "すぐ追い払う";
+"repelling" = "追い払い中";
+"quick_repel_sound" = "すぐ追い払う";
+"playing" = "再生中";
+"stop" = "停止";
+"category_beast" = "猛獣";
+"category_reptile" = "爬虫類";
+"category_primate" = "霊長類";
+"category_rodent" = "齧歯類";
+"category_insect" = "昆虫";
+"category_bird" = "鳥類";
+"animal_wild_dog" = "野犬";
+"animal_wild_boar" = "イノシシ";
+"animal_bear" = "クマ";
+"animal_wolf" = "オオカミ";
+"animal_fox" = "キツネ";
+"animal_snake" = "毒蛇";
+"animal_monkey" = "サル";
+"animal_mouse" = "ネズミ";
+"animal_rabbit" = "野ウサギ";
+"animal_spider" = "毒蜘蛛";
+"animal_wasp" = "スズメバチ";
+"animal_crow" = "カラス";
+"sound_tiger" = "トラの咆哮";
+"sound_lion" = "ライオンの咆哮";
+"sound_gunshot" = "銃声";
+"sound_wolf" = "オオカミの遠吠え";
+"sound_dog" = "犬の吠え声";
+"sound_rooster" = "鶏の鳴き声";
+"sound_eagle" = "鷹の鳴き声";
+"sound_cat" = "猫の鳴き声";
+"sound_vibration" = "振動音";
+"sound_low_freq" = "低周波音";

@@ -1,0 +1,36 @@
+/* Shoo Watch App - ไทย */
+
+"app_name" = "Shoo!";
+"quick_repel" = "ไล่ทันที";
+"repelling" = "กำลังไล่";
+"quick_repel_sound" = "ไล่ทันที";
+"playing" = "กำลังเล่น";
+"stop" = "หยุด";
+"category_beast" = "สัตว์กินเนื้อ";
+"category_reptile" = "สัตว์เลื้อยคลาน";
+"category_primate" = "ไพรเมต";
+"category_rodent" = "สัตว์ฟันแทะ";
+"category_insect" = "แมลง";
+"category_bird" = "นก";
+"animal_wild_dog" = "หมาป่า";
+"animal_wild_boar" = "หมูป่า";
+"animal_bear" = "หมี";
+"animal_wolf" = "หมาป่า";
+"animal_fox" = "จิ้งจอก";
+"animal_snake" = "งาพิษ";
+"animal_monkey" = "ลิง";
+"animal_mouse" = "หนู";
+"animal_rabbit" = "กระต่ายป่า";
+"animal_spider" = "แมงมุมพิษ";
+"animal_wasp" = "ต่อ";
+"animal_crow" = "อีกา";
+"sound_tiger" = "เสียงเสือคำราม";
+"sound_lion" = "เสียงสิงโตคำราม";
+"sound_gunshot" = "เสียงปืน";
+"sound_wolf" = "เสียงหมาป่าหอน";
+"sound_dog" = "เสียงหมาเห่า";
+"sound_rooster" = "เสียงไก่ขัน";
+"sound_eagle" = "เสียงเหยี่ยวร้อง";
+"sound_cat" = "เสียงแมวร้อง";
+"sound_vibration" = "เสียงสั่น";
+"sound_low_freq" = "ความถี่ต่ำ";

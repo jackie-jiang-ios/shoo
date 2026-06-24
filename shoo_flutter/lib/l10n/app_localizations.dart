@@ -394,11 +394,11 @@ class S {
     'fr': 'Lecture à distance', 'de': 'Fernbedienung', 'es': 'Reproducción remota', 'ru': 'Дистанционное управление',
     'pt': 'Reprodução remota', 'th': 'เล่นระยะไกล',
   });
-  String get emergencyBtn => _t(const {
-    'zh': '紧急按钮', 'zh_TW': '緊急按鈕', 'en': 'Emergency', 'ja': '緊急ボタン', 'ko': '긴급 버튼',
-    'fr': 'Urgence', 'de': 'Notfall', 'es': 'Emergencia', 'ru': 'Экстренная кнопка',
-    'pt': 'Emergência', 'th': 'ฉุกเฉิน',
-  });
+String get emergencyBtn => _t(const {
+'zh': '一键驱赶', 'zh_TW': '一鍵驅趕', 'en': 'Quick Repel', 'ja': 'すぐ追い払う', 'ko': '원터치 퇴치',
+'fr': 'Répulsion rapide', 'de': 'Sofort vertreiben', 'es': 'Repeler al instante', 'ru': 'Мгновенное отпугивание',
+'pt': 'Repulsão rápida', 'th': 'ไล่ทันที',
+});
   String get hapticFeedback => _t(const {
     'zh': '触觉反馈', 'zh_TW': '觸覺回饋', 'en': 'Haptic', 'ja': 'ハプティック', 'ko': '햅틱 피드백',
     'fr': 'Haptique', 'de': 'Haptik', 'es': 'Háptico', 'ru': 'Тактильная отдача',
@@ -783,11 +783,11 @@ class S {
     'fr': 'Sélectionner et lire des sons sur la montre', 'de': 'Sounds auf der Uhr auswählen und abspielen', 'es': 'Seleccionar y reproducir sonidos en el reloj', 'ru': 'Выбирайте и воспроизводите звуки на часах',
     'pt': 'Selecionar e reproduzir sons no relógio', 'th': 'เลือกและเล่นเสียงบนนาฬิกา',
   });
-  String get emergencyBtnDesc => _t(const {
-    'zh': '一键播放最大音量警报', 'zh_TW': '一鍵播放最大音量警報', 'en': 'Play max volume alarm instantly', 'ja': 'ワンタップで最大音量アラーム再生', 'ko': '원터치 최대 볼륨 알람 재생',
-    'fr': 'Alarme au volume maximum en un clic', 'de': 'Alarm mit maximaler Lautstärke auf Knopfdruck', 'es': 'Alarma a volumen máximo con un toque', 'ru': 'Мгновенная тревога на максимальной громкости',
-    'pt': 'Alarme de volume máximo com um toque', 'th': 'เล่นสัญญาณเตือนเสียงดังสุดทันที',
-  });
+String get emergencyBtnDesc => _t(const {
+'zh': '一键播放最大音量驱赶声', 'zh_TW': '一鍵播放最大音量驅趕聲', 'en': 'Play max volume repelling sound instantly', 'ja': 'ワンタップで最大音量の追い払い音再生', 'ko': '원터치 최대 볼륨 퇴치 소리 재생',
+'fr': 'Son de répulsion au volume maximum en un clic', 'de': 'Vertreibungston mit maximaler Lautstärke auf Knopfdruck', 'es': 'Sonido de repulsión a volumen máximo con un toque', 'ru': 'Мгновенный звук отпугивания на максимальной громкости',
+'pt': 'Som de repulsão de volume máximo com um toque', 'th': 'เล่นเสียงไล่เสียงดังสุดทันที',
+});
   String get hapticFeedbackDesc => _t(const {
     'zh': '播放时手表振动提醒', 'zh_TW': '播放時手錶振動提醒', 'en': 'Watch vibrates during playback', 'ja': '再生中に時計が振動で知らせる', 'ko': '재생 중 워치 진동 알림',
     'fr': 'La montre vibre pendant la lecture', 'de': 'Uhr vibriert während der Wiedergabe', 'es': 'El reloj vibra durante la reproducción', 'ru': 'Часы вибрируют при воспроизведении',

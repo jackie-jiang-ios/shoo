@@ -1,0 +1,47 @@
+/* Shoo Watch App - 繁體中文 */
+
+// 通用
+"app_name" = "Shoo!";
+
+// 一鍵驅趕
+"quick_repel" = "一鍵驅趕";
+"repelling" = "驅趕中";
+"quick_repel_sound" = "一鍵驅趕";
+
+// 播放
+"playing" = "播放中";
+"stop" = "停止";
+
+// 分類
+"category_beast" = "猛獸";
+"category_reptile" = "爬行類";
+"category_primate" = "靈長類";
+"category_rodent" = "囓齒類";
+"category_insect" = "昆蟲類";
+"category_bird" = "鳥類";
+
+// 動物名
+"animal_wild_dog" = "野狗";
+"animal_wild_boar" = "野豬";
+"animal_bear" = "熊";
+"animal_wolf" = "狼";
+"animal_fox" = "狐狸";
+"animal_snake" = "毒蛇";
+"animal_monkey" = "猴子";
+"animal_mouse" = "老鼠";
+"animal_rabbit" = "野兔";
+"animal_spider" = "毒蜘蛛";
+"animal_wasp" = "馬蜂";
+"animal_crow" = "烏鴉";
+
+// 聲音名
+"sound_tiger" = "虎嘯聲";
+"sound_lion" = "獅吼聲";
+"sound_gunshot" = "槍聲";
+"sound_wolf" = "狼嚎聲";
+"sound_dog" = "狗吠聲";
+"sound_rooster" = "雄雞啼鳴";
+"sound_eagle" = "鷹嘯聲";
+"sound_cat" = "貓叫聲";
+"sound_vibration" = "震動聲";
+"sound_low_freq" = "低頻聲波";

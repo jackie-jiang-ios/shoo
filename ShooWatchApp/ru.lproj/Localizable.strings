@@ -1,0 +1,36 @@
+/* Shoo Watch App - Русский */
+
+"app_name" = "Shoo!";
+"quick_repel" = "Быстрое отпугивание";
+"repelling" = "Отпугивание";
+"quick_repel_sound" = "Быстрое отпугивание";
+"playing" = "Воспроизведение";
+"stop" = "Стоп";
+"category_beast" = "Хищники";
+"category_reptile" = "Рептилии";
+"category_primate" = "Приматы";
+"category_rodent" = "Грызуны";
+"category_insect" = "Насекомые";
+"category_bird" = "Птицы";
+"animal_wild_dog" = "Дикая собака";
+"animal_wild_boar" = "Кабан";
+"animal_bear" = "Медведь";
+"animal_wolf" = "Волк";
+"animal_fox" = "Лиса";
+"animal_snake" = "Ядовитая змея";
+"animal_monkey" = "Обезьяна";
+"animal_mouse" = "Мышь";
+"animal_rabbit" = "Дикий кролик";
+"animal_spider" = "Ядовитый паук";
+"animal_wasp" = "Оса";
+"animal_crow" = "Ворона";
+"sound_tiger" = "Рёв тигра";
+"sound_lion" = "Рёв льва";
+"sound_gunshot" = "Выстрел";
+"sound_wolf" = "Вой волка";
+"sound_dog" = "Лай собаки";
+"sound_rooster" = "Крик петуха";
+"sound_eagle" = "Крик орла";
+"sound_cat" = "Мяуканье кошки";
+"sound_vibration" = "Вибрация";
+"sound_low_freq" = "Низкая частота";

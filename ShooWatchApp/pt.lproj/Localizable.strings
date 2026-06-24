@@ -1,0 +1,36 @@
+/* Shoo Watch App - Português */
+
+"app_name" = "Shoo!";
+"quick_repel" = "Repulsão rápida";
+"repelling" = "Repelindo";
+"quick_repel_sound" = "Repulsão rápida";
+"playing" = "Reproduzindo";
+"stop" = "Parar";
+"category_beast" = "Feras";
+"category_reptile" = "Répteis";
+"category_primate" = "Primatas";
+"category_rodent" = "Roedores";
+"category_insect" = "Insetos";
+"category_bird" = "Aves";
+"animal_wild_dog" = "Cão selvagem";
+"animal_wild_boar" = "Javali";
+"animal_bear" = "Urso";
+"animal_wolf" = "Lobo";
+"animal_fox" = "Raposa";
+"animal_snake" = "Cobra venenosa";
+"animal_monkey" = "Macaco";
+"animal_mouse" = "Rato";
+"animal_rabbit" = "Coelho selvagem";
+"animal_spider" = "Aranha venenosa";
+"animal_wasp" = "Vespa";
+"animal_crow" = "Corvo";
+"sound_tiger" = "Rugido de tigre";
+"sound_lion" = "Rugido de leão";
+"sound_gunshot" = "Tiro";
+"sound_wolf" = "Uivo de lobo";
+"sound_dog" = "Latido de cão";
+"sound_rooster" = "Canto do galo";
+"sound_eagle" = "Grito de águia";
+"sound_cat" = "Miau de gato";
+"sound_vibration" = "Vibração";
+"sound_low_freq" = "Baixa frequência";

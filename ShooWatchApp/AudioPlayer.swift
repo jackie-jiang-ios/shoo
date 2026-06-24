@@ -87,8 +87,8 @@ class AudioPlayer: ObservableObject {
         NSLog("[ShooWatch] ⏹ Stopped")
     }
 
-    /// 紧急求救 — 播放最强力的虎啸声
+    /// 一键驱赶 — 播放最强力的虎啸声
     func emergency() {
-        playSound(animalId: "emergency", soundFile: "tiger_1", soundName: "紧急求救")
+        playSound(animalId: "emergency", soundFile: "tiger_1", soundName: L10n.quickRepelSound)
     }
 }

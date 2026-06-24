@@ -1,25 +1,26 @@
 import SwiftUI
 
-/// 主界面 - 上下滑动列表 + 紧急按钮
+/// 主界面 - 上下滑动列表 + 一键驱赶按钮
 /// 完全独立的 Watch App，本地播放音频，不依赖 iPhone
 struct ContentView: View {
     @EnvironmentObject var audioPlayer: AudioPlayer
-    
+
     var body: some View {
         NavigationStack {
             ScrollView {
                 VStack(spacing: 8) {
-                    // 紧急求救按钮（置顶）
+                    // 一键驱赶按钮（置顶）
                     NavigationLink {
                         PlayingView()
                             .environmentObject(audioPlayer)
                     } label: {
                         EmergencyLabel()
                     }
+                    .buttonStyle(.plain)
                     .simultaneousGesture(TapGesture().onEnded {
                         audioPlayer.emergency()
                     })
-                    
+
                     // 按分类分组的动物列表
                     ForEach(WatchAnimal.categorized, id: \.name) { category in
                         CategorySection(
@@ -43,20 +44,20 @@ struct ContentView: View {
                 .padding(.horizontal, 8)
                 .padding(.bottom, 20)
             }
-            .navigationTitle("Shoo!")
+            .navigationTitle(L10n.appName)
             .navigationBarTitleDisplayMode(.inline)
         }
     }
 }
 
-// MARK: - 紧急求救按钮
+// MARK: - 一键驱赶按钮
 
 struct EmergencyLabel: View {
     var body: some View {
         HStack(spacing: 8) {
-            Image(systemName: "exclamationmark.triangle.fill")
+            Image(systemName: "bolt.trianglebadge.exclamationmark.fill")
                 .font(.title3)
-            Text("紧急求救")
+            Text(L10n.quickRepel)
                 .font(.headline)
                 .fontWeight(.bold)
         }
@@ -77,7 +78,7 @@ struct CategorySection: View {
     let isPlaying: Bool
     let onPlay: (WatchAnimal) -> Void
     let onStop: () -> Void
-    
+
     var body: some View {
         VStack(spacing: 6) {
             HStack {
@@ -91,7 +92,7 @@ struct CategorySection: View {
             }
             .padding(.leading, 4)
             .padding(.top, 4)
-            
+
             ForEach(animals) { animal in
                 AnimalCard(
                     animal: animal,
@@ -111,7 +112,7 @@ struct AnimalCard: View {
     let isPlaying: Bool
     let onPlay: () -> Void
     let onStop: () -> Void
-    
+
     var body: some View {
         Button(action: {
             if isPlaying {
@@ -124,7 +125,7 @@ struct AnimalCard: View {
                 Text(animal.emoji)
                     .font(.title2)
                     .frame(width: 36, height: 36)
-                
+
                 VStack(alignment: .leading, spacing: 2) {
                     Text(animal.name)
                         .font(.subheadline)
@@ -134,9 +135,9 @@ struct AnimalCard: View {
                         .font(.caption2)
                         .foregroundStyle(.secondary)
                 }
-                
+
                 Spacer()
-                
+
                 if isPlaying {
                     Image(systemName: "stop.fill")
                         .font(.title3)
@@ -167,7 +168,7 @@ struct AnimalCard: View {
 struct PlayingView: View {
     @EnvironmentObject var audioPlayer: AudioPlayer
     @Environment(\.dismiss) private var dismiss
-    
+
     var body: some View {
         VStack(spacing: 16) {
             // 播放中动画
@@ -175,13 +176,13 @@ struct PlayingView: View {
                 .font(.system(size: 40))
                 .foregroundStyle(audioPlayer.isPlaying ? .orange : .gray)
                 .symbolEffect(.pulse, options: .repeating, isActive: audioPlayer.isPlaying)
-            
-            // 动物名 / 紧急求救
+
+            // 动物名 / 一键驱赶
             if let animalId = audioPlayer.playingAnimalId {
                 if animalId == "emergency" {
-                    Text("🆘")
+                    Text("🔥")
                         .font(.system(size: 36))
-                    Text("紧急求救中")
+                    Text(L10n.repelling)
                         .font(.title3)
                         .fontWeight(.bold)
                         .foregroundStyle(.red)
@@ -194,21 +195,21 @@ struct PlayingView: View {
                 } else {
                     Text("🔊")
                         .font(.system(size: 36))
-                    Text("播放中")
+                    Text(L10n.playing)
                         .font(.title3)
                         .fontWeight(.bold)
                 }
             }
-            
+
             // 声音名
             if let soundName = audioPlayer.playingSoundName {
                 Text(soundName)
                     .font(.caption)
                     .foregroundStyle(.secondary)
             }
-            
+
             Spacer()
-            
+
             // 大停止按钮
             Button(action: {
                 audioPlayer.stopSound()
@@ -221,13 +222,13 @@ struct PlayingView: View {
                     .background(.red.gradient, in: Circle())
             }
             .buttonStyle(.plain)
-            
-            Text("停止")
+
+            Text(L10n.stop)
                 .font(.caption)
                 .foregroundStyle(.secondary)
         }
         .padding()
-        .navigationTitle("播放中")
+        .navigationTitle(L10n.playing)
         .navigationBarTitleDisplayMode(.inline)
     }
 }

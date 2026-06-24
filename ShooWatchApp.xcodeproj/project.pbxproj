@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 70;
+	objectVersion = 77;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -11,18 +11,42 @@
 		A10002 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10002 /* ContentView.swift */; };
 		A10003 /* AudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10003 /* AudioPlayer.swift */; };
 		A10004 /* WatchAnimal.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10004 /* WatchAnimal.swift */; };
+		A10005 /* L10n.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10005 /* L10n.swift */; };
 		A10010 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B10010 /* Assets.xcassets */; };
 		A10020 /* Sounds in Resources */ = {isa = PBXBuildFile; fileRef = B10020 /* Sounds */; };
+		A10030 /* zh-Hans.lproj in Resources */ = {isa = PBXBuildFile; fileRef = B10030 /* zh-Hans.lproj */; };
+		A10031 /* zh-Hant.lproj in Resources */ = {isa = PBXBuildFile; fileRef = B10031 /* zh-Hant.lproj */; };
+		A10032 /* en.lproj in Resources */ = {isa = PBXBuildFile; fileRef = B10032 /* en.lproj */; };
+		A10033 /* ja.lproj in Resources */ = {isa = PBXBuildFile; fileRef = B10033 /* ja.lproj */; };
+		A10034 /* ko.lproj in Resources */ = {isa = PBXBuildFile; fileRef = B10034 /* ko.lproj */; };
+		A10035 /* fr.lproj in Resources */ = {isa = PBXBuildFile; fileRef = B10035 /* fr.lproj */; };
+		A10036 /* de.lproj in Resources */ = {isa = PBXBuildFile; fileRef = B10036 /* de.lproj */; };
+		A10037 /* es.lproj in Resources */ = {isa = PBXBuildFile; fileRef = B10037 /* es.lproj */; };
+		A10038 /* ru.lproj in Resources */ = {isa = PBXBuildFile; fileRef = B10038 /* ru.lproj */; };
+		A10039 /* pt.lproj in Resources */ = {isa = PBXBuildFile; fileRef = B10039 /* pt.lproj */; };
+		A10040 /* th.lproj in Resources */ = {isa = PBXBuildFile; fileRef = B10040 /* th.lproj */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		C10001 /* ShooWatchApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShooWatchApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B10001 /* ShooWatchApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShooWatchApp.swift; sourceTree = "<group>"; };
 		B10002 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		B10003 /* AudioPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayer.swift; sourceTree = "<group>"; };
 		B10004 /* WatchAnimal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchAnimal.swift; sourceTree = "<group>"; };
+		B10005 /* L10n.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = L10n.swift; sourceTree = "<group>"; };
 		B10010 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B10020 /* Sounds */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Sounds; sourceTree = "<group>"; };
+		B10030 /* zh-Hans.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "zh-Hans.lproj"; sourceTree = "<group>"; };
+		B10031 /* zh-Hant.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "zh-Hant.lproj"; sourceTree = "<group>"; };
+		B10032 /* en.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = en.lproj; sourceTree = "<group>"; };
+		B10033 /* ja.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = ja.lproj; sourceTree = "<group>"; };
+		B10034 /* ko.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = ko.lproj; sourceTree = "<group>"; };
+		B10035 /* fr.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = fr.lproj; sourceTree = "<group>"; };
+		B10036 /* de.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = de.lproj; sourceTree = "<group>"; };
+		B10037 /* es.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = es.lproj; sourceTree = "<group>"; };
+		B10038 /* ru.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = ru.lproj; sourceTree = "<group>"; };
+		B10039 /* pt.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = pt.lproj; sourceTree = "<group>"; };
+		B10040 /* th.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = th.lproj; sourceTree = "<group>"; };
+		C10001 /* ShooWatchApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShooWatchApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,8 +75,20 @@
 				B10002 /* ContentView.swift */,
 				B10003 /* AudioPlayer.swift */,
 				B10004 /* WatchAnimal.swift */,
+				B10005 /* L10n.swift */,
 				B10010 /* Assets.xcassets */,
 				B10020 /* Sounds */,
+				B10030 /* zh-Hans.lproj */,
+				B10031 /* zh-Hant.lproj */,
+				B10032 /* en.lproj */,
+				B10033 /* ja.lproj */,
+				B10034 /* ko.lproj */,
+				B10035 /* fr.lproj */,
+				B10036 /* de.lproj */,
+				B10037 /* es.lproj */,
+				B10038 /* ru.lproj */,
+				B10039 /* pt.lproj */,
+				B10040 /* th.lproj */,
 			);
 			path = ShooWatchApp;
 			sourceTree = "<group>";
@@ -101,15 +137,24 @@
 				};
 			};
 			buildConfigurationList = G10001 /* Build configuration list for PBXProject "ShooWatchApp" */;
-			compatibilityVersion = "Xcode 16";
 			developmentRegion = "zh-Hans";
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 				Base,
 				"zh-Hans",
+				"zh-Hant",
+				ja,
+				ko,
+				fr,
+				de,
+				es,
+				ru,
+				pt,
+				th,
 			);
 			mainGroup = D10000;
+			preferredProjectObjectVersion = 77;
 			productRefGroup = D10002 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -126,6 +171,17 @@
 			files = (
 				A10010 /* Assets.xcassets in Resources */,
 				A10020 /* Sounds in Resources */,
+				A10030 /* zh-Hans.lproj in Resources */,
+				A10031 /* zh-Hant.lproj in Resources */,
+				A10032 /* en.lproj in Resources */,
+				A10033 /* ja.lproj in Resources */,
+				A10034 /* ko.lproj in Resources */,
+				A10035 /* fr.lproj in Resources */,
+				A10036 /* de.lproj in Resources */,
+				A10037 /* es.lproj in Resources */,
+				A10038 /* ru.lproj in Resources */,
+				A10039 /* pt.lproj in Resources */,
+				A10040 /* th.lproj in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -140,6 +196,7 @@
 				A10002 /* ContentView.swift in Sources */,
 				A10003 /* AudioPlayer.swift in Sources */,
 				A10004 /* WatchAnimal.swift in Sources */,
+				A10005 /* L10n.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -149,6 +206,7 @@
 		H10001 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -181,6 +239,7 @@
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				USE_SEPARATE_HEADERMAPS = YES;
 				WATCHOS_DEPLOYMENT_TARGET = 10.0;
 			};
 			name = Debug;
@@ -188,6 +247,7 @@
 		H10002 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -212,6 +272,7 @@
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				USE_SEPARATE_HEADERMAPS = YES;
 				VALIDATE_PRODUCT = YES;
 				WATCHOS_DEPLOYMENT_TARGET = 10.0;
 			};
@@ -223,7 +284,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = QTJVGSJ3G2;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -235,7 +297,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = 1.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.yangshiqin.shoo.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -252,7 +314,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = QTJVGSJ3G2;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -264,7 +327,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = 1.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.yangshiqin.shoo.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -297,7 +360,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
 	};
 	rootObject = F10000 /* Project object */;
 }
