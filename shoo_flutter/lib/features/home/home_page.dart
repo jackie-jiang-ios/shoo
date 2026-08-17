@@ -7,6 +7,7 @@ import '../../models/animal.dart';
 import '../../core/audio/audio_controller.dart';
 import '../../core/platform/native_logger.dart';
 import '../../core/storage/preferences.dart';
+import '../../core/purchase/purchase_manager.dart';
 import '../sounds/widgets/audio_file_waveform_list.dart';
 import '../../l10n/app_localizations.dart';
 import '../../theme/colors.dart';
@@ -85,11 +86,19 @@ class _HomePageState extends ConsumerState<HomePage> {
     final currentAnimal = ref.watch(currentAnimalProvider);
     final isPlaying = ref.watch(isPlayingProvider);
 
-    final filteredAnimals = activeCategory == 'all'
+    final filteredAnimals = (activeCategory == 'all'
         ? AnimalDatabase.animals
         : AnimalDatabase.animals
             .where((a) => a.category.id == activeCategory)
-            .toList();
+            .toList());
+    // 免费动物排前面，锁定的排后面
+    final isPro = PurchaseManager.instance.isPro;
+    filteredAnimals.sort((a, b) {
+      final aFree = AnimalDatabase.freeAnimalIds.contains(a.id) || isPro;
+      final bFree = AnimalDatabase.freeAnimalIds.contains(b.id) || isPro;
+      if (aFree == bFree) return 0;
+      return aFree ? -1 : 1;
+    });
 
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
@@ -304,6 +313,8 @@ class _AnimalCard extends ConsumerWidget {
     final hasMultipleThemes = animal.availableThemes.length > 1;
 
     final isDark = Theme.of(context).brightness == Brightness.dark;
+    final isLocked = !AnimalDatabase.freeAnimalIds.contains(animal.id) &&
+        !PurchaseManager.instance.isPro;
 
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 6),
@@ -320,13 +331,14 @@ class _AnimalCard extends ConsumerWidget {
         color: Colors.transparent,
         borderRadius: BorderRadius.circular(16),
         child: InkWell(
-          onTap: () => _showDetail(context, ref),
+          onTap: () => isLocked ? _showPaywall(context) : _showDetail(context, ref),
           borderRadius: BorderRadius.circular(16),
-          child: Padding(
-            padding: const EdgeInsets.all(12),
-            child: Row(children: [
-              // 动物图片 + 主题切换按钮
-              GestureDetector(
+          child: Stack(children: [
+            Padding(
+              padding: const EdgeInsets.all(12),
+              child: Row(children: [
+                // 动物图片 + 主题切换按钮
+                GestureDetector(
                 onTap:
                     hasMultipleThemes ? () => _cycleTheme(ref, themeId) : null,
                 child: Stack(children: [
@@ -415,11 +427,19 @@ class _AnimalCard extends ConsumerWidget {
                               fontSize: 12)),
                     ]),
                   ])),
-              Icon(Icons.chevron_right,
-                  color: isDark ? AppColorsDark.textHint : Colors.grey[400]),
+              if (isLocked)
+                const Padding(
+                  padding: EdgeInsets.only(left: 4),
+                  child: Icon(Icons.lock_outline, size: 18, color: Colors.orange),
+                )
+              else
+                Icon(Icons.chevron_right,
+                    color: isDark ? AppColorsDark.textHint : Colors.grey[400]),
             ]),
-          ),
+            ),
+          ],
         ),
+      ),
       ),
     );
   }
@@ -433,6 +453,10 @@ class _AnimalCard extends ConsumerWidget {
     prefs.setAnimalIconTheme(animal.id, nextThemeId);
     // 同时更新全局主题以触发 UI 刷新
     ref.read(iconThemeProvider.notifier).state = nextThemeId;
+  }
+
+  void _showPaywall(BuildContext context) {
+    context.push('/paywall');
   }
 
   void _showDetail(BuildContext context, WidgetRef ref) {

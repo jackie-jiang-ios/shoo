@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 import '../../app.dart';
 import '../../core/storage/preferences.dart';
+import '../../core/purchase/purchase_manager.dart';
 import '../../l10n/app_localizations.dart';
 import '../../theme/colors.dart';
 
@@ -23,6 +25,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
   late bool _keepScreenOn;
   late int _autoStopMinutes;
   late double _loopIntervalSeconds;
+  String _version = '';
 
   @override
   void initState() {
@@ -33,6 +36,16 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
     _keepScreenOn = prefs.keepScreenOn;
     _autoStopMinutes = prefs.autoStopMinutes;
     _loopIntervalSeconds = prefs.intervalSeconds;
+    _loadVersion();
+  }
+
+  Future<void> _loadVersion() async {
+    final info = await PackageInfo.fromPlatform();
+    if (mounted) {
+      setState(() {
+        _version = '${info.version} (${info.buildNumber})';
+      });
+    }
   }
 
   @override
@@ -200,7 +213,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
                 ListTile(
                   leading: const Icon(Icons.info),
                   title: Text(s.version),
-                  trailing: const Text('1.0.0'),
+                  trailing: Text(_version),
                 ),
                 const Divider(height: 1),
                 ListTile(
@@ -234,6 +247,20 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
                       Uri.parse('mailto:13036101641@163.com'),
                       mode: LaunchMode.externalApplication,
                     );
+                  },
+                ),
+                const Divider(height: 1),
+                ListTile(
+                  leading: const Icon(Icons.restore),
+                  title: Text(s.restorePurchases),
+                  trailing: const Icon(Icons.chevron_right),
+                  onTap: () async {
+                    final success = await PurchaseManager.instance.restorePurchases();
+                    if (context.mounted) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text(success ? s.restoreSuccess : s.restoreFailed)),
+                      );
+                    }
                   },
                 ),
               ],

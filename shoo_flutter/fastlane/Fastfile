@@ -1,0 +1,151 @@
+# Fastfile - Shoo App Store automation
+default_platform(:ios)
+APP_IDENTIFIER = "com.yangshiqin.shoo"
+LANGUAGES = ["zh-Hans", "zh-Hant", "en-US", "ja", "ko", "fr-FR", "de-DE", "es-ES", "ru", "pt-BR", "th"]
+
+lane :screenshots do
+  sh("bash", "../scripts/screenshot_all_langs.sh")
+  UI.success("Screenshots done!")
+end
+
+lane :record_videos do
+  sh("bash", "../scripts/record_all_videos.sh")
+  UI.success("Videos done!")
+end
+
+lane :gen_tts do
+  sh("python3", "../scripts/gen_tts_narrations.py")
+  UI.success("TTS done!")
+end
+
+lane :gen_videos do
+  gen_tts
+  record_videos
+  UI.success("Video pipeline done!")
+end
+
+lane :upload do
+  api_key = app_store_connect_api_key(
+    key_id: ENV["ASC_KEY_ID"],
+    issuer_id: ENV["ASC_ISSUER_ID"],
+    key_filepath: ENV["ASC_KEY_FILEPATH"] || "./AuthKey.p8",
+    in_house: false
+  )
+  deliver(
+    api_key: api_key,
+    app_identifier: APP_IDENTIFIER,
+    metadata_path: "./metadata",
+    screenshots_path: "./screenshots",
+    force: true,
+    automatic_release: false,
+    overwrite_screenshots: true,
+    overwrite_preview_videos: true,
+    precheck_include_in_app_purchases: false,
+    languages: LANGUAGES
+  )
+  UI.success("Upload done!")
+end
+
+lane :upload_metadata do
+  api_key = app_store_connect_api_key(
+    key_id: ENV["ASC_KEY_ID"],
+    issuer_id: ENV["ASC_ISSUER_ID"],
+    key_filepath: ENV["ASC_KEY_FILEPATH"] || "./AuthKey.p8",
+    in_house: false
+  )
+  deliver(
+    api_key: api_key,
+    app_identifier: APP_IDENTIFIER,
+    metadata_path: "./metadata",
+    force: true,
+    skip_screenshots: true,
+    automatic_release: false,
+    precheck_include_in_app_purchases: false,
+    languages: LANGUAGES
+  )
+  UI.success("Metadata upload done!")
+end
+
+lane :upload_screenshots do
+  api_key = app_store_connect_api_key(
+    key_id: ENV["ASC_KEY_ID"],
+    issuer_id: ENV["ASC_ISSUER_ID"],
+    key_filepath: ENV["ASC_KEY_FILEPATH"] || "./AuthKey.p8",
+    in_house: false
+  )
+  deliver(
+    api_key: api_key,
+    app_identifier: APP_IDENTIFIER,
+    screenshots_path: "./screenshots",
+    force: true,
+    skip_metadata: true,
+    overwrite_screenshots: true,
+    overwrite_preview_videos: true,
+    sync_screenshots: true,
+    automatic_release: false,
+    precheck_include_in_app_purchases: false,
+    languages: LANGUAGES
+  )
+  UI.success("Screenshots upload done!")
+end
+
+lane :upload_videos do
+  api_key = app_store_connect_api_key(
+    key_id: ENV["ASC_KEY_ID"],
+    issuer_id: ENV["ASC_ISSUER_ID"],
+    key_filepath: ENV["ASC_KEY_FILEPATH"] || "./AuthKey.p8",
+    in_house: false
+  )
+  deliver(
+    api_key: api_key,
+    app_identifier: APP_IDENTIFIER,
+    screenshots_path: "./screenshots",
+    force: true,
+    skip_metadata: true,
+    skip_screenshots: false,
+    overwrite_screenshots: false,
+    overwrite_preview_videos: true,
+    sync_screenshots: false,
+    automatic_release: false,
+    precheck_include_in_app_purchases: false,
+    languages: LANGUAGES
+  )
+  UI.success("Preview videos upload done!")
+end
+
+lane :download_metadata do
+  api_key = app_store_connect_api_key(
+    key_id: ENV["ASC_KEY_ID"],
+    issuer_id: ENV["ASC_ISSUER_ID"],
+    key_filepath: ENV["ASC_KEY_FILEPATH"] || "./AuthKey.p8",
+    in_house: false
+  )
+  download_metadata(
+    api_key: api_key,
+    app_identifier: APP_IDENTIFIER,
+    metadata_path: "./metadata"
+  )
+  UI.success("Metadata download done!")
+end
+
+lane :download_screenshots do
+  api_key = app_store_connect_api_key(
+    key_id: ENV["ASC_KEY_ID"],
+    issuer_id: ENV["ASC_ISSUER_ID"],
+    key_filepath: ENV["ASC_KEY_FILEPATH"] || "./AuthKey.p8",
+    in_house: false
+  )
+  download_screenshots(
+    api_key: api_key,
+    app_identifier: APP_IDENTIFIER,
+    screenshots_path: "./screenshots"
+  )
+  UI.success("Screenshots download done!")
+end
+
+lane :release_all do
+  screenshots
+  gen_videos
+  upload
+  UI.success("All done! Check: https://appstoreconnect.apple.com")
+end

@@ -3,7 +3,7 @@ description: 防兽神器 - 用声音驱赶野兽的多平台应用
 
 publish_to: 'none'
 
-version: 1.1.0+2
+version: 2.0.0+6
 
 environment:
   sdk: '>=3.3.0 <4.0.0'
@@ -47,8 +47,16 @@ dependencies:
   # 图标
   cupertino_icons: ^1.0.6
 
+  # 内购
+  in_app_purchase: ^3.1.0
+
+  # 应用信息
+  package_info_plus: ^8.0.0
+
 dev_dependencies:
   flutter_test:
+    sdk: flutter
+  integration_test:
     sdk: flutter
 
   flutter_lints: ^3.0.1

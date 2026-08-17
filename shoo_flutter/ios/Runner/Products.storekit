@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>identifier</key>
+	<string>ShooTest</string>
+	<key>localizations</key>
+	<array>
+		<dict>
+			<key>displayName</key>
+			<string>测试配置</string>
+			<key>locale</key>
+			<string>zh_CN</string>
+		</dict>
+	</array>
+	<key>products</key>
+	<array>
+		<dict>
+			<key>displayName</key>
+			<string>Pro 永久解锁</string>
+			<key>displayPrice</key>
+			<string>¥18.00</string>
+			<key>familyShareable</key>
+			<false/>
+			<key>identifier</key>
+			<string>com.yangshiqin.shoo.pro_lifetime</string>
+			<key>type</key>
+			<string>NonConsumable</string>
+		</dict>
+	</array>
+	<key>subscriptionGroups</key>
+	<array/>
+	<key>version</key>
+	<dict>
+		<key>major</key>
+		<integer>1</integer>
+		<key>minor</key>
+		<integer>0</integer>
+	</dict>
+</dict>
+</plist>

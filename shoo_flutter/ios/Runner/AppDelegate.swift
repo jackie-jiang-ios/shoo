@@ -33,6 +33,9 @@ import AVFoundation
         setupPlatformChannel(messenger: messenger)
         setupNativeLogChannel(messenger: messenger)
         setupBackgroundChannel(messenger: messenger)
+        if #available(iOS 15.0, *) {
+            PurchaseChannel.setup(messenger: messenger)
+        }
     }
     
     // MARK: - 音频会话配置

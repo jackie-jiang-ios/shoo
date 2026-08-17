@@ -5,6 +5,7 @@ import 'package:volume_controller/volume_controller.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 import 'app.dart';
 import 'core/storage/preferences.dart';
+import 'core/purchase/purchase_manager.dart';
 
 /// 全局初始化完成信号，闪屏页等待此 Future 完成后再跳转
 late final Future<void> appInitialized;
@@ -39,6 +40,7 @@ Future<void> _initAsync() async {
   await Future.wait([
     _initAudioSession(),
     _initWakelock(),
+    PurchaseManager.instance.init(),
   ]);
 }
 

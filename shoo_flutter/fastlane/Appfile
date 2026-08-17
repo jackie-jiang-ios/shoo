@@ -1,0 +1,3 @@
+app_identifier "com.yangshiqin.shoo"
+apple_id ENV["APPLE_ID"] || "your-apple-id@example.com"
+team_id ENV["TEAM_ID"] || "your-team-id"

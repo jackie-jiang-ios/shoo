@@ -6,6 +6,7 @@ import 'core/storage/preferences.dart';
 import 'features/home/home_page.dart';
 import 'features/settings/settings_page.dart';
 import 'features/settings/web_view_page.dart';
+import 'features/paywall/paywall_page.dart';
 import 'features/splash/splash_page.dart';
 import 'theme/app_theme.dart';
 import 'l10n/app_localizations.dart';
@@ -78,6 +79,7 @@ final _router = GoRouter(
         );
       },
     ),
+    GoRoute(path: '/paywall', name: 'paywall', builder: (context, state) => const PaywallPage()),
   ],
 );
 

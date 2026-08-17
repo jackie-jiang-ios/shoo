@@ -504,6 +504,9 @@ class AnimalDatabase {
     return null;
   }
 
+  /// 免费可用的动物 ID 列表（其余动物需要 Pro 解锁）
+  static const freeAnimalIds = {'wild_dog', 'snake', 'mouse', 'crow'};
+
   /// 根据分类获取动物列表
   static List<Animal> findByCategory(AnimalCategory category) {
     if (category == AnimalCategory.all) return animals;

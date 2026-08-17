@@ -857,6 +857,108 @@ String get emergencyBtnDesc => _t(const {
     'fr': 'En lecture', 'de': 'Wird abgespielt', 'es': 'Reproduciendo', 'ru': 'Воспроизведение',
     'pt': 'Reproduzindo', 'th': 'กำลังเล่น',
   });
+  // ============ 内购 ============
+  String get upgradeToPro => _t(const {
+    'zh': '升级 Pro', 'zh_TW': '升級 Pro', 'en': 'Upgrade to Pro', 'ja': 'Proにアップグレード', 'ko': 'Pro 업그레이드',
+    'fr': 'Passer à Pro', 'de': 'Auf Pro upgraden', 'es': 'Mejorar a Pro', 'ru': 'Перейти на Pro',
+    'pt': 'Atualizar para Pro', 'th': 'อัปเกรดเป็น Pro',
+  });
+  String get shooPro => _t(const {
+    'zh': 'Shoo Pro', 'zh_TW': 'Shoo Pro', 'en': 'Shoo Pro', 'ja': 'Shoo Pro', 'ko': 'Shoo Pro',
+    'fr': 'Shoo Pro', 'de': 'Shoo Pro', 'es': 'Shoo Pro', 'ru': 'Shoo Pro',
+    'pt': 'Shoo Pro', 'th': 'Shoo Pro',
+  });
+  String get unlockAllAnimals => _t(const {
+    'zh': '解锁全部动物声音', 'zh_TW': '解鎖全部動物聲音', 'en': 'Unlock all animal sounds', 'ja': '全動物の音を解放', 'ko': '모든 동물 소리 잠금 해제',
+    'fr': 'Débloquer tous les sons', 'de': 'Alle Tierstimmen freischalten', 'es': 'Desbloquear todos los sonidos', 'ru': 'Разблокировать все звуки',
+    'pt': 'Desbloquear todos os sons', 'th': 'ปลดล็อกเสียงสัตว์ทั้งหมด',
+  });
+  String get freeAnimals => _t(const {
+    'zh': '免费动物', 'zh_TW': '免費動物', 'en': 'Free animals', 'ja': '無料動物', 'ko': '무료 동물',
+    'fr': 'Animaux gratuits', 'de': 'Kostenlose Tiere', 'es': 'Animales gratuitos', 'ru': 'Бесплатные животные',
+    'pt': 'Animais gratuitos', 'th': 'สัตว์ฟรี',
+  });
+  String get freeAnimalsDesc => _t(const {
+    'zh': '野狗、毒蛇、老鼠、乌鸦', 'zh_TW': '野狗、毒蛇、老鼠、烏鴉', 'en': 'Wild dog, Snake, Mouse, Crow', 'ja': '野良犬、毒蛇、ネズミ、カラス', 'ko': '들개, 독사, 쥐, 까마귀',
+    'fr': 'Chien, Serpent, Souris, Corbeau', 'de': 'Hund, Schlange, Maus, Krähe', 'es': 'Perro, Serpiente, Ratón, Cuervo', 'ru': 'Собака, Змея, Мышь, Ворона',
+    'pt': 'Cão, Cobra, Rato, Corvo', 'th': 'หมา งู หนู อีกา',
+  });
+  String get proAnimals => _t(const {
+    'zh': '全部动物', 'zh_TW': '全部動物', 'en': 'All animals', 'ja': '全動物', 'ko': '모든 동물',
+    'fr': 'Tous les animaux', 'de': 'Alle Tiere', 'es': 'Todos los animales', 'ru': 'Все животные',
+    'pt': 'Todos os animais', 'th': 'สัตว์ทั้งหมด',
+  });
+  String get proAnimalsDesc => _t(const {
+    'zh': '野猪、熊、狼、狐狸、猴子、野兔、毒蜘蛛、马蜂等', 'zh_TW': '野豬、熊、狼、狐狸、猴子、野兔、毒蜘蛛、馬蜂等', 'en': 'Boar, Bear, Wolf, Fox, Monkey, Rabbit, Spider, Wasp and more', 'ja': 'イノシシ、熊、狼、狐、猿、野ウサギ、蜘蛛、スズメバチ等', 'ko': '멧돼지, 곰, 늑대, 여우, 원숭이, 토끼, 거미, 말벌 등',
+    'fr': 'Sanglier, Ours, Loup, Renard, Singe et plus', 'de': 'Wildschwein, Bär, Wolf, Fuchs und mehr', 'es': 'Jabalí, Oso, Lobo, Zorro y más', 'ru': 'Кабан, Медведь, Волк, Лиса и более',
+    'pt': 'Javali, Urso, Lobo, Raposa e mais', 'th': 'หมูป่า หมี หมาป่า สุนัขจิ้งจอก และอีกมาก',
+  });
+  String get allFeatures => _t(const {
+    'zh': '全部功能', 'zh_TW': '全部功能', 'en': 'All features', 'ja': '全機能', 'ko': '모든 기능',
+    'fr': 'Toutes les fonctionnalités', 'de': 'Alle Funktionen', 'es': 'Todas las funciones', 'ru': 'Все функции',
+    'pt': 'Todos os recursos', 'th': 'ฟังก์ชั่นทั้งหมด',
+  });
+  String get allFeaturesDesc => _t(const {
+    'zh': '声音混合、定时播放、间隔播放等', 'zh_TW': '聲音混合、定時播放、間隔播放等', 'en': 'Sound mixing, timer, interval playback', 'ja': 'サウンドミックス、タイマー、間隔再生', 'ko': '소리 믹싱, 타이머, 간격 재생',
+    'fr': 'Mixage sonore, minuterie, lecture par intervalles', 'de': 'Sound-Mixing, Timer, Intervallwiedergabe', 'es': 'Mezcla de sonido, temporizador', 'ru': 'Микширование, таймер, интервалы',
+    'pt': 'Mixagem de som, temporizador', 'th': 'มิกเสียง, จับเวลา, เล่นเป็นช่วง',
+  });
+  String get futureUpdates => _t(const {
+    'zh': '未来更新', 'zh_TW': '未來更新', 'en': 'Future updates', 'ja': '今後のアップデート', 'ko': '향후 업데이트',
+    'fr': 'Mises à jour futures', 'de': 'Zukünftige Updates', 'es': 'Actualizaciones futuras', 'ru': 'Будущие обновления',
+    'pt': 'Atualizações futuras', 'th': 'อัปเดตล่าสุด',
+  });
+  String get futureUpdatesDesc => _t(const {
+    'zh': '新增动物和功能免费获取', 'zh_TW': '新增動物和功能免費取得', 'en': 'New animals and features included', 'ja': '新動物と機能を無料で入手', 'ko': '새 동물과 기능 무료 제공',
+    'fr': 'Nouveaux animaux et fonctionnalités inclus', 'de': 'Neue Tiere und Funktionen inklusive', 'es': 'Nuevos animales y funciones incluidos', 'ru': 'Новые животные и функции включены',
+    'pt': 'Novos animais e recursos incluídos', 'th': 'สัตว์และฟังก์ชั่นใหม่รวมอยู่',
+  });
+  String get oneTimePurchase => _t(const {
+    'zh': '一次性购买，永久使用', 'zh_TW': '一次性購買，永久使用', 'en': 'One-time purchase, yours forever', 'ja': '一度の購入で永久利用', 'ko': '1회 구매, 영구 사용',
+    'fr': 'Achat unique, à vie', 'de': 'Einmaliger Kauf, für immer', 'es': 'Compra única, para siempre', 'ru': 'Разовая покупка, навсегда',
+    'pt': 'Compra única, para sempre', 'th': 'ซื้อครั้งเดียว ใช้ได้ตลอดไป',
+  });
+  String get defaultPrice => _t(const {
+    'zh': '¥18', 'zh_TW': 'NT\$80', 'en': '\$2.99', 'ja': '¥400', 'ko': '₩3,300',
+    'fr': '2,99 €', 'de': '2,99 €', 'es': '2,99 \$', 'ru': '249 ₽',
+    'pt': 'R\$ 14,90', 'th': '89 ฿',
+  });
+  String get unlockPro => _t(const {
+    'zh': '解锁 Pro', 'zh_TW': '解鎖 Pro', 'en': 'Unlock Pro', 'ja': 'Proを解除', 'ko': 'Pro 잠금 해제',
+    'fr': 'Débloquer Pro', 'de': 'Pro freischalten', 'es': 'Desbloquear Pro', 'ru': 'Разблокировать Pro',
+    'pt': 'Desbloquear Pro', 'th': 'ปลดล็อก Pro',
+  });
+  String get restorePurchases => _t(const {
+    'zh': '恢复购买', 'zh_TW': '恢復購買', 'en': 'Restore Purchases', 'ja': '購入を復元', 'ko': '구매 복원',
+    'fr': 'Restaurer les achats', 'de': 'Einkäufe wiederherstellen', 'es': 'Restaurar compras', 'ru': 'Восстановить покупки',
+    'pt': 'Restaurar compras', 'th': 'กู้คืนการซื้อ',
+  });
+  String get purchaseSecureNote => _t(const {
+    'zh': '通过 App Store 安全支付', 'zh_TW': '透過 App Store 安全支付', 'en': 'Secure payment via App Store', 'ja': 'App Store経由の安全な決済', 'ko': 'App Store를 통한 안전한 결제',
+    'fr': 'Paiement sécurisé via App Store', 'de': 'Sichere Zahlung über App Store', 'es': 'Pago seguro vía App Store', 'ru': 'Безопасная оплата через App Store',
+    'pt': 'Pagamento seguro via App Store', 'th': 'ชำระเงินปลอดภัยผ่าน App Store',
+  });
+  String get purchaseSuccess => _t(const {
+    'zh': '购买成功！已解锁全部动物', 'zh_TW': '購買成功！已解鎖全部動物', 'en': 'Purchase successful! All animals unlocked', 'ja': '購入成功！全動物を解放', 'ko': '구매 성공! 모든 동물 잠금 해제',
+    'fr': 'Achat réussi ! Tous les animaux débloqués', 'de': 'Kauf erfolgreich! Alle Tiere freigeschaltet', 'es': '¡Compra exitosa! Todos los animales desbloqueados', 'ru': 'Покупка успешна! Все животные разблокированы',
+    'pt': 'Compra bem-sucedida! Todos os animais desbloqueados', 'th': 'ซื้อสำเร็จ! ปลดล็อกสัตว์ทั้งหมด',
+  });
+  String get restoreSuccess => _t(const {
+    'zh': '恢复成功！', 'zh_TW': '恢復成功！', 'en': 'Restore successful!', 'ja': '復元成功！', 'ko': '복원 성공!',
+    'fr': 'Restauration réussie !', 'de': 'Wiederherstellung erfolgreich!', 'es': '¡Restauración exitosa!', 'ru': 'Восстановлено успешно!',
+    'pt': 'Restauração bem-sucedida!', 'th': 'กู้คืนสำเร็จ!',
+  });
+  String get restoreFailed => _t(const {
+    'zh': '未找到可恢复的购买', 'zh_TW': '未找到可恢復的購買', 'en': 'No purchases to restore', 'ja': '復元可能な購入が見つかりません', 'ko': '복원할 구매 없음',
+    'fr': 'Aucun achat à restaurer', 'de': 'Keine Käufe zum Wiederherstellen', 'es': 'Sin compras para restaurar', 'ru': 'Нет покупок для восстановления',
+    'pt': 'Nenhuma compra para restaurar', 'th': 'ไม่มีการซื้อให้กู้คืน',
+  });
+  String get pro => _t(const {
+    'zh': 'Pro', 'zh_TW': 'Pro', 'en': 'Pro', 'ja': 'Pro', 'ko': 'Pro',
+    'fr': 'Pro', 'de': 'Pro', 'es': 'Pro', 'ru': 'Pro',
+    'pt': 'Pro', 'th': 'Pro',
+  });
+
   String get dismiss => _t(const {
     'zh': '知道了', 'zh_TW': '知道了', 'en': 'Got it', 'ja': '了解', 'ko': '알겠습니다',
     'fr': 'Compris', 'de': 'Verstanden', 'es': 'Entendido', 'ru': 'Понятно',
