@@ -22,6 +22,13 @@
 		A0010001 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = A0010000 /* InfoPlist.strings */; };
 		A0010003 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = A0010002 /* InfoPlist.strings */; };
 		A0010005 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = A0010004 /* InfoPlist.strings */; };
+		A0010007 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = A0010006 /* InfoPlist.strings */; };
+		A0010009 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = A0010008 /* InfoPlist.strings */; };
+		A001000B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = A001000A /* InfoPlist.strings */; };
+		A001000D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = A001000C /* InfoPlist.strings */; };
+		A001000F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = A001000E /* InfoPlist.strings */; };
+		A0010011 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = A0010010 /* InfoPlist.strings */; };
+		A0010013 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = A0010012 /* InfoPlist.strings */; };
 		D2768DC228DAEDFC5BC1DAF1 /* Pods_RunnerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8B2E96FE806CC73769DA272 /* Pods_RunnerTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -75,6 +82,14 @@
 		A0010000 /* InfoPlist.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = InfoPlist.strings; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		A0010002 /* InfoPlist.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = InfoPlist.strings; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		A0010004 /* InfoPlist.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = InfoPlist.strings; path = "zh-Hant.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		A0010006 /* InfoPlist.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = InfoPlist.strings; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		A0010008 /* InfoPlist.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = InfoPlist.strings; path = ko.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		A001000A /* InfoPlist.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = InfoPlist.strings; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		A001000C /* InfoPlist.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = InfoPlist.strings; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		A001000E /* InfoPlist.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = InfoPlist.strings; path = es.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		A0010010 /* InfoPlist.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = InfoPlist.strings; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		A0010012 /* InfoPlist.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = InfoPlist.strings; path = pt.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		A0010014 /* InfoPlist.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = InfoPlist.strings; path = th.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		B8B2E96FE806CC73769DA272 /* Pods_RunnerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RunnerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9B61456C2C73501F58346F1 /* Pods-Runner.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.release.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.release.xcconfig"; sourceTree = "<group>"; };
 		DB7E28C21847F34CD923D47B /* Pods-Runner.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.debug.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.debug.xcconfig"; sourceTree = "<group>"; };
@@ -180,6 +195,14 @@
 				A0010000 /* InfoPlist.strings */,
 				A0010002 /* InfoPlist.strings */,
 				A0010004 /* InfoPlist.strings */,
+				A0010006 /* InfoPlist.strings */,
+				A0010008 /* InfoPlist.strings */,
+				A001000A /* InfoPlist.strings */,
+				A001000C /* InfoPlist.strings */,
+				A001000E /* InfoPlist.strings */,
+				A0010010 /* InfoPlist.strings */,
+				A0010012 /* InfoPlist.strings */,
+				A0010014 /* InfoPlist.strings */,
 				FC72C41FDB8F40A46D9B64C2 /* PurchaseManager.swift */,
 				9D1615C9C5D43C142D4F540C /* PurchaseChannel.swift */,
 			);
@@ -261,6 +284,16 @@
 			knownRegions = (
 				en,
 				Base,
+				"zh-Hans",
+				"zh-Hant",
+				ja,
+				ko,
+				fr,
+				de,
+				es,
+				ru,
+				pt,
+				th,
 			);
 			mainGroup = 97C146E51CF9000F007C117D;
 			packageReferences = (
@@ -297,6 +330,13 @@
 				A0010001 /* InfoPlist.strings in Resources */,
 				A0010003 /* InfoPlist.strings in Resources */,
 				A0010005 /* InfoPlist.strings in Resources */,
+				A0010007 /* InfoPlist.strings in Resources */,
+				A0010009 /* InfoPlist.strings in Resources */,
+				A001000B /* InfoPlist.strings in Resources */,
+				A001000D /* InfoPlist.strings in Resources */,
+				A001000F /* InfoPlist.strings in Resources */,
+				A0010011 /* InfoPlist.strings in Resources */,
+				A0010013 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
