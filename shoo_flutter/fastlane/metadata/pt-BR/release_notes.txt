@@ -1,9 +1,7 @@
-Grande atualização v2.0! Novidades:
+Atualização v3.0! Novidades:
 
-• App para Apple Watch — Controle a reprodução diretamente do seu pulso
-• Atualizar para Pro — Desbloqueie todos os sons de animais com uma compra única, para sempre
-• Tela inicial melhorada — Animais gratuitos e bloqueados claramente organizados
-• Restaurar compras — Recupere seu acesso Pro nas Configurações
-• Melhorias de desempenho e correção de bugs
+• Agora suporta 19 idiomas — adicionados árabe, indonésio, italiano, malaio, holandês, polonês, turco e vietnamita
+• Melhoria na localização em todo o aplicativo
+• Melhorias de desempenho e correções de bugs
 
-Obrigado por usar o Shoo!
+Obrigado por usar Shoo!

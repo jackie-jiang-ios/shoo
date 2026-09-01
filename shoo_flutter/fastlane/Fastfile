@@ -1,7 +1,7 @@
 # Fastfile - Shoo App Store automation
 default_platform(:ios)
 APP_IDENTIFIER = "com.yangshiqin.shoo"
-LANGUAGES = ["zh-Hans", "zh-Hant", "en-US", "ja", "ko", "fr-FR", "de-DE", "es-ES", "ru", "pt-BR", "th"]
+LANGUAGES = ["zh-Hans", "zh-Hant", "en-US", "ja", "ko", "fr-FR", "de-DE", "es-ES", "ru", "pt-BR", "th", "ar-SA", "id", "it", "ms", "nl-NL", "pl", "tr", "vi"]
 
 lane :screenshots do
   sh("bash", "../scripts/screenshot_all_langs.sh")

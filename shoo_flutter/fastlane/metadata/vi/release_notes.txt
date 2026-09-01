@@ -1,0 +1,7 @@
+Cập nhật v3.0! Có gì mới:
+
+• Hỗ trợ 19 ngôn ngữ — thêm tiếng Ả Rập, Indonesia, Ý, Mã Lai, Hà Lan, Ba Lan, Thổ Nhĩ Kỳ và Việt
+• Cải thiện bản địa hóa trên toàn ứng dụng
+• Cải thiện hiệu suất và sửa lỗi
+
+Cảm ơn bạn đã sử dụng Shoo!

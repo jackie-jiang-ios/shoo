@@ -230,8 +230,8 @@ class AnimalDatabase {
       id: 'wild_dog',
       nameMap: const {'zh': '野狗', 'en': 'Wild Dog', 'ja': '野良犬', 'ko': '들개', 'fr': 'Chien sauvage', 'de': 'Wildhund', 'es': 'Perro salvaje', 'ru': 'Дикая собака', 'pt': 'Cão selvagem', 'th': 'หมาป่า'},
       descriptionMap: const {'zh': '常见威胁，群体攻击性强', 'en': 'Common threat, aggressive in packs', 'ja': '一般的な脅威、群れで攻撃的', 'ko': '흔한 위협, 무리 공격성 강함', 'fr': 'Menace courante, agressif en meute', 'de': 'Häufige Bedrohung, aggressiv im Rudel', 'es': 'Amenaza común, agresivo en manada', 'ru': 'Частая угроза, агрессивны стаями', 'pt': 'Ameaça comum, agressivo em matilha', 'th': 'ภัยคุกคามทั่วไป ดุร้ายเมื่ออยู่เป็นฝูง'},
-      counterSoundMap: const {'zh': '虎啸声', 'en': 'Tiger Roar', 'ja': '虎の咆哮', 'ko': '호랑이 포효', 'fr': 'Rugissement de tigre', 'de': 'Tigerbrüllen', 'es': 'Rugido de tigre', 'ru': 'Рёв тигра', 'pt': 'Rugido de tigre', 'th': 'เสียงเสือคำราม'},
-      fullDescriptionMap: const {'zh': '野狗具有强烈的领地意识和群体攻击性，在遇到危险时会集体围攻。老虎作为顶级捕食者，其威严的咆哮声能够有效震慑野狗群，让它们感到恐惧而退却。', 'en': 'Wild dogs have strong territorial awareness and pack aggression. The majestic roar of a tiger can effectively intimidate wild dog packs, making them retreat.', 'ja': '野良犬は強い縄張り意識と群れの攻撃性を持ちます。トラの咆哮は野良犬の群れを効果的に威嚇し、退散させます。', 'ko': '들개는 강한 영역 의식과 무리 공격성을 가집니다. 호랑이의 포효는 들개 무리를 효과적으로 위협하여 물러나게 합니다.', 'fr': 'Les chiens sauvages ont un fort sens du territoire. Le rugissement du tigre intimide les meutes et les pousse à fuir.', 'de': 'Wildhunde haben ein starkes Revierbewusstsein. Das Brüllen eines Tigers schüchtert Wildhundrudel effektiv ein.', 'es': 'Los perros salvajes tienen fuerte conciencia territorial. El rugido del tigre intimida eficazmente a las manadas.', 'ru': 'Дикие собаки обладают сильным чувством территории. Рык тигра эффективно отпугивает стаи диких собак.', 'pt': 'Cães selvagens têm forte consciência territorial. O rugido do tigre intimida eficazmente as matilhas.', 'th': 'หมาป่ามีความรู้สึกถึงอาณาเขตแรง เสียงคำรามของเสือขู่ฝูงหมาป่าได้อย่างมีประสิทธิภาพ'},
+      counterSoundMap: const {'zh': '狼嚎声', 'en': 'Wolf Howl', 'ja': 'オオカミの遠吠え', 'ko': '늑대 울음소리', 'fr': 'Hurlement de loup', 'de': 'Wolfheulen', 'es': 'Aullido de lobo', 'ru': 'Вой волка', 'pt': 'Uivo de lobo', 'th': 'เสียงหมาป่าหอน'},
+      fullDescriptionMap: const {'zh': '野狗具有强烈的领地意识和群体攻击性，在遇到危险时会集体围攻。狼嚎声能够模拟同类间的交流和领域占有信息，从而威慑野狗群，让它们感到恐惧而退却。', 'en': 'Wild dogs have strong territorial awareness and pack aggression. Wolf howls simulate intraspecific communication and territorial possession, effectively intimidating wild dog packs into retreat.', 'ja': '野良犬は強い縄張り意識と群れの攻撃性を持ちます。オオカミの遠吠えは種内コミュニケーションと縄張り情報を模倣し、野良犬の群れを効果的に威嚇して退散させます。', 'ko': '들개는 강한 영역 의식과 무리 공격성을 가집니다. 늑대 울음소리는 종내 소통과 영역 정보를 모방하여 들개 무리를 효과적으로 위협하여 물러나게 합니다.', 'fr': 'Les chiens sauvages ont un fort sens du territoire. Les hurlements de loup simulent la communication intraspécifique et la possession territoriale, intimidant les meutes.', 'de': 'Wildhunde haben ein starkes Revierbewusstsein. Wolfsheulen ahmt innerartliche Kommunikation und Revierbesitz nach und schüchtert Wildhundrudel ein.', 'es': 'Los perros salvajes tienen fuerte conciencia territorial. Los aullidos de lobo simulan comunicación intraespecífica y posesión territorial, intimidando a las manadas.', 'ru': 'Дикие собаки обладают сильным чувством территории. Вой волка имитирует внутривидовую коммуникацию и владение территорией, отпугивая стаи диких собак.', 'pt': 'Cães selvagens têm forte consciência territorial. Os uivos de lobo simulam comunicação intraespecífica e possessão territorial, intimidando as matilhas.', 'th': 'หมาป่ามีความรู้สึกถึงอาณาเขตแรง เสียงหมาป่าหอนจำลองการสื่อสารในฝูงและการครอบครองอาณาเขต ขู่ฝูงหมาป่าได้อย่างมีประสิทธิภาพ'},
       category: AnimalCategory.beast,
       recommendedDb: 80.0,
       effectiveRange: 20.0,
@@ -240,7 +240,7 @@ class AnimalDatabase {
       sounds: [
         RecommendedSound(nameMap: const {'zh': '虎啸声', 'en': 'Tiger Roar', 'ja': '虎の咆哮', 'ko': '호랑이 포효', 'fr': 'Rugissement de tigre', 'de': 'Tigerbrüllen', 'es': 'Rugido de tigre', 'ru': 'Рёв тигра', 'pt': 'Rugido de tigre', 'th': 'เสียงเสือคำราม'}, rating: 5, soundGroup: 'tiger', soundCount: 3, volumeWeight: 1.0, frequencyRange: '100Hz-2kHz', estimatedDb: 90),
         RecommendedSound(nameMap: const {'zh': '狮吼声', 'en': 'Lion Roar', 'ja': 'ライオンの咆哮', 'ko': '사자 포효', 'fr': 'Rugissement de lion', 'de': 'Löwenbrüllen', 'es': 'Rugido de león', 'ru': 'Рёв льва', 'pt': 'Rugido de leão', 'th': 'เสียงสิงโตคำราม'}, rating: 4, soundGroup: 'lion', soundCount: 3, volumeWeight: 0.95, frequencyRange: '80Hz-3kHz', estimatedDb: 92),
-        RecommendedSound(nameMap: const {'zh': '枪声', 'en': 'Gunshot', 'ja': '銃声', 'ko': '총소리', 'fr': 'Coup de feu', 'de': 'Schuss', 'es': 'Disparo', 'ru': 'Выстрел', 'pt': 'Tiro', 'th': 'เสียงปืน'}, rating: 3, soundGroup: 'gunshot', soundCount: 3, volumeWeight: 0.8, frequencyRange: '500Hz-12kHz', estimatedDb: 82),
+        RecommendedSound(nameMap: const {'zh': '狼嚎声', 'en': 'Wolf Howl', 'ja': 'オオカミの遠吠え', 'ko': '늑대 울음소리', 'fr': 'Hurlement de loup', 'de': 'Wolfheulen', 'es': 'Aullido de lobo', 'ru': 'Вой волка', 'pt': 'Uivo de lobo', 'th': 'เสียงหมาป่าหอน'}, rating: 3, soundGroup: 'wolf', soundCount: 3, volumeWeight: 0.8, frequencyRange: '150Hz-2kHz', estimatedDb: 85),
       ],
       iconName: 'pets',
       iconPaths: {
@@ -505,7 +505,7 @@ class AnimalDatabase {
   }
 
   /// 免费可用的动物 ID 列表（其余动物需要 Pro 解锁）
-  static const freeAnimalIds = {'wild_dog', 'snake', 'mouse', 'crow'};
+  static const freeAnimalIds = {'wild_dog'};
 
   /// 根据分类获取动物列表
   static List<Animal> findByCategory(AnimalCategory category) {

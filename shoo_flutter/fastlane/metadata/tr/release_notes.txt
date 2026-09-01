@@ -1,0 +1,7 @@
+v3.0 Güncelleme! Yenilikler:
+
+• Artık 19 dil destekliyor — Arapça, Endonezce, İtalyanca, Malayca, Hollandaca, Lehçe, Türkçe ve Vietnamca eklendi
+• Uygulama genelinde yerelleştirme iyileştirildi
+• Performans iyileştirmeleri ve hata düzeltmeleri
+
+Shoo'yu kullandığınız için teşekkürler!

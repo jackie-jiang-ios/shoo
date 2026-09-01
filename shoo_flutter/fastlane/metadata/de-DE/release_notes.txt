@@ -1,9 +1,7 @@
-Großes Update v2.0! Neuigkeiten:
+v3.0 Update! Neuigkeiten:
 
-• Apple Watch App — Steuerung der Wiedergabe direkt vom Handgelenk
-• Pro Upgrade — Schalten Sie alle Tierstimmen mit einem einmaligen Kauf frei, für immer
-• Startseite verbessert — Kostenlose und gesperrte Tiere sind übersichtlich sortiert
-• Einkäufe wiederherstellen — Pro-Zugang einfach in den Einstellungen wiederherstellen
+• Jetzt mit 19 Sprachen — Arabisch, Indonesisch, Italienisch, Malaiisch, Niederländisch, Polnisch, Türkisch und Vietnamesisch hinzugefügt
+• Verbesserte Lokalisierung in der gesamten App
 • Leistungsverbesserungen und Fehlerbehebungen
 
-Danke für die Nutzung von Shoo!
+Danke, dass Sie Shoo nutzen!

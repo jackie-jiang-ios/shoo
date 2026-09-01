@@ -1,0 +1,7 @@
+Pembaruan v3.0! Fitur Baru:
+
+• Kini mendukung 19 bahasa — menambah bahasa Arab, Indonesia, Italia, Melayu, Belanda, Polandia, Turki, dan Vietnam
+• Peningkatan pelokalan di seluruh aplikasi
+• Peningkatan kinerja dan perbaikan bug
+
+Terima kasih telah menggunakan Shoo!

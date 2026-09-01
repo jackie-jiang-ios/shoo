@@ -1,0 +1,7 @@
+Aktualizacja v3.0! Nowości:
+
+• Obsługa 19 języków — dodano arabski, indonezyjski, włoski, malajski, niderlandzki, polski, turecki i wietnamski
+• Poprawiona lokalizacja w całej aplikacji
+• Ulepszenia wydajności i poprawki błędów
+
+Dziękujemy za korzystanie z Shoo!

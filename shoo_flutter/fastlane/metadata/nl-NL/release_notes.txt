@@ -1,0 +1,7 @@
+v3.0 Update! Nieuw:
+
+• Nu met 19 talen — Arabisch, Indonesisch, Italiaans, Maleis, Nederlands, Pools, Turks en Vietnamees toegevoegd
+• Verbeterde lokalisatie in de hele app
+• Prestatieverbeteringen en bugfixes
+
+Bedankt voor het gebruik van Shoo!

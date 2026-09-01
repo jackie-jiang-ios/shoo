@@ -19,7 +19,7 @@ struct WatchAnimal: Identifiable, Hashable {
 
     static let allAnimals: [WatchAnimal] = [
         // ============ 猛兽威胁 ============
-        WatchAnimal(id: "wild_dog", emoji: "🐕", category: "beast", categoryEmoji: "🦁", topSoundNameKey: "sound_tiger", topSoundFile: "tiger_1", rating: 5),
+        WatchAnimal(id: "wild_dog", emoji: "🐕", category: "beast", categoryEmoji: "🦁", topSoundNameKey: "sound_wolf", topSoundFile: "wolf_1", rating: 5),
         WatchAnimal(id: "wild_boar", emoji: "🐗", category: "beast", categoryEmoji: "🦁", topSoundNameKey: "sound_lion", topSoundFile: "lion_1", rating: 5),
         WatchAnimal(id: "bear", emoji: "🐻", category: "beast", categoryEmoji: "🦁", topSoundNameKey: "sound_gunshot", topSoundFile: "gunshot_1", rating: 5),
         WatchAnimal(id: "wolf", emoji: "🐺", category: "beast", categoryEmoji: "🦁", topSoundNameKey: "sound_wolf", topSoundFile: "wolf_1", rating: 5),
