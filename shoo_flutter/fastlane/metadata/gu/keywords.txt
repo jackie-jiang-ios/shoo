@@ -1,0 +1,1 @@
+deterrent,sound,tiger,lion,eagle,ultrasonic,snake,dog,mosquito,bird,camping,hiking,pest,scare

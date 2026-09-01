@@ -1,0 +1,7 @@
+v3.0 Update! What's New:
+
+• Now supports 19 languages — added Arabic, Indonesian, Italian, Malay, Dutch, Polish, Turkish, and Vietnamese
+• Improved localization across the app for a better experience in your language
+• Performance improvements and bug fixes
+
+Thank you for using Shoo!

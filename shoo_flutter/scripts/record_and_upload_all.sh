@@ -6,9 +6,8 @@ cd "$(dirname "$0")/.."
 
 export PATH="$PATH:/Users/jiangzheng/flutter/bin"
 
-LANGS="zh-Hans zh-Hant en-US ja ko fr-FR de-DE es-ES ru pt-BR th"
-# zh-Hans 已上传，可跳过
-SKIP_LANGS="zh-Hans"
+LANGS="zh-Hans zh-Hant en-US ja ko fr-FR de-DE es-ES ru pt-BR th ar-SA id it ms nl-NL pl tr vi hi da fr-CA fi gu ca cs kn hr ro mr ml bn no pa sv sk sl te ta ur uk es-MX he el hu en-AU en-CA en-GB"
+SKIP_LANGS="zh-Hans zh-Hant en-US ja ko fr-FR de-DE es-ES ru pt-BR th"
 
 APP_ID="com.yangshiqin.shoo"
 DEVICE_ID=$(xcrun simctl list devices available | grep "iPhone 13 Pro Max" | head -1 | grep -o "[A-F0-9-]\{36\}" | head -1)
@@ -112,7 +111,17 @@ for LANG in $LANGS; do
     # 处理视频
     NARRATION="$OUTPUT_DIR/narration.mp3"
     echo "Processing video..."
+    # Check if narration is valid audio (not HTML error page)
+    NARRATION_VALID=0
     if [ -f "$NARRATION" ]; then
+      AUDIO_DUR=$(ffprobe -v error -show_entries format=duration -of csv=p=0 "$NARRATION" 2>/dev/null | cut -d. -f1)
+      if [ -n "$AUDIO_DUR" ] && [ "$AUDIO_DUR" -gt 0 ] 2>/dev/null; then
+        NARRATION_VALID=1
+      else
+        echo "  Warning: narration.mp3 is invalid, skipping audio merge"
+      fi
+    fi
+    if [ "$NARRATION_VALID" -eq 1 ]; then
       VIDEO_DUR=$(ffprobe -v error -show_entries format=duration -of csv=p=0 "$VIDEO_FILE" 2>/dev/null | cut -d. -f1)
       AUDIO_DUR=$(ffprobe -v error -show_entries format=duration -of csv=p=0 "$NARRATION" 2>/dev/null | cut -d. -f1)
       OUT_DUR=$AUDIO_DUR

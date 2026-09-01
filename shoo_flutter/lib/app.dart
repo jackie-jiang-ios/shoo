@@ -22,11 +22,14 @@ final localeProvider = StateProvider<Locale?>((ref) => null);
 /// 其他 -> 对应的 Locale
 Locale? resolveLocale(String languageCode) {
   if (languageCode == 'system') return null;
-  // zh_TW 特殊处理：需要同时匹配 languageCode 和 countryCode
-  if (languageCode == 'zh_TW') {
+  // 带国家码的特殊处理
+  if (languageCode.contains('_')) {
+    final parts = languageCode.split('_');
+    final lc = parts[0];
+    final cc = parts[1];
     try {
       return S.supportedLocales.firstWhere(
-        (locale) => locale.languageCode == 'zh' && locale.countryCode == 'TW',
+        (locale) => locale.languageCode == lc && locale.countryCode == cc,
       );
     } catch (_) {
       return null;
