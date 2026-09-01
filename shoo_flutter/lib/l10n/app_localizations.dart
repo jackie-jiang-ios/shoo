@@ -919,9 +919,9 @@ String get emergencyBtnDesc => _t(const {
     'pt': 'Compra única, para sempre', 'th': 'ซื้อครั้งเดียว ใช้ได้ตลอดไป',
   });
   String get defaultPrice => _t(const {
-    'zh': '¥18', 'zh_TW': 'NT\$80', 'en': '\$2.99', 'ja': '¥400', 'ko': '₩3,300',
-    'fr': '2,99 €', 'de': '2,99 €', 'es': '2,99 \$', 'ru': '249 ₽',
-    'pt': 'R\$ 14,90', 'th': '89 ฿',
+    'zh': '¥6', 'zh_TW': 'NT\$30', 'en': '\$0.99', 'ja': '¥160', 'ko': '₩1,100',
+    'fr': '0,99 €', 'de': '0,99 €', 'es': '0,99 \$', 'ru': '99 ₽',
+    'pt': 'R\$ 4,90', 'th': '35 ฿',
   });
   String get unlockPro => _t(const {
     'zh': '解锁 Pro', 'zh_TW': '解鎖 Pro', 'en': 'Unlock Pro', 'ja': 'Proを解除', 'ko': 'Pro 잠금 해제',
