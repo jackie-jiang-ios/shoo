@@ -1,0 +1,22 @@
+# Flutter 国际化 (ARB) 配置
+# 文档: https://docs.flutter.dev/ui/accessibility-and-internationalization/internationalization
+
+# ARB 文件模板（基准语言）
+template-arb-file: app_en.arb
+
+# 输出文件名
+output-localization-file: app_localizations.dart
+
+# 输出目录
+output-dir: lib/l10n/generated
+
+# 输出类名
+output-class: AppLocalizations
+
+# 是否放置不在模板中的 key（false = 会报错，保证所有文件同步）
+untranslated-messages-file: scripts/untranslated_l10n.txt
+
+# header
+header: |-
+  // Generated file. Do not edit.
+  // ignore_for_file: lines_longer_than_80_chars, avoid_dynamic_calls
