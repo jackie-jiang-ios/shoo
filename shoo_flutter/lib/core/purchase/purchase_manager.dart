@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 
 /// 内购管理器 (Flutter 侧)
@@ -17,6 +18,13 @@ class PurchaseManager {
   String _proPrice = '';
   String get proPrice => _proPrice;
 
+  /// 测试/截图用：强制设置 Pro 状态
+  @visibleForTesting
+  void debugSetPro(bool value) {
+    _isPro = value;
+    onProStatusChanged?.call(value);
+  }
+
   String? _lastError;
   String? get lastError => _lastError;
 
@@ -28,11 +36,13 @@ class PurchaseManager {
 
   /// 初始化（在 main() 中调用）
   Future<void> init() async {
+    debugPrint('>>> INIT_PURCHASE_START');
     try {
       _isPro = await _invoke<bool>('isProActive') ?? false;
       _proPrice = await _invoke<String>('getProPrice') ?? '';
+      debugPrint('>>> INIT_PURCHASE_DONE: isPro=$_isPro, price=$_proPrice');
     } on PlatformException catch (e) {
-      print('[PurchaseManager] Init failed: \${e.code} - \${e.message}');
+      debugPrint('>>> INIT_PURCHASE_FAILED: \${e.code} - \${e.message}');
       _isPro = false;
     }
   }

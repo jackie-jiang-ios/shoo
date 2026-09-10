@@ -21,6 +21,8 @@ class PurchaseChannel {
                 switch call.method {
                 case "isProActive":
                     if #available(iOS 15.0, *) {
+                        // 先更新购买状态，确保截图模式被检测
+                        await PurchaseManager.shared.updatePurchasedStatus()
                         result(PurchaseManager.shared.isProActive)
                     } else {
                         result(false)

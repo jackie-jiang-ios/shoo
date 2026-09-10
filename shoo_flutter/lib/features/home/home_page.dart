@@ -12,6 +12,9 @@ import '../sounds/widgets/audio_file_waveform_list.dart';
 import '../../l10n/app_localizations.dart';
 import '../../theme/colors.dart';
 
+/// 底部弹出层截图专用 Key
+final GlobalKey detailSheetKey = GlobalKey();
+
 /// 当前选中动物 Provider
 final currentAnimalProvider = StateProvider<Animal?>((ref) => null);
 
@@ -23,6 +26,9 @@ final isPlayingProvider = StateProvider<bool>((ref) => false);
 
 /// 当前分类 Provider
 final activeCategoryProvider = StateProvider<String>((ref) => 'all');
+
+/// 测试/截图用：图片卡片列表容器 Key
+final GlobalKey animalListKey = GlobalKey();
 
 /// 图标主题 Provider
 final iconThemeProvider = StateProvider<String>((ref) => prefs.iconTheme);
@@ -113,6 +119,7 @@ class _HomePageState extends ConsumerState<HomePage> {
               SliverToBoxAdapter(child: _SmartBanner(s: s)),
               SliverToBoxAdapter(child: _CategoryTabs(s: s)),
               SliverPadding(
+                key: animalListKey,
                 padding: const EdgeInsets.fromLTRB(16, 0, 16, 140),
                 sliver: SliverList(
                   delegate: SliverChildBuilderDelegate(
@@ -313,7 +320,8 @@ class _AnimalCard extends ConsumerWidget {
     final hasMultipleThemes = animal.availableThemes.length > 1;
 
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    final isLocked = !AnimalDatabase.freeAnimalIds.contains(animal.id) &&
+    final isLocked = () =>
+        !AnimalDatabase.freeAnimalIds.contains(animal.id) &&
         !PurchaseManager.instance.isPro;
 
     return Container(
@@ -331,7 +339,7 @@ class _AnimalCard extends ConsumerWidget {
         color: Colors.transparent,
         borderRadius: BorderRadius.circular(16),
         child: InkWell(
-          onTap: () => isLocked ? _showPaywall(context) : _showDetail(context, ref),
+          onTap: () => isLocked() ? _showPaywall(context) : _showDetail(context, ref),
           borderRadius: BorderRadius.circular(16),
           child: Stack(children: [
             Padding(
@@ -427,7 +435,7 @@ class _AnimalCard extends ConsumerWidget {
                               fontSize: 12)),
                     ]),
                   ])),
-              if (isLocked)
+              if (isLocked())
                 const Padding(
                   padding: EdgeInsets.only(left: 4),
                   child: Icon(Icons.lock_outline, size: 18, color: Colors.orange),
@@ -472,8 +480,11 @@ class _AnimalCard extends ConsumerWidget {
               initialChildSize: 0.94,
               minChildSize: 0.72,
               maxChildSize: 0.98,
-              builder: (_, controller) => _AnimalDetailSheet(
-                  animal: animal, scrollController: controller),
+              builder: (_, controller) => RepaintBoundary(
+                key: detailSheetKey,
+                child: _AnimalDetailSheet(
+                    animal: animal, scrollController: controller),
+              ),
             ));
   }
 }
@@ -541,6 +552,10 @@ class _AnimalDetailSheetState extends ConsumerState<_AnimalDetailSheet> {
     super.dispose();
   }
 
+  void _showPaywall(BuildContext context) {
+    context.push('/paywall');
+  }
+
   void _onIconThemeChanged(String themeId) {
     setState(() => _selectedIconTheme = themeId);
     prefs.setAnimalIconTheme(widget.animal.id, themeId);
@@ -557,6 +572,9 @@ class _AnimalDetailSheetState extends ConsumerState<_AnimalDetailSheet> {
       String soundGroup, SoundPlayMode mode) async {
     // 守卫防止 _playSoundSelection → _onSoundPlayModeChanged 递归
     if (_isApplyingModeChange) return;
+    // 权限守卫：锁定的声音组不允许切换模式
+    if (!AnimalDatabase.isSoundInFreeList(widget.animal.id, soundGroup) &&
+        !PurchaseManager.instance.isPro) return;
     setState(() => _soundPlayModes[soundGroup] = mode);
     prefs.setAnimalSoundPlayMode(widget.animal.id, soundGroup, mode.id);
     // 同步到 RecommendedSound 对象
@@ -638,6 +656,13 @@ class _AnimalDetailSheetState extends ConsumerState<_AnimalDetailSheet> {
     int? fileIndex,
     SoundPlayMode? overridePlayMode,
   }) async {
+    // 权限检查：非免费声音且未付费时弹付费墙
+    if (!AnimalDatabase.isSoundInFreeList(widget.animal.id, sound.soundGroup) &&
+        !PurchaseManager.instance.isPro) {
+      _showPaywall(context);
+      return;
+    }
+
     final playMode =
         overridePlayMode ?? _soundPlayModes[sound.soundGroup] ?? sound.playMode;
     final selectedFileIndex = fileIndex ??
@@ -1036,10 +1061,15 @@ class _AnimalDetailSheetState extends ConsumerState<_AnimalDetailSheet> {
         _soundMultiSelectedIndices[sound.soundGroup] ?? sound.selectedIndices;
 
     final isDark = Theme.of(context).brightness == Brightness.dark;
+    final isSoundLocked = !AnimalDatabase.isSoundInFreeList(
+            widget.animal.id, sound.soundGroup) &&
+        !PurchaseManager.instance.isPro;
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 4),
-      child: Container(
+      child: Opacity(
+        opacity: isSoundLocked ? 0.55 : 1.0,
+        child: Container(
         padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(
           color: isSelected
@@ -1058,7 +1088,9 @@ class _AnimalDetailSheetState extends ConsumerState<_AnimalDetailSheet> {
             // 标题行：声音名称 + 评分 + 播放按钮
             Row(children: [
               GestureDetector(
-                onTap: () => _playSoundSelection(idx, sound),
+                onTap: () => isSoundLocked
+                    ? _showPaywall(context)
+                    : _playSoundSelection(idx, sound),
                 child: Row(children: [
                   Icon(
                       isSelected
@@ -1074,6 +1106,11 @@ class _AnimalDetailSheetState extends ConsumerState<_AnimalDetailSheet> {
                           color: isDark ? AppColorsDark.textPrimary : null)),
                 ]),
               ),
+              if (isSoundLocked)
+                Padding(
+                  padding: const EdgeInsets.only(left: 4),
+                  child: Icon(Icons.lock_outline, size: 16, color: Colors.orange),
+                ),
               const Spacer(),
               Row(
                   children: List.generate(
@@ -1118,6 +1155,10 @@ class _AnimalDetailSheetState extends ConsumerState<_AnimalDetailSheet> {
                   playingGroup == sound.soundGroup ? _playbackProgress : 0,
               isPlaybackActive: playingGroup == sound.soundGroup,
               onFileTap: (fileIndex) {
+                if (isSoundLocked) {
+                  _showPaywall(context);
+                  return;
+                }
                 if (currentPlayMode == SoundPlayMode.single) {
                   // 单曲循环模式：点击选中该文件并播放
                   _playSoundSelection(
@@ -1132,13 +1173,14 @@ class _AnimalDetailSheetState extends ConsumerState<_AnimalDetailSheet> {
                 }
               },
             ),
-            // 模式切换 segmented control（仅多文件时显示）
-            if (sound.soundCount > 1) ...[
+            // 模式切换 segmented control（仅多文件且未锁定时显示）
+            if (sound.soundCount > 1 && !isSoundLocked) ...[
               const SizedBox(height: 10),
               _buildPlayModeSelector(sound, currentPlayMode, catColor),
             ],
           ],
         ),
+      ),
       ),
     );
   }
@@ -1337,6 +1379,12 @@ class _BottomPlayerState extends ConsumerState<_BottomPlayer> {
     ));
     if (lastId != null) {
       target = AnimalDatabase.findById(lastId);
+      // 如果上次播放的动物现在被锁定了，跳过恢复
+      if (target != null &&
+          !AnimalDatabase.freeAnimalIds.contains(target.id) &&
+          !PurchaseManager.instance.isPro) {
+        target = null;
+      }
       if (target != null && lastGroup != null) {
         targetSound = target.sounds.cast<RecommendedSound?>().firstWhere(
               (s) => s?.soundGroup == lastGroup,
@@ -1345,9 +1393,31 @@ class _BottomPlayerState extends ConsumerState<_BottomPlayer> {
       }
     }
 
-    // 回退到列表第一个动物
+    // 回退到列表第一个免费动物
     target ??= AnimalDatabase.animals.firstOrNull;
+    // 如果回退的动物也被锁定，尝试找一个免费动物
+    if (target != null &&
+        !AnimalDatabase.freeAnimalIds.contains(target.id) &&
+        !PurchaseManager.instance.isPro) {
+      target = AnimalDatabase.animals
+          .firstWhere((a) => AnimalDatabase.freeAnimalIds.contains(a.id));
+    }
     targetSound ??= target?.sounds.firstOrNull;
+
+    // 权限检查：如果上次播放的声音现在被锁定了，回退到该动物的第一个免费声音
+    if (target != null && targetSound != null) {
+      final t = target;
+      final ts = targetSound;
+      if (!AnimalDatabase.isSoundInFreeList(t.id, ts.soundGroup) &&
+          !PurchaseManager.instance.isPro) {
+        targetSound = t.sounds
+            .cast<RecommendedSound?>()
+            .firstWhere(
+              (s) => s != null && AnimalDatabase.isSoundInFreeList(t.id, s.soundGroup),
+              orElse: () => null,
+            );
+      }
+    }
 
     if (target != null && targetSound != null) {
       // 恢复上次的声音选择偏好

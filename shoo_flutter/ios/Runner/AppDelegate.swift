@@ -27,12 +27,13 @@ import AVFoundation
     func didInitializeImplicitFlutterEngine(_ engineBridge: any FlutterImplicitEngineBridge) {
         // 在 Flutter 引擎初始化完成后注册插件
         GeneratedPluginRegistrant.register(with: engineBridge.pluginRegistry)
-        
+
         // 使用 applicationRegistrar 的 messenger 设置平台通道
         let messenger = engineBridge.applicationRegistrar.messenger()
         setupPlatformChannel(messenger: messenger)
         setupNativeLogChannel(messenger: messenger)
         setupBackgroundChannel(messenger: messenger)
+        setupScreenshotChannel(messenger: messenger)
         if #available(iOS 15.0, *) {
             PurchaseChannel.setup(messenger: messenger)
         }
@@ -105,6 +106,56 @@ import AVFoundation
                 let granted = AVAudioSession.sharedInstance().recordPermission == .granted
                 result(granted)
                 
+            case "getScreenshotPage":
+                // 返回截图模式下需要显示的页面
+                let defaults = UserDefaults.standard
+                if defaults.bool(forKey: "ScreenshotMode") {
+                    let page = defaults.string(forKey: "ScreenshotPage") ?? "home"
+                    result(page)
+                } else {
+                    result(nil)
+                }
+
+            case "getLaunchConfig":
+                // 启动时一次性读取所有启动参数（录制模式等）
+                // 优先从 ProcessInfo.arguments 读取（方式一：launch --args 传入）
+                let processArgs = ProcessInfo.processInfo.arguments
+                var config: [String: Any] = [:]
+                var foundRecord = false
+                var foundLang = ""
+
+                // 解析命令行参数，格式为 -Key Value
+                var i = 0
+                while i < processArgs.count {
+                    let arg = processArgs[i]
+                    if arg == "-RecordMode" && i + 1 < processArgs.count {
+                        foundRecord = (processArgs[i + 1] == "1" || processArgs[i + 1].lowercased() == "true")
+                        i += 2
+                        continue
+                    }
+                    if arg == "-Lang" && i + 1 < processArgs.count {
+                        foundLang = processArgs[i + 1]
+                        i += 2
+                        continue
+                    }
+                    i += 1
+                }
+
+                // 方式二：从 UserDefaults 读取（兜底，用于调试）
+                if !foundRecord {
+                    let defaults = UserDefaults.standard
+                    foundRecord = defaults.bool(forKey: "RecordMode")
+                    if foundRecord && foundLang.isEmpty {
+                        foundLang = defaults.string(forKey: "Lang") ?? ""
+                    }
+                }
+
+                if foundRecord {
+                    config["recordMode"] = true
+                    config["lang"] = foundLang.isEmpty ? "en" : foundLang
+                }
+                result(config)
+
             default:
                 result(FlutterMethodNotImplemented)
             }
@@ -158,7 +209,7 @@ import AVFoundation
             name: "com.shoo.app/background",
             binaryMessenger: messenger
         )
-        
+
         backgroundChannel.setMethodCallHandler { (call, result) in
             switch call.method {
             case "startBackgroundPlayback":
@@ -171,6 +222,66 @@ import AVFoundation
                 result(false)
             default:
                 result(FlutterMethodNotImplemented)
+            }
+        }
+    }
+
+    // MARK: - 截图通道
+
+    private func setupScreenshotChannel(messenger: FlutterBinaryMessenger) {
+        let screenshotChannel = FlutterMethodChannel(
+            name: "com.shoo.app/screenshot",
+            binaryMessenger: messenger
+        )
+
+        screenshotChannel.setMethodCallHandler { (call, result) in
+            guard call.method == "saveScreenshot" else {
+                result(FlutterMethodNotImplemented)
+                return
+            }
+
+            guard let args = call.arguments as? [String: Any],
+                  let data = args["data"] as? FlutterStandardTypedData,
+                  let filename = args["filename"] as? String else {
+                result(FlutterError(
+                    code: "INVALID_ARGS",
+                    message: "Missing data or filename argument",
+                    details: nil
+                ))
+                return
+            }
+
+            // 保存到 Documents/screenshots/ 目录
+            do {
+                let fileManager = FileManager.default
+                guard let docsURL = fileManager.urls(
+                    for: .documentDirectory,
+                    in: .userDomainMask
+                ).first else {
+                    result(FlutterError(
+                        code: "NO_DOCUMENTS",
+                        message: "Cannot access Documents directory",
+                        details: nil
+                    ))
+                    return
+                }
+
+                let screenshotsDir = docsURL.appendingPathComponent("screenshots", isDirectory: true)
+                try fileManager.createDirectory(
+                    at: screenshotsDir,
+                    withIntermediateDirectories: true,
+                    attributes: nil
+                )
+
+                let fileURL = screenshotsDir.appendingPathComponent(filename)
+                try data.data.write(to: fileURL)
+                result(fileURL.path)
+            } catch {
+                result(FlutterError(
+                    code: "WRITE_FAILED",
+                    message: "Failed to write screenshot: \(error.localizedDescription)",
+                    details: nil
+                ))
             }
         }
     }

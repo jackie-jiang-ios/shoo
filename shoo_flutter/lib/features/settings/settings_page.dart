@@ -68,42 +68,64 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
                 ListTile(
                   leading: const Icon(Icons.dark_mode),
                   title: Text(s.themeMode),
-                  trailing: DropdownButton<String>(
-                    value: _themeMode,
-                    underline: const SizedBox.shrink(),
-                    items: [
-                      DropdownMenuItem(value: 'system', child: Text(s.followSystem)),
-                      DropdownMenuItem(value: 'light', child: Text(s.lightMode)),
-                      DropdownMenuItem(value: 'dark', child: Text(s.darkMode)),
-                    ],
-                    onChanged: (value) {
-                      if (value != null) {
-                        setState(() => _themeMode = value);
-                        prefs.themeMode = value;
-                        ref.read(themeModeProvider.notifier).state = resolveThemeMode(value);
-                      }
+                  trailing: PopupMenuButton<String>(
+                    onSelected: (value) {
+                      setState(() => _themeMode = value);
+                      prefs.themeMode = value;
+                      ref.read(themeModeProvider.notifier).state = resolveThemeMode(value);
                     },
+                    itemBuilder: (context) => [
+                      PopupMenuItem(value: 'system', child: Text(s.followSystem)),
+                      PopupMenuItem(value: 'light', child: Text(s.lightMode)),
+                      PopupMenuItem(value: 'dark', child: Text(s.darkMode)),
+                    ],
+                    padding: EdgeInsets.zero,
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          _themeMode == 'system'
+                              ? s.followSystem
+                              : _themeMode == 'light'
+                                  ? s.lightMode
+                                  : s.darkMode,
+                          style: Theme.of(context).textTheme.bodyMedium,
+                        ),
+                        const SizedBox(width: 6),
+                        const Icon(Icons.arrow_drop_down, size: 22),
+                      ],
+                    ),
                   ),
                 ),
                 ListTile(
                   leading: const Icon(Icons.language),
                   title: Text(s.language),
-                  trailing: DropdownButton<String>(
-                    value: _language,
-                    underline: const SizedBox.shrink(),
-                    items: [
-                      DropdownMenuItem(value: 'system', child: Text(s.followSystem)),
+                  trailing: PopupMenuButton<String>(
+                    onSelected: (value) {
+                      setState(() => _language = value);
+                      prefs.language = value;
+                      ref.read(localeProvider.notifier).state = resolveLocale(value);
+                    },
+                    itemBuilder: (context) => [
+                      PopupMenuItem(value: 'system', child: Text(s.followSystem)),
                       ...S.nativeLanguageNames.entries.map((entry) =>
-                        DropdownMenuItem(value: entry.key, child: Text(entry.value)),
+                        PopupMenuItem(value: entry.key, child: Text(entry.value)),
                       ),
                     ],
-                    onChanged: (value) {
-                      if (value != null) {
-                        setState(() => _language = value);
-                        prefs.language = value;
-                        ref.read(localeProvider.notifier).state = resolveLocale(value);
-                      }
-                    },
+                    padding: EdgeInsets.zero,
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          _language == 'system'
+                              ? s.followSystem
+                              : S.nativeLanguageNames[_language] ?? _language,
+                          style: Theme.of(context).textTheme.bodyMedium,
+                        ),
+                        const SizedBox(width: 6),
+                        const Icon(Icons.arrow_drop_down, size: 22),
+                      ],
+                    ),
                   ),
                 ),
               ],
@@ -155,47 +177,69 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
                   subtitle: _loopIntervalSeconds > 0
                           ? Text('${_loopIntervalSeconds.toStringAsFixed(1)} ${s.seconds}')
                           : Text(s.noInterval),
-                  trailing: DropdownButton<double>(
-                    value: _loopIntervalSeconds,
-                    underline: const SizedBox.shrink(),
-                    items: [
-                      DropdownMenuItem(value: 0, child: Text(s.noInterval)),
-                      DropdownMenuItem(value: 1.0, child: Text('1 ${s.seconds}')),
-                      DropdownMenuItem(value: 2.0, child: Text('2 ${s.seconds}')),
-                      DropdownMenuItem(value: 3.0, child: Text('3 ${s.seconds}')),
-                      DropdownMenuItem(value: 5.0, child: Text('5 ${s.seconds}')),
-                      DropdownMenuItem(value: 8.0, child: Text('8 ${s.seconds}')),
-                      DropdownMenuItem(value: 10.0, child: Text('10 ${s.seconds}')),
-                    ],
-                    onChanged: (value) {
-                      if (value != null) {
-                        setState(() => _loopIntervalSeconds = value);
-                        prefs.intervalSeconds = value;
-                      }
+                  trailing: PopupMenuButton<double>(
+                    onSelected: (value) {
+                      setState(() => _loopIntervalSeconds = value);
+                      prefs.intervalSeconds = value;
                     },
+                    itemBuilder: (context) => [
+                      PopupMenuItem(value: 0, child: Text(s.noInterval)),
+                      PopupMenuItem(value: 1.0, child: Text('1 ${s.seconds}')),
+                      PopupMenuItem(value: 2.0, child: Text('2 ${s.seconds}')),
+                      PopupMenuItem(value: 3.0, child: Text('3 ${s.seconds}')),
+                      PopupMenuItem(value: 5.0, child: Text('5 ${s.seconds}')),
+                      PopupMenuItem(value: 8.0, child: Text('8 ${s.seconds}')),
+                      PopupMenuItem(value: 10.0, child: Text('10 ${s.seconds}')),
+                    ],
+                    padding: EdgeInsets.zero,
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          _loopIntervalSeconds == 0
+                              ? s.noInterval
+                              : '${_loopIntervalSeconds.toStringAsFixed(1)} ${s.seconds}',
+                          style: Theme.of(context).textTheme.bodyMedium,
+                        ),
+                        const SizedBox(width: 6),
+                        const Icon(Icons.arrow_drop_down, size: 22),
+                      ],
+                    ),
                   ),
                 ),
                 const Divider(height: 1),
                 ListTile(
                   leading: const Icon(Icons.timer),
                   title: Text(s.autoStop),
-                  trailing: DropdownButton<int>(
-                    value: _autoStopMinutes,
-                    underline: const SizedBox.shrink(),
-                    items: [
-                      DropdownMenuItem(value: 0, child: Text(s.noAutoStop)),
-                      DropdownMenuItem(value: 5, child: Text('5 ${s.minutes}')),
-                      DropdownMenuItem(value: 10, child: Text('10 ${s.minutes}')),
-                      DropdownMenuItem(value: 15, child: Text('15 ${s.minutes}')),
-                      DropdownMenuItem(value: 30, child: Text('30 ${s.minutes}')),
-                      DropdownMenuItem(value: 60, child: Text('1 ${s.hours}')),
-                    ],
-                    onChanged: (value) {
-                      if (value != null) {
-                        setState(() => _autoStopMinutes = value);
-                        prefs.autoStopMinutes = value;
-                      }
+                  trailing: PopupMenuButton<int>(
+                    onSelected: (value) {
+                      setState(() => _autoStopMinutes = value);
+                      prefs.autoStopMinutes = value;
                     },
+                    itemBuilder: (context) => [
+                      PopupMenuItem(value: 0, child: Text(s.noAutoStop)),
+                      PopupMenuItem(value: 5, child: Text('5 ${s.minutes}')),
+                      PopupMenuItem(value: 10, child: Text('10 ${s.minutes}')),
+                      PopupMenuItem(value: 15, child: Text('15 ${s.minutes}')),
+                      PopupMenuItem(value: 30, child: Text('30 ${s.minutes}')),
+                      PopupMenuItem(value: 60, child: Text('1 ${s.hours}')),
+                    ],
+                    padding: EdgeInsets.zero,
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          _autoStopMinutes == 0
+                              ? s.noAutoStop
+                              : _autoStopMinutes == 60
+                                  ? '1 ${s.hours}'
+                                  : '${_autoStopMinutes} ${s.minutes}',
+                          style: Theme.of(context).textTheme.bodyMedium,
+                        ),
+                        const SizedBox(width: 6),
+                        const Icon(Icons.arrow_drop_down, size: 22),
+                      ],
+                    ),
                   ),
                 ),
               ],
@@ -261,6 +305,21 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
                         SnackBar(content: Text(success ? s.restoreSuccess : s.restoreFailed)),
                       );
                     }
+                  },
+                ),
+                const Divider(height: 1),
+                ListTile(
+                  leading: const Icon(Icons.grid_view),
+                  title: Text(s.moreProducts),
+                  trailing: const Icon(Icons.chevron_right),
+                  onTap: () {
+                    context.pushNamed(
+                      'webview',
+                      extra: {
+                        'url': 'https://liteapps.cn/#products',
+                        'title': s.moreProducts,
+                      },
+                    );
                   },
                 ),
               ],

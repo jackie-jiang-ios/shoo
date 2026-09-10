@@ -43,6 +43,53 @@ class AudioController {
   /// 系统音量变化监听回调
   void Function(double systemVolume)? onSystemVolumeChanged;
 
+  /// 预加载音频播放器（在 App 启动时调用）
+  /// 提前创建 AudioPlayer 实例并加载默认音频资源，
+  /// 消除用户首次点击播放时的卡顿（约 2-3 秒）
+  Future<void> preload() async {
+    debugPrint('>>> INIT_AUDIO_PRELOAD_START');
+    try {
+      // 预创建 AudioPlayer 实例
+      final player = _player ??= AudioPlayer();
+
+      // 确定要预热的音频资源路径
+      // 优先使用上次播放的声音，回退到第一个免费动物的声音
+      String assetPath;
+      final lastAnimalId = prefs.lastPlayedAnimalId;
+      final lastSoundGroup = prefs.lastPlayedSoundGroup;
+      if (lastAnimalId != null && lastSoundGroup != null) {
+        final animal = AnimalDatabase.findById(lastAnimalId);
+        final sound = animal?.sounds
+            .cast<RecommendedSound?>()
+            .firstWhere((s) => s?.soundGroup == lastSoundGroup,
+                orElse: () => null);
+        if (sound != null) {
+          final selectedIndex =
+              prefs.getAnimalSoundSelectedIndex(lastAnimalId, lastSoundGroup);
+          assetPath = sound.getAssetPath(selectedIndex);
+        } else {
+          assetPath = _defaultPreloadPath();
+        }
+      } else {
+        assetPath = _defaultPreloadPath();
+      }
+
+      await player.setAsset(assetPath);
+      await player.setVolume(_appVolume);
+      debugPrint('>>> INIT_AUDIO_PRELOAD_DONE: $assetPath');
+    } catch (e) {
+      debugPrint('>>> INIT_AUDIO_PRELOAD_FAILED: $e');
+    }
+  }
+
+  /// 获取默认预热音频路径（第一个免费动物的第一个免费声音）
+  String _defaultPreloadPath() {
+    final freeAnimal = AnimalDatabase.animals
+        .firstWhere((a) => AnimalDatabase.freeAnimalIds.contains(a.id));
+    final sound = freeAnimal.sounds.first;
+    return sound.getAssetPath(0);
+  }
+
   bool get isPlaying => _isPlaying;
   bool get isInIntervalGap => _isInIntervalGap;
   RecommendedSound? get currentSound => _currentSound;
@@ -53,6 +100,7 @@ class AudioController {
 
   /// 初始化系统音量监听
   Future<void> initVolumeListener() async {
+    debugPrint('>>> INIT_VOLUME_LISTENER_START');
     try {
       VolumeController().listener((volume) {
         // 如果用户通过硬件按键将音量调高到自动调大目标值以上，清除手动标记
@@ -62,8 +110,9 @@ class AudioController {
         }
         onSystemVolumeChanged?.call(volume);
       });
+      debugPrint('>>> INIT_VOLUME_LISTENER_DONE');
     } catch (e) {
-      debugPrint('系统音量监听初始化失败: $e');
+      debugPrint('>>> INIT_VOLUME_LISTENER_FAILED: $e');
     }
   }
 

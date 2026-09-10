@@ -4,6 +4,25 @@ enum ShooProductID: String, CaseIterable {
     case proLifetime = "com.yangshiqin.shoo.pro_lifetime"
 }
 
+/// 截图模式检测 - 用于 App Store 截图时强制显示 Pro 版本
+enum ScreenshotMode {
+    static var isEnabled: Bool {
+        // 检查启动参数
+        if ProcessInfo.processInfo.arguments.contains("-ScreenshotMode") {
+            return true
+        }
+        // 检查环境变量
+        if ProcessInfo.processInfo.environment["SCREENSHOT_MODE"] == "1" {
+            return true
+        }
+        // 检查 UserDefaults（通过 simctl defaults write 设置）
+        if UserDefaults.standard.bool(forKey: "ScreenshotMode") {
+            return true
+        }
+        return false
+    }
+}
+
 @MainActor
 @available(iOS 15.0, *)
 final class PurchaseManager {
@@ -109,7 +128,12 @@ final class PurchaseManager {
         }
     }
 
-    private func updatePurchasedStatus() async {
+    func updatePurchasedStatus() async {
+        // 截图模式下强制返回 Pro
+        if ScreenshotMode.isEnabled {
+            self.isProActive = true
+            return
+        }
         var hasPro = false
         for await result in Transaction.currentEntitlements {
             if case .verified(let transaction) = result,

@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'core/screenshot/screenshot_helper.dart';
 import 'core/storage/preferences.dart';
+import 'core/record/record_automation.dart';
 import 'features/home/home_page.dart';
 import 'features/settings/settings_page.dart';
 import 'features/settings/web_view_page.dart';
@@ -86,30 +89,130 @@ final _router = GoRouter(
   ],
 );
 
+/// 截图模式下需要显示的页面（通过 UserDefaults 从原生代码传递）
+String? _screenshotPage;
+
+/// 检查是否在截图模式下
+bool get _isScreenshotMode {
+  return _screenshotPage != null;
+}
+
+/// 从原生代码获取截图配置
+Future<void> _initScreenshotMode() async {
+  const channel = MethodChannel('com.shoo.app/platform');
+  try {
+    final page = await channel.invokeMethod<String>('getScreenshotPage');
+    if (page != null && page.isNotEmpty) {
+      _screenshotPage = page;
+    }
+  } catch (_) {
+    // 不在截图模式或通道不可用
+  }
+}
+
 /// 应用根组件
-class ShooApp extends ConsumerWidget {
+class ShooApp extends ConsumerStatefulWidget {
   const ShooApp({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<ShooApp> createState() => _ShooAppState();
+}
+
+class _ShooAppState extends ConsumerState<ShooApp> {
+  late GoRouter _dynamicRouter;
+
+  @override
+  void initState() {
+    super.initState();
+    _dynamicRouter = _router;
+    // 检查录制模式（使用时间轴驱动 GoRouter 导航）
+    _initRecordMode();
+    // 初始化截图模式并设置页面
+    _initScreenshotMode().then((_) {
+      if (_isScreenshotMode && mounted) {
+        // 根据截图页面导航
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          _navigateToScreenshotPage();
+        });
+      }
+    });
+  }
+
+  /// 初始化录制模式：检测参数后覆盖 locale，用时间轴驱动 GoRouter 场景序列
+  Future<void> _initRecordMode() async {
+    try {
+      final isRecord = await RecordAutomation.isRecordMode();
+      if (!isRecord || !mounted) return;
+
+      final lang = await RecordAutomation.getLaunchLang();
+      debugPrint('>>> RECORD_MODE_INIT: lang=$lang');
+
+      // 覆盖 language provider 为目标语言
+      if (lang != null && lang.isNotEmpty) {
+        ref.read(localeProvider.notifier).state = resolveLocale(lang);
+      }
+      // 覆盖 theme 为 light
+      ref.read(themeModeProvider.notifier).state = ThemeMode.light;
+
+      // 跳过闪屏，直接跳首页
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        _dynamicRouter.go('/');
+        // 启动录制场景时间轴
+        _startRecordingSequence();
+      });
+    } catch (e) {
+      debugPrint('>>> RECORD_MODE_INIT_ERROR: $e');
+    }
+  }
+
+  /// 录制场景时间轴：首页(5s) → 设置页(10s)
+  void _startRecordingSequence() {
+    debugPrint('>>> RECORD_SEQ_START');
+    // Scene 1: 首页 (0-5s)
+    Future.delayed(const Duration(seconds: 5), () {
+      if (!mounted) return;
+      debugPrint('>>> RECORD_SCENE_SETTINGS (t=5s)');
+      _dynamicRouter.go('/settings');
+    });
+  }
+
+  void _navigateToScreenshotPage() {
+    switch (_screenshotPage) {
+      case 'settings':
+        _dynamicRouter.go('/settings');
+        break;
+      case 'paywall':
+        _dynamicRouter.go('/paywall');
+        break;
+      case 'home':
+      default:
+        _dynamicRouter.go('/');
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final themeMode = ref.watch(themeModeProvider);
     final locale = ref.watch(localeProvider);
 
-    return MaterialApp.router(
-      title: 'Shoo',
-      debugShowCheckedModeBanner: false,
-      theme: AppTheme.light,
-      darkTheme: AppTheme.dark,
-      themeMode: themeMode,
-      locale: locale,
-      supportedLocales: S.supportedLocales,
-      localizationsDelegates: const [
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-        S.delegate,
-      ],
-      routerConfig: _router,
+    return RepaintBoundary(
+      key: ScreenshotHelper.repaintBoundaryKey,
+      child: MaterialApp.router(
+        title: '防兽神器',
+        debugShowCheckedModeBanner: false,
+        theme: AppTheme.light,
+        darkTheme: AppTheme.dark,
+        themeMode: themeMode,
+        locale: locale,
+        supportedLocales: S.supportedLocales,
+        localizationsDelegates: const [
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+          S.delegate,
+        ],
+        routerConfig: _dynamicRouter,
+      ),
     );
   }
 }

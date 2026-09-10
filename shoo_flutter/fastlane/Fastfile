@@ -1,7 +1,13 @@
 # Fastfile - Shoo App Store automation
 default_platform(:ios)
 APP_IDENTIFIER = "com.yangshiqin.shoo"
-LANGUAGES = ["zh-Hans", "zh-Hant", "en-US", "ja", "ko", "fr-FR", "de-DE", "es-ES", "ru", "pt-BR", "th", "ar-SA", "id", "it", "ms", "nl-NL", "pl", "tr", "vi", "hi", "da", "fr-CA", "fi", "gu", "ca", "cs", "kn", "hr", "ro", "mr", "ml", "bn", "no", "pa", "sv", "sk", "sl", "te", "ta", "ur", "uk", "es-MX", "he", "el", "hu", "en-AU", "en-CA", "en-GB"]
+# Apple App Store Connect API 配置
+ASC_KEY_ID = "29HD53FFYV"
+ASC_ISSUER_ID = "4b86ecb0-5c72-4d3a-81b8-e6d62a056467"
+ASC_KEY_FILEPATH = File.expand_path("./AuthKey_29HD53FFYV.p8")
+
+# Apple App Store Connect 目录代码，与 fastlane/metadata 和 fastlane/screenshots 保持一致
+LANGUAGES = ["ar-SA", "bn-BD", "ca", "cs", "da", "de-DE", "el", "en-AU", "en-CA", "en-GB", "en-US", "es-ES", "es-MX", "fi", "fr-CA", "fr-FR", "gu-IN", "he", "hi", "hr", "hu", "id", "it", "ja", "kn-IN", "ko", "ml-IN", "mr-IN", "ms", "nl-NL", "no", "or-IN", "pa-IN", "pl", "pt-BR", "ro", "ru", "sk", "sl-SI", "sv", "ta-IN", "te-IN", "th", "tr", "uk", "ur-PK", "vi", "zh-Hans", "zh-Hant"]
 
 lane :screenshots do
   sh("bash", "../scripts/screenshot_all_langs.sh")
@@ -26,9 +32,9 @@ end
 
 lane :upload do
   api_key = app_store_connect_api_key(
-    key_id: ENV["ASC_KEY_ID"],
-    issuer_id: ENV["ASC_ISSUER_ID"],
-    key_filepath: ENV["ASC_KEY_FILEPATH"] || "./AuthKey.p8",
+    key_id: ASC_KEY_ID,
+    issuer_id: ASC_ISSUER_ID,
+    key_filepath: ASC_KEY_FILEPATH,
     in_house: false
   )
   deliver(
@@ -48,9 +54,9 @@ end
 
 lane :upload_metadata do
   api_key = app_store_connect_api_key(
-    key_id: ENV["ASC_KEY_ID"],
-    issuer_id: ENV["ASC_ISSUER_ID"],
-    key_filepath: ENV["ASC_KEY_FILEPATH"] || "./AuthKey.p8",
+    key_id: ASC_KEY_ID,
+    issuer_id: ASC_ISSUER_ID,
+    key_filepath: ASC_KEY_FILEPATH,
     in_house: false
   )
   deliver(
@@ -67,10 +73,56 @@ lane :upload_metadata do
 end
 
 lane :upload_screenshots do
+  UI.message("=== upload_screenshots 开始 ===")
+  UI.message("APP_IDENTIFIER: #{APP_IDENTIFIER}")
+
+  # 列出 screenshots 目录中的内容
+  screenshots_dir = File.expand_path("./screenshots", __dir__)
+  UI.message("screenshots 路径: #{screenshots_dir}")
+  if Dir.exist?(screenshots_dir)
+    Dir.entries(screenshots_dir).sort.each do |entry|
+      next if entry == "." || entry == ".."
+      full_path = File.join(screenshots_dir, entry)
+      if Dir.exist?(full_path)
+        pngs = Dir.glob(File.join(full_path, "*.png"))
+        UI.message("  📁 #{entry}/  (#{pngs.count} 张 png)")
+        pngs.each { |p| UI.message("      - #{File.basename(p)}") }
+      end
+    end
+  else
+    UI.error("❌ screenshots 目录不存在: #{screenshots_dir}")
+  end
+
   api_key = app_store_connect_api_key(
-    key_id: ENV["ASC_KEY_ID"],
-    issuer_id: ENV["ASC_ISSUER_ID"],
-    key_filepath: ENV["ASC_KEY_FILEPATH"] || "./AuthKey.p8",
+    key_id: ASC_KEY_ID,
+    issuer_id: ASC_ISSUER_ID,
+    key_filepath: ASC_KEY_FILEPATH,
+    in_house: false
+  )
+  UI.message("API Key 创建成功")
+
+  deliver(
+    api_key: api_key,
+    app_identifier: APP_IDENTIFIER,
+    screenshots_path: "./screenshots",
+    force: true,
+    skip_metadata: true,
+    overwrite_screenshots: true,
+    overwrite_preview_videos: true,
+    automatic_release: false,
+    precheck_include_in_app_purchases: false,
+    ignore_language_directory_validation: true,
+    languages: LANGUAGES
+  )
+  UI.success("Screenshots upload done!")
+end
+
+lane :upload_zh_screenshots do
+  UI.message("=== upload_zh_screenshots 开始 (仅中文) ===")
+  api_key = app_store_connect_api_key(
+    key_id: ASC_KEY_ID,
+    issuer_id: ASC_ISSUER_ID,
+    key_filepath: ASC_KEY_FILEPATH,
     in_house: false
   )
   deliver(
@@ -81,19 +133,44 @@ lane :upload_screenshots do
     skip_metadata: true,
     overwrite_screenshots: true,
     overwrite_preview_videos: true,
-    sync_screenshots: true,
     automatic_release: false,
     precheck_include_in_app_purchases: false,
-    languages: LANGUAGES
+    ignore_language_directory_validation: true,
+    languages: ["zh-Hans", "zh-Hant"]
   )
-  UI.success("Screenshots upload done!")
+  UI.success("Chinese screenshots upload done!")
+end
+
+lane :upload_lang_screenshots do |options|
+  lang = options[:lang] || "ar-SA"
+  UI.message("=== upload_lang_screenshots 开始 (lang: #{lang}) ===")
+  api_key = app_store_connect_api_key(
+    key_id: ASC_KEY_ID,
+    issuer_id: ASC_ISSUER_ID,
+    key_filepath: ASC_KEY_FILEPATH,
+    in_house: false
+  )
+  deliver(
+    api_key: api_key,
+    app_identifier: APP_IDENTIFIER,
+    screenshots_path: "./screenshots",
+    force: true,
+    skip_metadata: true,
+    overwrite_screenshots: true,
+    overwrite_preview_videos: true,
+    automatic_release: false,
+    precheck_include_in_app_purchases: false,
+    ignore_language_directory_validation: true,
+    languages: [lang]
+  )
+  UI.success("Done: #{lang}")
 end
 
 lane :upload_videos do
   api_key = app_store_connect_api_key(
-    key_id: ENV["ASC_KEY_ID"],
-    issuer_id: ENV["ASC_ISSUER_ID"],
-    key_filepath: ENV["ASC_KEY_FILEPATH"] || "./AuthKey.p8",
+    key_id: ASC_KEY_ID,
+    issuer_id: ASC_ISSUER_ID,
+    key_filepath: ASC_KEY_FILEPATH,
     in_house: false
   )
   deliver(
@@ -115,9 +192,9 @@ end
 
 lane :download_metadata do
   api_key = app_store_connect_api_key(
-    key_id: ENV["ASC_KEY_ID"],
-    issuer_id: ENV["ASC_ISSUER_ID"],
-    key_filepath: ENV["ASC_KEY_FILEPATH"] || "./AuthKey.p8",
+    key_id: ASC_KEY_ID,
+    issuer_id: ASC_ISSUER_ID,
+    key_filepath: ASC_KEY_FILEPATH,
     in_house: false
   )
   download_metadata(
@@ -130,9 +207,9 @@ end
 
 lane :download_screenshots do
   api_key = app_store_connect_api_key(
-    key_id: ENV["ASC_KEY_ID"],
-    issuer_id: ENV["ASC_ISSUER_ID"],
-    key_filepath: ENV["ASC_KEY_FILEPATH"] || "./AuthKey.p8",
+    key_id: ASC_KEY_ID,
+    issuer_id: ASC_ISSUER_ID,
+    key_filepath: ASC_KEY_FILEPATH,
     in_house: false
   )
   download_screenshots(

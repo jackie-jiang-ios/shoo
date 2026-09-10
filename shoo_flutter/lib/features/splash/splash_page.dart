@@ -55,12 +55,22 @@ class _SplashPageState extends State<SplashPage> with SingleTickerProviderStateM
   }
 
   Future<void> _navigateToHome() async {
-    // 并行等待：初始化完成 + 最少展示时间
-    await Future.wait([
-      appInitialized,
-      Future.delayed(const Duration(milliseconds: 1500)),
-    ]);
+    debugPrint('>>> SPLASH_NAVIGATE_START');
+    try {
+      // 并行等待：初始化完成 + 最少展示时间
+      // 添加超时保护，防止初始化卡住导致闪屏页永远不跳转
+      await Future.wait([
+        appInitialized.timeout(const Duration(seconds: 5), onTimeout: () {
+          debugPrint('>>> SPLASH_INIT_TIMEOUT');
+        }),
+        Future.delayed(const Duration(milliseconds: 1500)),
+      ]);
+    } catch (e) {
+      debugPrint('>>> SPLASH_INIT_ERROR: $e');
+    }
 
+    // 硬超时保护：无论如何都要跳转
+    debugPrint('>>> SPLASH_NAVIGATE_TO_HOME');
     if (mounted) {
       context.go('/');
     }

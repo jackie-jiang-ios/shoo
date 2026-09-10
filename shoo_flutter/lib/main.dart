@@ -4,6 +4,7 @@ import 'package:audio_session/audio_session.dart';
 import 'package:volume_controller/volume_controller.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 import 'app.dart';
+import 'core/audio/audio_controller.dart';
 import 'core/storage/preferences.dart';
 import 'core/purchase/purchase_manager.dart';
 
@@ -36,12 +37,33 @@ void main() async {
 
 /// 后台异步初始化（不阻塞首帧渲染）
 Future<void> _initAsync() async {
-  // 并行执行所有非阻塞初始化
-  await Future.wait([
-    _initAudioSession(),
-    _initWakelock(),
-    PurchaseManager.instance.init(),
-  ]);
+  debugPrint('>>> INIT_START');
+  try {
+    // 音频会话必须先初始化，然后才能预加载播放器
+    await _initAudioSession();
+    debugPrint('>>> INIT_AUDIO_SESSION_DONE');
+
+    // 并行执行剩余的非阻塞初始化 + 预加载音频播放器
+    debugPrint('>>> INIT_PARALLEL_START');
+    await Future.wait([
+      _initWakelock(),
+      PurchaseManager.instance.init().timeout(const Duration(seconds: 3), onTimeout: () {
+        debugPrint('>>> INIT_PURCHASE_TIMEOUT');
+      }),
+      AudioController.instance.preload().timeout(const Duration(seconds: 5), onTimeout: () {
+        debugPrint('>>> INIT_AUDIO_PRELOAD_TIMEOUT');
+      }),
+    ]);
+    debugPrint('>>> INIT_PARALLEL_DONE');
+
+    // 初始化系统音量监听
+    await AudioController.instance.initVolumeListener();
+    debugPrint('>>> INIT_VOLUME_LISTENER_DONE');
+
+    debugPrint('>>> INIT_ALL_DONE');
+  } catch (e) {
+    debugPrint('>>> INIT_ERROR: $e');
+  }
 }
 
 /// 配置音频会话
@@ -65,7 +87,9 @@ Future<void> _initAudioSession() async {
 
 /// 屏幕常亮设置
 Future<void> _initWakelock() async {
+  debugPrint('>>> INIT_WAKELOCK_START');
   if (prefs.keepScreenOn) {
     WakelockPlus.enable();
   }
+  debugPrint('>>> INIT_WAKELOCK_DONE');
 }
