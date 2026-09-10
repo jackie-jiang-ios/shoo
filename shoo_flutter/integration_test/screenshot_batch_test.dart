@@ -39,7 +39,12 @@ List<String> get languages {
 
 String get platform => const String.fromEnvironment("PLATFORM", defaultValue: "iphone");
 double get pixelRatio => platform == "ipad" ? 2.0 : 3.0;
-String get _outputDir => const String.fromEnvironment("OUTPUT_DIR", defaultValue: "/Users/jiangzheng/Project/iOS/Shoo/shoo_flutter/fastlane/screenshots");
+String get _outputDir {
+  const base = "/Users/jiangzheng/Project/iOS/Shoo/shoo_flutter/fastlane";
+  const env = String.fromEnvironment("OUTPUT_DIR", defaultValue: "");
+  if (env.isNotEmpty) return env;
+  return platform == "ipad" ? "$base/screenshots_ipad" : "$base/screenshots";
+}
 
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
