@@ -11,8 +11,16 @@ DART_FILE = '/Users/jiangzheng/Project/iOS/Shoo/shoo_flutter/lib/l10n/app_locali
 DEEPSEEK_DIR = '/Users/jiangzheng/Project/iOS/Shoo/翻译结果deepseek'
 BACKUP_FILE = DART_FILE + '.bak'
 
-# Languages that need fixing (identified as having English fallbacks)
-LANGUAGES_TO_FIX = ['hi', 'da', 'fi', 'hr', 'mr', 'ml', 'pa', 'sv', 'sk', 'sl', 'te', 'ta', 'ur', 'el', 'hu']
+# Languages that need fixing — all non-English languages that have DeepSeek translations.
+# The script only replaces entries where the current value equals the English fallback,
+# so it's safe to include languages that are already partially/fully translated.
+LANGUAGES_TO_FIX = [
+    'zh', 'zh_TW', 'ja', 'ko', 'fr', 'fr_CA', 'de', 'es', 'es_MX', 'ru',
+    'pt', 'th', 'ar', 'id', 'it', 'ms', 'nl', 'pl', 'tr', 'vi',
+    'hi', 'da', 'fi', 'gu', 'ca', 'cs', 'kn', 'hr', 'ro', 'mr',
+    'ml', 'bn', 'no', 'pa', 'sv', 'sk', 'sl', 'te', 'ta', 'ur',
+    'uk', 'he', 'el', 'hu',
+]
 
 
 def load_deepseek_translations():

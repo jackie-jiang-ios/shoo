@@ -1,5 +1,6 @@
 #!/bin/bash
-# record_all_videos.sh - iPhone 批量视频录制
+# record_all_videos.sh - iPhone 单次编译批量视频录制
+# 只编译一次，test 内部 for 循环遍历所有语言，shell 控制录屏时机
 set -e
 cd "$(dirname "$0")/.."
 
@@ -12,13 +13,6 @@ if [ -z "$FFMPEG" ] || [ -z "$FFPROBE" ]; then
   exit 1
 fi
 
-ALL_LANGS="ar-SA bn ca cs da de-DE el en-AU en-CA en-GB en-US es-ES es-MX fi fr-CA fr-FR gu he hi hr hu id it ja kn ko ml mr ms nl-NL no or pa pl pt-BR ro ru sk sl sv ta te th tr uk ur vi zh-Hans zh-Hant"
-LANGS="${1:-$ALL_LANGS}"
-if [ -n "${1:-}" ] && ! [[ " $ALL_LANGS " == *" $1 "* ]]; then
-  echo "不支持的语言：$1"
-  echo "可用语言：$ALL_LANGS"
-  exit 1
-fi
 APP_ID="com.yangshiqin.shoo"
 READY_TIMEOUT=120
 STOP_TIMEOUT=120
@@ -33,7 +27,7 @@ print_log_tail() {
   fi
 }
 
-# Find or boot iPhone 14 Plus (6.5" display for APP_IPHONE_65)
+# Find or boot iPhone 14 Plus
 DEVICE_ID=$(xcrun simctl list devices available | grep "iPhone 14 Plus" | head -1 | grep -oE "[A-F0-9-]{36}" | head -1)
 if [ -z "$DEVICE_ID" ]; then
   echo "未找到 iPhone 14 Plus 模拟器"
@@ -54,97 +48,134 @@ fi
 sleep 5
 echo "设备已启动: $DEVICE_ID"
 
-for LANG in $LANGS; do
-  OUTPUT_DIR="fastlane/screenshots/$LANG"
+# Kill any stale app process
+xcrun simctl terminate "$DEVICE_ID" "$APP_ID" >/dev/null 2>&1 || true
+sleep 1
+
+# Clean up signal files
+rm -f /tmp/shoo_video_ready /tmp/shoo_video_start /tmp/shoo_video_stop
+
+# Start flutter test ONCE (compiles once, then loops through all languages)
+GLOBAL_LOG="fastlane/screenshots/video_batch.log"
+echo "=== Starting single-compile batch recording ==="
+flutter test integration_test/video_test.dart \
+  -d "$DEVICE_ID" >"$GLOBAL_LOG" 2>&1 &
+TEST_PID=$!
+
+# Loop: wait for ready signal → start recording → wait for stop → merge
+RECORD_COUNT=0
+MAX_RECORDS=50
+FINAL_LANGS=""
+
+while [ "$RECORD_COUNT" -lt "$MAX_RECORDS" ]; do
+  # Wait for ready signal
+  READY=0
+  CURRENT_LANG=""
+  for i in $(seq 1 "$READY_TIMEOUT"); do
+    if [ -f "/tmp/shoo_video_ready" ]; then
+      CURRENT_LANG=$(cat /tmp/shoo_video_ready)
+      READY=1
+      break
+    fi
+    if ! kill -0 "$TEST_PID" 2>/dev/null; then
+      echo "测试进程已退出，停止循环"
+      break
+    fi
+    sleep 0.5
+  done
+
+  if [ "$READY" -ne 1 ]; then
+    if ! kill -0 "$TEST_PID" 2>/dev/null; then
+      echo "测试进程已退出"
+    else
+      echo "等待 ready 超时（${READY_TIMEOUT}s）"
+    fi
+    break
+  fi
+
+  OUTPUT_DIR="fastlane/screenshots/$CURRENT_LANG"
   VIDEO_FILE="$OUTPUT_DIR/raw_video.mp4"
   FINAL_VIDEO="$OUTPUT_DIR/IPHONE_65-0.mp4"
-  TEST_LOG="$OUTPUT_DIR/video_test.log"
   RECORD_LOG="$OUTPUT_DIR/record_video.log"
   mkdir -p "$OUTPUT_DIR"
-  echo "=== Recording: $LANG ==="
-  rm -f "$VIDEO_FILE" "$FINAL_VIDEO"
-  
-  if [ ! -f "$VIDEO_FILE" ]; then
-    rm -f "/tmp/shoo_video_ready_$LANG" "/tmp/shoo_video_start_$LANG" "/tmp/shoo_video_stop_$LANG"
-    xcrun simctl terminate "$DEVICE_ID" "$APP_ID" >/dev/null 2>&1 || true
-    sleep 1
-    
-    # Use -d to specify device explicitly
-    flutter test integration_test/video_test.dart \
-      --dart-define=LANG="$LANG" \
-      --dart-define=OUTPUT_DIR=fastlane/screenshots \
-      -d "$DEVICE_ID" >"$TEST_LOG" 2>&1 &
-    TEST_PID=$!
+  echo "=== Recording: $CURRENT_LANG ==="
+  rm -f "$VIDEO_FILE" "$FINAL_VIDEO" "$RECORD_LOG"
 
-    READY=0
-    for i in $(seq 1 "$READY_TIMEOUT"); do
-      if [ -f "/tmp/shoo_video_ready_$LANG" ]; then READY=1; break; fi
-      if ! kill -0 "$TEST_PID" 2>/dev/null; then
-        echo "  测试进程在 ready 前退出：$LANG"
-        print_log_tail "$TEST_LOG"
-        break
-      fi
-      sleep 1
-    done
-    if [ "$READY" -ne 1 ]; then
-      echo "  等待 ready 超时（${READY_TIMEOUT}s）：$LANG"
-      print_log_tail "$TEST_LOG"
-      kill "$TEST_PID" 2>/dev/null || true
-      wait "$TEST_PID" 2>/dev/null || true
-      continue
+  # Signal start
+  touch "/tmp/shoo_video_start"
+
+  # Start recording
+  xcrun simctl io "$DEVICE_ID" recordVideo --codec=h264 --mask=ignored -f "$VIDEO_FILE" >"$RECORD_LOG" 2>&1 &
+  RECORD_PID=$!
+
+  # Wait for stop signal
+  STOPPED=0
+  for i in $(seq 1 "$STOP_TIMEOUT"); do
+    if [ -f "/tmp/shoo_video_stop" ]; then
+      STOPPED=1
+      break
     fi
-
-    touch "/tmp/shoo_video_start_$LANG"
-    xcrun simctl io "$DEVICE_ID" recordVideo --codec=h264 --mask=ignored -f "$VIDEO_FILE" >"$RECORD_LOG" 2>&1 &
-    RECORD_PID=$!
-
-    STOPPED=0
-    for i in $(seq 1 "$STOP_TIMEOUT"); do
-      if [ -f "/tmp/shoo_video_stop_$LANG" ]; then STOPPED=1; break; fi
-      if ! kill -0 "$TEST_PID" 2>/dev/null; then
-        echo "  测试进程在录制完成前退出：$LANG"
-        print_log_tail "$TEST_LOG"
-        break
-      fi
-      sleep 1
-    done
-    kill -INT "$RECORD_PID" 2>/dev/null || true
-    wait "$RECORD_PID" 2>/dev/null || true
-
-    if [ "$STOPPED" -ne 1 ]; then
-      echo "  等待 stop 超时或测试失败（${STOP_TIMEOUT}s）：$LANG"
-      print_log_tail "$TEST_LOG"
-      kill "$TEST_PID" 2>/dev/null || true
-      wait "$TEST_PID" 2>/dev/null || true
-      continue
+    if ! kill -0 "$TEST_PID" 2>/dev/null; then
+      echo "测试进程在录屏中退出"
+      break
     fi
-    if ! wait "$TEST_PID"; then
-      echo "  测试执行失败：$LANG"
-      print_log_tail "$TEST_LOG"
-      continue
-    fi
-  else
-    echo "  Reusing raw video: $VIDEO_FILE"
+    sleep 0.5
+  done
+
+  # Stop recording
+  kill -INT "$RECORD_PID" 2>/dev/null || true
+  wait "$RECORD_PID" 2>/dev/null || true
+  sleep 1
+
+  if [ "$STOPPED" -ne 1 ]; then
+    echo "等待 stop 超时（${STOP_TIMEOUT}s）：$CURRENT_LANG"
+    continue
   fi
-  
-  if [ ! -s "$VIDEO_FILE" ]; then echo "  No usable raw video: $LANG"; print_log_tail "$RECORD_LOG"; continue; fi
-  NARRATION="$OUTPUT_DIR/narration.mp3"
-  if [ ! -s "$NARRATION" ] || ! "$FFPROBE" -v error -show_entries format=duration -of csv=p=0 "$NARRATION" 2>/dev/null | awk 'NF == 0 || $1 <= 0 { exit 1 }'; then
-    echo "  Invalid or missing MP3: $NARRATION"; continue
+
+  # Merge with narration audio
+  if [ -s "$VIDEO_FILE" ]; then
+    NARRATION="$OUTPUT_DIR/narration.mp3"
+    if [ -s "$NARRATION" ] && "$FFPROBE" -v error -show_entries format=duration -of csv=p=0 "$NARRATION" 2>/dev/null | awk 'NF==0 || $1<=0 {exit 1}'; then
+      VIDEO_DUR=$("$FFPROBE" -v error -show_entries format=duration -of csv=p=0 "$VIDEO_FILE" 2>/dev/null | cut -d. -f1)
+      AUDIO_DUR=$("$FFPROBE" -v error -show_entries format=duration -of csv=p=0 "$NARRATION" 2>/dev/null | cut -d. -f1)
+      OUT_DUR=$AUDIO_DUR
+      [ -z "$OUT_DUR" ] && OUT_DUR=15
+      [ "$OUT_DUR" -lt 15 ] && OUT_DUR=15
+      [ "$OUT_DUR" -gt 30 ] && OUT_DUR=30
+      if [ -z "$VIDEO_DUR" ] || [ "$VIDEO_DUR" -eq 0 ]; then PTS_FACTOR="1.0";
+      else PTS_FACTOR=$(echo "scale=2; $AUDIO_DUR / $VIDEO_DUR" | bc 2>/dev/null || echo "1.0"); fi
+      "$FFMPEG" -y -fflags +genpts -i "$VIDEO_FILE" -i "$NARRATION" \
+        -vf "scale=886:1920:force_original_aspect_ratio=decrease,pad=886:1920:(ow-iw)/2:(oh-ih)/2:black,setpts=PTS*${PTS_FACTOR},fps=30" \
+        -c:v libx264 -profile:v high -level 4.0 -b:v 10M -maxrate 8M -bufsize 8M -pix_fmt yuv420p \
+        -c:a aac -b:a 256k -ar 44100 -ac 2 -t "$OUT_DUR" -movflags +faststart "$FINAL_VIDEO" 2>/dev/null
+    else
+      # No valid narration, just scale the video
+      "$FFMPEG" -y -i "$VIDEO_FILE" \
+        -vf "scale=886:1920:force_original_aspect_ratio=decrease,pad=886:1920:(ow-iw)/2:(oh-ih)/2:black,fps=30" \
+        -c:v libx264 -profile:v high -level 4.0 -b:v 10M -pix_fmt yuv420p \
+        -t 15 -movflags +faststart "$FINAL_VIDEO" 2>/dev/null
+    fi
   fi
-  VIDEO_DUR=$("$FFPROBE" -v error -show_entries format=duration -of csv=p=0 "$VIDEO_FILE" 2>/dev/null | cut -d. -f1)
-  AUDIO_DUR=$("$FFPROBE" -v error -show_entries format=duration -of csv=p=0 "$NARRATION" 2>/dev/null | cut -d. -f1)
-  OUT_DUR=$AUDIO_DUR
-  [ "$OUT_DUR" -lt 15 ] && OUT_DUR=15
-  [ "$OUT_DUR" -gt 30 ] && OUT_DUR=30
-  if [ -z "$VIDEO_DUR" ] || [ "$VIDEO_DUR" -eq 0 ]; then PTS_FACTOR="1.0"; else PTS_FACTOR=$(echo "scale=2; $AUDIO_DUR / $VIDEO_DUR" | bc 2>/dev/null || echo "1.0"); fi
-  "$FFMPEG" -y -fflags +genpts -i "$VIDEO_FILE" -i "$NARRATION" -vf "scale=886:1920:force_original_aspect_ratio=decrease,pad=886:1920:(ow-iw)/2:(oh-ih)/2:black,setpts=PTS*${PTS_FACTOR},fps=30" -c:v libx264 -profile:v high -level 4.0 -b:v 10M -maxrate 8M -bufsize 8M -pix_fmt yuv420p -c:a aac -b:a 256k -ar 44100 -ac 2 -t "$OUT_DUR" -movflags +faststart "$FINAL_VIDEO" 2>/dev/null
+
   if [ -f "$FINAL_VIDEO" ]; then
-    FINAL_DUR=$("$FFPROBE" -v error -show_entries format=duration -of csv=p=0 "$FINAL_VIDEO" | cut -d. -f1)
+    FINAL_DUR=$("$FFPROBE" -v error -show_entries format=duration -of csv=p=0 "$FINAL_VIDEO" 2>/dev/null | cut -d. -f1)
     FINAL_SIZE=$(du -h "$FINAL_VIDEO" | cut -f1)
-    echo "  OK $LANG: ${FINAL_DUR}s, $FINAL_SIZE"
+    echo "  OK $CURRENT_LANG: ${FINAL_DUR}s, $FINAL_SIZE"
+    FINAL_LANGS="$FINAL_LANGS $CURRENT_LANG"
+    RECORD_COUNT=$((RECORD_COUNT + 1))
   else
-    echo "  FAIL $LANG"
+    echo "  FAIL $CURRENT_LANG"
   fi
+
+  # Clean signal for next iteration
+  rm -f /tmp/shoo_video_ready /tmp/shoo_video_start /tmp/shoo_video_stop
 done
-echo "=== All done ==="
+
+# Cleanup
+if kill -0 "$TEST_PID" 2>/dev/null; then
+  echo "等待测试进程退出..."
+  wait "$TEST_PID" 2>/dev/null || true
+fi
+
+echo "=== Batch complete: $RECORD_COUNT languages ==="
+echo "Done: $FINAL_LANGS"

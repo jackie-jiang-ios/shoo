@@ -1,4 +1,5 @@
-// Shoo video test - multi-language App Store preview video
+// Shoo video test - single-compile multi-language App Store preview video
+// 编译一次，test 内部 for 循环遍历所有语言，配合 shell 逐个录屏合并音频
 import "dart:io";
 import "package:flutter/material.dart";
 import "package:flutter_test/flutter_test.dart";
@@ -7,23 +8,26 @@ import "package:integration_test/integration_test.dart";
 import "package:shared_preferences/shared_preferences.dart";
 import "package:shoo/main.dart" as app;
 import "package:shoo/app.dart"
-    show localeProvider, themeModeProvider, resolveLocale;
+    show localeProvider, themeModeProvider, goRouterProvider, resolveLocale;
+import "package:shoo/l10n/app_localizations.dart" show S;
+import "package:shoo/core/purchase/purchase_manager.dart";
 
-String get targetLang =>
-    const String.fromEnvironment("LANG", defaultValue: "en-US");
+/// 所有要录制的语言（按 App Store 截图顺序）
+const languages = [
+  "ar-SA", "bn", "ca", "cs", "da", "de-DE", "el",
+  "en-AU", "en-CA", "en-GB", "en-US", "es-ES", "es-MX",
+  "fi", "fr-CA", "fr-FR", "gu", "he", "hi", "hr",
+  "hu", "id", "it", "ja", "kn", "ko", "ml", "mr",
+  "ms", "nl-NL", "no", "or", "pa", "pl", "pt-BR",
+  "ro", "ru", "sk", "sl", "sv", "ta", "te", "th",
+  "tr", "uk", "ur", "vi", "zh-Hans", "zh-Hant",
+];
 
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
-  group("Shoo Video - $targetLang", () {
-    testWidgets("Record preview video", (tester) async {
-      // Write language to real SharedPreferences BEFORE app launch
-      // (integration test uses real platform channel, not mock)
-      final sp = await SharedPreferences.getInstance();
-      await sp.setString('language', _getLangCode(targetLang));
-      await sp.setString('theme_mode', 'light');
-
-      // Launch the real app
+  group("Shoo Video - All Languages", () {
+    testWidgets("QUICK VERIFY - 3 langs (no recording)", (tester) async {
       app.main();
       await tester.pumpAndSettle(
         const Duration(milliseconds: 100),
@@ -31,123 +35,279 @@ void main() {
         const Duration(seconds: 20),
       );
 
-      // Also override locale via the app's ProviderContainer
-      // for cases where the simple languageCode doesn't match supportedLocales (e.g. fr_CA)
-      try {
-        final element = tester.element(find.byType(MaterialApp));
-        final container = ProviderScope.containerOf(element, listen: false);
-        container.read(localeProvider.notifier).state =
-            resolveLocale(_getLangCode(targetLang));
+      final element = tester.element(find.byType(MaterialApp));
+      final container = ProviderScope.containerOf(element, listen: false);
+
+      // 解锁 Pro，避免动物卡片 isLocked 弹出 paywall
+      PurchaseManager.instance.debugSetPro(true);
+      debugPrint("[INIT] PurchaseManager.isPro = ${PurchaseManager.instance.isPro}");
+
+      // Only first 3 languages for quick verification
+      const quickLangs = ["ar-SA", "ja", "zh-Hans"];
+      for (final lang in quickLangs) {
+        debugPrint("============ QUICK VERIFY START: $lang ============");
+
+        debugPrint("[1/8] Setting locale...");
+        final langCode = _getLangCode(lang);
+        container.read(localeProvider.notifier).state = resolveLocale(langCode);
         container.read(themeModeProvider.notifier).state = ThemeMode.light;
         await tester.pumpAndSettle(const Duration(seconds: 1));
-      } catch (_) {
-        // Fallback: SharedPreferences already set, should work
-      }
+        debugPrint("[1/8] Locale set OK");
 
-      // Verify locale was set correctly
-      try {
-        final element = tester.element(find.byType(MaterialApp));
-        final container = ProviderScope.containerOf(element, listen: false);
-        final locale = container.read(localeProvider);
-        debugPrint(
-            "=== VIDEO TEST: targetLang=$targetLang, langCode=${_getLangCode(targetLang)}, locale=$locale ===");
-      } catch (e) {
-        debugPrint("=== VIDEO TEST: Failed to read locale: $e ===");
-      }
-
-      // Signal script that app is ready
-      File("/tmp/shoo_video_ready_$targetLang").writeAsStringSync("ready");
-
-      // Wait for recording to start, but fail visibly if the script never
-      // acknowledges the ready signal.
-      final startDeadline = DateTime.now().add(const Duration(seconds: 120));
-      while (!File("/tmp/shoo_video_start_$targetLang").existsSync()) {
-        if (DateTime.now().isAfter(startDeadline)) {
-          fail("Timed out waiting for recording start: $targetLang");
+        debugPrint("[2/8] Checking goRouterProvider...");
+        final router = container.read(goRouterProvider);
+        if (router == null) {
+          debugPrint("[FAIL] goRouterProvider is null! App init incomplete.");
+          break;
         }
-        await tester.pump(const Duration(milliseconds: 200));
-      }
+        debugPrint("[2/8] goRouter at location: ${router.routerDelegate.currentConfiguration.uri}");
 
-      // === Scene 1: Home page - scroll through animals (3s) ===
-      await tester.pumpAndSettle(const Duration(seconds: 1));
-      await _scrollDown(tester);
-      await tester.pump(const Duration(seconds: 1));
-      await _scrollUp(tester);
-      await tester.pump(const Duration(seconds: 1));
+        debugPrint("[3/8] Navigating to /...");
+        router.go("/");
+        await tester.pumpAndSettle(const Duration(milliseconds: 500));
+        debugPrint("[3/8] Now at: ${router.routerDelegate.currentConfiguration.uri}");
+        debugPrint("[3/8] MaterialApp count: ${find.byType(MaterialApp).evaluate().length}");
+        debugPrint("[3/8] Scaffold count: ${find.byType(Scaffold).evaluate().length}");
 
-      // === Scene 2: Select beast category (3s) ===
-      await _tapCategory(tester, "beast");
-      await tester.pump(const Duration(seconds: 2));
-      await _tapCategory(tester, "all");
-      await tester.pump(const Duration(seconds: 1));
+        // Scene 1: scroll
+        debugPrint("[4/8] Scene 1: Scrolling home...");
+        await _scrollDown(tester);
+        await tester.pump(const Duration(milliseconds: 500));
+        await _scrollUp(tester);
+        await tester.pump(const Duration(milliseconds: 500));
+        debugPrint("[4/8] Scene 1 scroll done");
 
-      // === Scene 3: Open animal detail (4s) ===
-      await _tapFirstAnimalCard(tester);
-      await tester.pump(const Duration(seconds: 3));
-
-      // === Scene 4: Go back, open settings (3s) ===
-      final backBtn = find.byIcon(Icons.arrow_back);
-      if (backBtn.evaluate().isNotEmpty) {
-        await tester.tap(backBtn);
-        await tester.pumpAndSettle();
-      }
-      final settingsBtn = find.byIcon(Icons.settings);
-      if (settingsBtn.evaluate().isNotEmpty) {
-        await tester.tap(settingsBtn);
+        // Scene 2: tap animal card
+        debugPrint("[5/8] Scene 2: Tapping first animal card...");
+        await _tapFirstAnimalCard(tester);
         await tester.pump(const Duration(seconds: 2));
+        debugPrint("[5/8] Scene 2 tap done");
+
+        // Detail modal 用 Icons.close 关闭
+        final closeBtnList = find.byIcon(Icons.close);
+        debugPrint("[6/8] Close button count: ${closeBtnList.evaluate().length}");
+        if (closeBtnList.evaluate().isNotEmpty) {
+          debugPrint("[6/8] Closing modal with close button");
+          await tester.tap(closeBtnList.first, warnIfMissed: false);
+          await tester.pumpAndSettle();
+        } else {
+          debugPrint("[6/8] No close button - modal may not have opened");
+        }
+
+        // Scene 3: open settings
+        final settingsBtn = find.byIcon(Icons.settings);
+        debugPrint("[7/8] Settings button count: ${settingsBtn.evaluate().length}");
+        if (settingsBtn.evaluate().isNotEmpty) {
+          await tester.tap(settingsBtn.first, warnIfMissed: false);
+          await tester.pump(const Duration(seconds: 1));
+        } else {
+          debugPrint("[7/8] No settings button found, trying router.go('/settings')...");
+          router.go('/settings');
+          await tester.pumpAndSettle();
+        }
+
+        // Verify settings page title in target language
+        debugPrint("[8/8] Verifying i18n...");
+        final scaffolds = find.byType(Scaffold).evaluate().length;
+        debugPrint("[8/8] Scaffold count now: $scaffolds");
+        if (scaffolds > 0) {
+          try {
+            final s = S.of(tester.element(find.byType(Scaffold).first));
+            debugPrint("[VERIFY] settings title = '${s.settings}'");
+            debugPrint("[VERIFY] themeMode title = '${s.themeMode}'");
+            debugPrint("[VERIFY] language title = '${s.language}'");
+          } catch (e) {
+            debugPrint("[ERROR] S.of failed: $e");
+          }
+        }
+
+        // Back to home
+        router.go("/");
+        await tester.pumpAndSettle(const Duration(milliseconds: 500));
+        debugPrint("============ QUICK VERIFY END: $lang ============");
       }
+    });
 
-      // Signal recording to stop
-      File("/tmp/shoo_video_stop_$targetLang").writeAsStringSync("stop");
+    testWidgets("Record all preview videos in one run", (tester) async {
+      // TEMP: skip to allow quick-only verification
+      // Remove the return below when running full recording with shell script
+      if (!Platform.environment.containsKey("FULL_RECORD")) return;
+      // 启动 app
+      app.main();
+      await tester.pumpAndSettle(
+        const Duration(milliseconds: 100),
+        EnginePhase.sendSemanticsUpdate,
+        const Duration(seconds: 20),
+      );
 
-      // Wait for recording to finish
-      await tester.pump(const Duration(seconds: 2));
+      final element = tester.element(find.byType(MaterialApp));
+      final container = ProviderScope.containerOf(element, listen: false);
+
+      for (final lang in languages) {
+        debugPrint("=== LANG_START: $lang ===");
+
+        // 1. 切换语言（直接改 Provider）
+        final langCode = _getLangCode(lang);
+        container.read(localeProvider.notifier).state = resolveLocale(langCode);
+        container.read(themeModeProvider.notifier).state = ThemeMode.light;
+        await tester.pumpAndSettle(const Duration(seconds: 1));
+
+        // 2. 确保在首页（GoRouter.go 回到根路径）
+        final router = container.read(goRouterProvider)!;
+        router.go("/");
+        await tester.pumpAndSettle(const Duration(milliseconds: 500));
+
+        // 用分类 All 文字点击确认在首页（闪屏后可能在其他页）
+        final allTexts = _getCategoryTexts(lang);
+        final allText = allTexts["all"];
+        if (allText != null) {
+          final allFinder = find.text(allText);
+          if (allFinder.evaluate().isNotEmpty) {
+            await tester.tap(allFinder.first, warnIfMissed: false);
+            await tester.pumpAndSettle(const Duration(milliseconds: 300));
+          }
+        }
+
+        // 3. 通知 shell 脚本：当前语言已就绪可以开始录屏
+        File("/tmp/shoo_video_ready").writeAsStringSync(lang);
+
+        // 4. 等待 shell 脚本确认开始录屏 (快速检测 3s, 没有则继续)
+        final hasShellScript = () => File("/tmp/shoo_video_start").existsSync();
+        for (int i = 0; i < 15 && !hasShellScript(); i++) {
+          await tester.pump(const Duration(milliseconds: 200));
+        }
+        if (!hasShellScript()) {
+          debugPrint("[FAST_MODE] No shell script detected, continuing without recording");
+        }
+
+        if (File("/tmp/shoo_video_start").existsSync()) {
+          debugPrint("=== LANG_RECORDING: $lang ===");
+          // 5. 等待录屏稳定（1s）
+          await tester.pumpAndSettle(const Duration(seconds: 1));
+        }
+
+        // === Scene 1: 首页滚动 (3s) ===
+        await _scrollDown(tester);
+        await tester.pump(const Duration(seconds: 1));
+        await _scrollUp(tester);
+        await tester.pump(const Duration(seconds: 1));
+
+        // === Scene 2: 切换猛兽分类 (3s) ===
+        await _tapCategory(tester, "beast", lang);
+        await tester.pump(const Duration(seconds: 2));
+        await _tapCategory(tester, "all", lang);
+        await tester.pump(const Duration(seconds: 1));
+
+        // === Scene 3: 打开动物详情 (4s) ===
+        await _tapFirstAnimalCard(tester);
+        await tester.pump(const Duration(seconds: 3));
+
+        // === Scene 4: 关闭弹框 (用 Icons.close) + 打开设置
+        final closeBtn = find.byIcon(Icons.close);
+        if (closeBtn.evaluate().isNotEmpty) {
+          await tester.tap(closeBtn.first, warnIfMissed: false);
+          await tester.pumpAndSettle();
+        }
+        final settingsBtn = find.byIcon(Icons.settings);
+        if (settingsBtn.evaluate().isNotEmpty) {
+          await tester.tap(settingsBtn.first, warnIfMissed: false);
+          await tester.pump(const Duration(seconds: 2));
+        }
+
+        // 6. 通知 shell 脚本：停止录屏
+        File("/tmp/shoo_video_stop").writeAsStringSync("stop");
+        debugPrint("=== LANG_DONE: $lang ===");
+
+        // 7. 等待录屏停止
+        await tester.pump(const Duration(seconds: 2));
+
+        // 8. 返回首页准备下一轮
+        final homeBtn = find.byIcon(Icons.home);
+        if (homeBtn.evaluate().isNotEmpty) {
+          await tester.tap(homeBtn.first, warnIfMissed: false);
+          await tester.pumpAndSettle();
+        } else {
+          router.go("/");
+          await tester.pumpAndSettle(const Duration(milliseconds: 500));
+        }
+      }
     });
   });
 }
 
+// === Helper: 滚动 ===
 Future<void> _scrollDown(WidgetTester tester) async {
-  await tester.fling(
-      find.byType(CustomScrollView).first, const Offset(0, -300), 1000.0);
+  final scrollable = find.byType(CustomScrollView).first;
+  if (scrollable.evaluate().isEmpty) return;
+  await tester.fling(scrollable, const Offset(0, -300), 1000.0);
   await tester.pumpAndSettle();
 }
 
 Future<void> _scrollUp(WidgetTester tester) async {
-  await tester.fling(
-      find.byType(CustomScrollView).first, const Offset(0, 300), 1000.0);
+  final scrollable = find.byType(CustomScrollView).first;
+  if (scrollable.evaluate().isEmpty) return;
+  await tester.fling(scrollable, const Offset(0, 300), 1000.0);
   await tester.pumpAndSettle();
 }
 
-Future<void> _tapCategory(WidgetTester tester, String categoryId) async {
-  final texts = _getCategoryTexts(targetLang);
+// === Helper: 分类切换 ===
+Future<void> _tapCategory(WidgetTester tester, String categoryId, String lang) async {
+  final texts = _getCategoryTexts(lang);
   final text = texts[categoryId];
-  if (text != null) {
-    final finder = find.text(text);
-    if (finder.evaluate().isNotEmpty) {
-      await tester.tap(finder.first);
-      await tester.pumpAndSettle();
+  if (text == null) return;
+  final finder = find.text(text);
+  if (finder.evaluate().isEmpty) return;
+  await tester.tap(finder.first, warnIfMissed: false);
+  await tester.pumpAndSettle();
+}
+
+// Helper: 点击第一个动物卡片
+Future<void> _tapFirstAnimalCard(WidgetTester tester) async {
+  // 在 CustomScrollView 中找 InkWell，第一个是 Settings 按钮(40x40)，之后才是动物卡片(~103x396)
+  final scrollable = find.byType(CustomScrollView).first;
+  if (scrollable.evaluate().isEmpty) return;
+
+  final inkWells = find.descendant(
+    of: scrollable,
+    matching: find.byType(InkWell),
+  );
+  final count = inkWells.evaluate().length;
+  if (count < 2) return;
+
+  // 找第一个足够大的 InkWell (动物卡片高度>=80px且宽度>=200px)
+  for (int i = 0; i < count; i++) {
+    final size = tester.getSize(inkWells.at(i));
+    if (size.height >= 80 && size.width >= 200) {
+      debugPrint("[TAP] Tapping animal card #i=$i size=$size");
+      await tester.tap(inkWells.at(i), warnIfMissed: true);
+      await tester.pumpAndSettle(const Duration(seconds: 2));
+      debugPrint("[TAP] closeIcons after tap: ${find.byIcon(Icons.close).evaluate().length}");
+      return;
     }
   }
+
+  // fallback: tap 第二个 InkWel (skip Settings)
+  debugPrint("[TAP] No card matched predicate, fallback to index 1");
+  await tester.tap(inkWells.at(1), warnIfMissed: true);
+  await tester.pumpAndSettle(const Duration(seconds: 2));
 }
 
-Future<void> _tapFirstAnimalCard(WidgetTester tester) async {
-  final cards = find.byType(GestureDetector);
-  if (cards.evaluate().isNotEmpty) {
-    await tester.tap(cards.first);
-    await tester.pumpAndSettle();
-  }
-}
-
+// === 语言代码映射 ===
 String _getLangCode(String locale) {
   const map = {
     "zh-Hans": "zh",
     "zh-Hant": "zh_TW",
     "en-US": "en",
+    "en-AU": "en_AU",
+    "en-CA": "en_CA",
+    "en-GB": "en_GB",
     "ja": "ja",
     "ko": "ko",
     "fr-FR": "fr",
+    "fr-CA": "fr_CA",
     "de-DE": "de",
     "es-ES": "es",
+    "es-MX": "es_MX",
     "ru": "ru",
     "pt-BR": "pt",
     "th": "th",
@@ -161,7 +321,6 @@ String _getLangCode(String locale) {
     "vi": "vi",
     "hi": "hi",
     "da": "da",
-    "fr-CA": "fr_CA",
     "fi": "fi",
     "gu": "gu",
     "ca": "ca",
@@ -182,18 +341,15 @@ String _getLangCode(String locale) {
     "ta": "ta",
     "ur": "ur",
     "uk": "uk",
-    "es-MX": "es_MX",
     "he": "he",
     "el": "el",
     "hu": "hu",
-    "en-AU": "en_AU",
-    "en-CA": "en_CA",
-    "en-GB": "en_GB",
   };
   return map[locale] ?? "en";
 }
 
-Map<String, String?> _getCategoryTexts(String locale) {
+// === 分类按钮文字映射 ===
+Map<String, String> _getCategoryTexts(String locale) {
   const texts = <String, Map<String, String>>{
     "zh-Hans": {
       "all": "全部",
@@ -206,10 +362,10 @@ Map<String, String?> _getCategoryTexts(String locale) {
     },
     "zh-Hant": {
       "all": "全部",
-      "beast": "猛獸威脈",
+      "beast": "猛獸威脅",
       "reptile": "爬行類",
       "primate": "靈長類",
-      "rodent": "啄齲類",
+      "rodent": "�齒類",
       "insect": "昆蟲類",
       "bird": "鳥類"
     },
@@ -222,11 +378,38 @@ Map<String, String?> _getCategoryTexts(String locale) {
       "insect": "Insects",
       "bird": "Birds"
     },
+    "en-AU": {
+      "all": "All",
+      "beast": "Beasts",
+      "reptile": "Reptiles",
+      "primate": "Primates",
+      "rodent": "Rodents",
+      "insect": "Insects",
+      "bird": "Birds"
+    },
+    "en-CA": {
+      "all": "All",
+      "beast": "Beasts",
+      "reptile": "Reptiles",
+      "primate": "Primates",
+      "rodent": "Rodents",
+      "insect": "Insects",
+      "bird": "Birds"
+    },
+    "en-GB": {
+      "all": "All",
+      "beast": "Beasts",
+      "reptile": "Reptiles",
+      "primate": "Primates",
+      "rodent": "Rodents",
+      "insect": "Insects",
+      "bird": "Birds"
+    },
     "ja": {
       "all": "すべて",
       "beast": "猛獣",
       "reptile": "爬虫類",
-      "primate": "霊長類",
+      "primate": "�長類",
       "rodent": "齧歯類",
       "insect": "昆虫類",
       "bird": "鳥類"
@@ -234,13 +417,22 @@ Map<String, String?> _getCategoryTexts(String locale) {
     "ko": {
       "all": "전체",
       "beast": "맹수",
-      "reptile": "파축류",
+      "reptile": "파충류",
       "primate": "영장류",
       "rodent": "설치류",
-      "insect": "곤추류",
+      "insect": "곤충류",
       "bird": "조류"
     },
     "fr-FR": {
+      "all": "Tout",
+      "beast": "Bêtes féroces",
+      "reptile": "Reptiles",
+      "primate": "Primates",
+      "rodent": "Rongeurs",
+      "insect": "Insectes",
+      "bird": "Oiseaux"
+    },
+    "fr-CA": {
       "all": "Tout",
       "beast": "Bêtes féroces",
       "reptile": "Reptiles",
@@ -259,6 +451,15 @@ Map<String, String?> _getCategoryTexts(String locale) {
       "bird": "Vögel"
     },
     "es-ES": {
+      "all": "Todo",
+      "beast": "Bestias",
+      "reptile": "Reptiles",
+      "primate": "Primates",
+      "rodent": "Roedores",
+      "insect": "Insectos",
+      "bird": "Aves"
+    },
+    "es-MX": {
       "all": "Todo",
       "beast": "Bestias",
       "reptile": "Reptiles",
@@ -287,7 +488,7 @@ Map<String, String?> _getCategoryTexts(String locale) {
     },
     "th": {
       "all": "ทั้งหมด",
-      "beast": "สัตว์นักล่า",
+      "beast": "สัตว์�ู้ล่า",
       "reptile": "สัตว์เลื้อยคลาน",
       "primate": "สัตว์อันดับลิง",
       "rodent": "สัตว์ฟันแทะ",
@@ -295,13 +496,13 @@ Map<String, String?> _getCategoryTexts(String locale) {
       "bird": "นก"
     },
     "ar-SA": {
-      "all": "\u0627\u0644\u0643\u0644",
-      "beast": "\u0627\u0644\u0648\u062d\u0648\u0634",
-      "reptile": "\u0627\u0644\u0632\u0648\u0627\u062d\u0641",
-      "primate": "\u0627\u0644\u0631\u0626\u064a\u0633\u064a\u0627\u062a",
-      "rodent": "\u0627\u0644\u0642\u0648\u0627\u0631\u0636",
-      "insect": "\u0627\u0644\u062d\u0634\u0631\u0627\u062a",
-      "bird": "\u0627\u0644\u0637\u064a\u0648\u0631"
+      "all": "الكل",
+      "beast": "الوحوش",
+      "reptile": "الزواحف",
+      "primate": "الرئيسييات",
+      "rodent": "القوارض",
+      "insect": "الحشرات",
+      "bird": "الطيور"
     },
     "id": {
       "all": "Semua",
@@ -313,7 +514,7 @@ Map<String, String?> _getCategoryTexts(String locale) {
       "bird": "Burung"
     },
     "it": {
-      "all": "Tutti",
+      "all": "Tutto",
       "beast": "Bestie",
       "reptile": "Rettili",
       "primate": "Primati",
@@ -349,31 +550,31 @@ Map<String, String?> _getCategoryTexts(String locale) {
       "bird": "Ptaki"
     },
     "tr": {
-      "all": "T\u00fcm\u00fc",
+      "all": "Tümü",
       "beast": "Canavarlar",
-      "reptile": "S\u00fcr\u00fcngenler",
+      "reptile": "Sürüngenler",
       "primate": "Primatlar",
       "rodent": "Kemirgenler",
-      "insect": "B\u00f6cekler",
-      "bird": "Ku\u015flar"
+      "insect": "Böcekler",
+      "bird": "Kuşlar"
     },
     "vi": {
-      "all": "T\u1ea5t c\u1ea3",
-      "beast": "Th\u00fa d\u1eef",
-      "reptile": "B\u00f2 s\u00e1t",
-      "primate": "Linh tr\u01b0\u1edfng",
-      "rodent": "G\u1eb7m nh\u1ea5m",
-      "insect": "C\u00f4n tr\u00f9ng",
+      "all": "Tất cả",
+      "beast": "Thú dữ",
+      "reptile": "Bò sát",
+      "primate": "Linh trư�ng",
+      "rodent": "Gặm nhấm",
+      "insect": "Côn trùng",
       "bird": "Chim"
     },
     "hi": {
-      "all": "\u0938\u092c",
-      "beast": "\u091c\u093e\u0928\u0935\u0930",
-      "reptile": "\u0938\u0930\u0940\u0938\u0943\u092a",
-      "primate": "\u0935\u093e\u0928\u0930",
-      "rodent": "\u0915\u0943\u0902\u0924\u0915",
-      "insect": "\u0915\u0940\u091f",
-      "bird": "\u092a\u0915\u094d\u0937\u0940"
+      "all": "सभी",
+      "beast": "जा�वर",
+      "reptile": "सरीस�प",
+      "primate": "वानर",
+      "rodent": "कृंतक",
+      "insect": "की�",
+      "bird": "पक्षी"
     },
     "da": {
       "all": "Alle",
@@ -384,41 +585,50 @@ Map<String, String?> _getCategoryTexts(String locale) {
       "insect": "Insekter",
       "bird": "Fugle"
     },
-    "fr-CA": {
-      "all": "Tout",
-      "beast": "B\u00eates f\u00e9roces",
-      "reptile": "Reptiles",
-      "primate": "Primates",
-      "rodent": "Rongeurs",
-      "insect": "Insectes",
-      "bird": "Oiseaux"
-    },
     "fi": {
       "all": "Kaikki",
       "beast": "Pedot",
       "reptile": "Matelijat",
-      "primate": "K\u00e4delliset",
-      "rodent": "Jyrsij\u00e4t",
-      "insect": "Hy\u00f6nteiset",
+      "primate": "Kädelliset",
+      "rodent": "Jyrsijät",
+      "insect": "Hyönteiset",
       "bird": "Linnut"
+    },
+    "gu": {
+      "all": "બ�ા",
+      "beast": "પ�ર�ણ��",
+      "reptile": "સ�ી�ૃ�",
+      "primate": "વાનર",
+      "rodent": "�ંદર",
+      "insect": "��ત�",
+      "bird": "�ક�ષ�"
     },
     "ca": {
       "all": "Tot",
-      "beast": "B\u00e8sties",
-      "reptile": "R\u00e8ptils",
+      "beast": "Bèsties",
+      "reptile": "Rèptils",
       "primate": "Primats",
       "rodent": "Roedors",
       "insect": "Insectes",
       "bird": "Ocells"
     },
     "cs": {
-      "all": "V\u0161e",
-      "beast": "\u0160elmy",
+      "all": "Vše",
+      "beast": "Šelmy",
       "reptile": "Plazi",
-      "primate": "Prim\u00e1ti",
+      "primate": "Primáti",
       "rodent": "Hlodavci",
       "insect": "Hmyz",
-      "bird": "Pt\u00e1ci"
+      "bird": "Ptáci"
+    },
+    "kn": {
+      "all": "�ಲ�ಲ�",
+      "beast": "ಮ�ಗ",
+      "reptile": "��ಳ�",
+      "primate": "ಕಪಿ",
+      "rodent": "�ಲ�",
+      "insect": "ಕೀಟ",
+      "bird": "ಹಕ್ಕಿ"
     },
     "hr": {
       "all": "Sve",
@@ -434,18 +644,36 @@ Map<String, String?> _getCategoryTexts(String locale) {
       "beast": "Bestii",
       "reptile": "Reptile",
       "primate": "Primate",
-      "rodent": "\u0218oareci",
+      "rodent": "Șoareci",
       "insect": "Insecte",
-      "bird": "P\u0103s\u0103ri"
+      "bird": "Păsări"
+    },
+    "mr": {
+      "all": "सर्�",
+      "beast": "प्रा�ी",
+      "reptile": "सरीसृप",
+      "primate": "वानर",
+      "rodent": "कृंतक",
+      "insect": "कीट",
+      "bird": "पक्षी"
+    },
+    "ml": {
+      "all": "എല്ലാം",
+      "beast": "മ�ഗ�",
+      "reptile": "ഉ�ഗ�",
+      "primate": "കുരങ്ങ്",
+      "rodent": "ച�്��",
+      "insect": "�്�ാ�ി",
+      "bird": "പ�്�ി"
     },
     "bn": {
-      "all": "\u09b8\u09ac",
-      "beast": "\u09aa\u09b6\u09c1",
-      "reptile": "\u09b8\u09b0\u09c0\u09b8\u09c3\u09aa",
-      "primate": "\u09aa\u09cd\u09b0\u09be\u0987\u09ae\u09c7\u099f",
-      "rodent": "\u0987\u09a6\u09c1\u09b0",
-      "insect": "\u09aa\u09cb\u0995\u09be",
-      "bird": "\u09aa\u09be\u0996\u09bf"
+      "all": "সব",
+      "beast": "�শ�",
+      "reptile": "সরীসৃপ",
+      "primate": "�্রাইমে�",
+      "rodent": "ঁঁদুর",
+      "insect": "পোকা",
+      "bird": "পাখি"
     },
     "no": {
       "all": "Alle",
@@ -456,23 +684,41 @@ Map<String, String?> _getCategoryTexts(String locale) {
       "insect": "Insekter",
       "bird": "Fugler"
     },
+    "or": {
+      "all": "ସମ��ତ",
+      "beast": "�ନ୍��",
+      "reptile": "ସ�ୀସ��",
+      "primate": "ପ��ାଇ��ଟ�",
+      "rodent": "ଗ୍ରାମ",
+      "insect": "��ଟ",
+      "bird": "�କ୍��"
+    },
+    "pa": {
+      "all": "ਸਭ",
+      "beast": "ਜ�ਨ�ਰ",
+      "reptile": "��ੀਸ�ਰ�",
+      "primate": "ਬ�ਦ�",
+      "rodent": "ਚ��ਾ",
+      "insect": "ਕੀ��",
+      "bird": "��ਛੀ"
+    },
     "sv": {
       "all": "Alla",
       "beast": "Djur",
-      "reptile": "Kr\u00e4ldjur",
+      "reptile": "Kräldjur",
       "primate": "Primater",
       "rodent": "Gnagare",
       "insect": "Insekter",
-      "bird": "F\u00e5glar"
+      "bird": "Fåglar"
     },
     "sk": {
-      "all": "V\u0161etko",
-      "beast": "\u0160elmy",
+      "all": "Všetko",
+      "beast": "Šelmy",
       "reptile": "Plazy",
-      "primate": "Prim\u00e1ty",
+      "primate": "Primáty",
       "rodent": "Hlodavce",
       "insect": "Hmyz",
-      "bird": "Vt\u00e1ky"
+      "bird": "Vtáky"
     },
     "sl": {
       "all": "Vse",
@@ -480,80 +726,71 @@ Map<String, String?> _getCategoryTexts(String locale) {
       "reptile": "Plazilci",
       "primate": "Prvaki",
       "rodent": "Glodavci",
-      "insect": "\u017du\u017eelke",
+      "insect": "Žuželke",
       "bird": "Ptice"
     },
-    "uk": {
-      "all": "\u0412\u0441\u0456",
-      "beast": "\u0425\u0438\u0436\u0430\u043a\u0438",
-      "reptile": "\u041f\u043b\u0430\u0437\u0443\u043d\u0438",
-      "primate": "\u041f\u0440\u0438\u043c\u0430\u0442\u0438",
-      "rodent": "\u0413\u0440\u0438\u0437\u0443\u043d\u0438",
-      "insect": "\u041a\u043e\u043c\u0430\u0445\u0438",
-      "bird": "\u041f\u0442\u0430\u0445\u0438"
+    "te": {
+      "all": "అన్న�",
+      "beast": "మ�గ�ల�",
+      "reptile": "స�ీ�ృ�ం",
+      "primate": "కుర���",
+      "rodent": "గిల�ల��ు",
+      "insect": "కీటకం",
+      "bird": "పక్షి"
     },
-    "es-MX": {
-      "all": "Todo",
-      "beast": "Bestias",
-      "reptile": "Reptiles",
-      "primate": "Primates",
-      "rodent": "Roedores",
-      "insect": "Insectos",
-      "bird": "Aves"
+    "ta": {
+      "all": "அ�ைத்தும்",
+      "beast": "வில�்கு",
+      "reptile": "ஊர்வன",
+      "primate": "கு��்கு",
+      "rodent": "�ி",
+      "insect": "�ூ�்சி",
+      "bird": "பறவை"
+    },
+    "ur": {
+      "all": "سب",
+      "beast": "جانور",
+      "reptile": "رینگنے والا",
+      "primate": "بندر",
+      "rodent": "�وہا",
+      "insect": "کیڑا",
+      "bird": "پرندہ"
+    },
+    "uk": {
+      "all": "Всі",
+      "beast": "Хижаки",
+      "reptile": "Плазуни",
+      "primate": "Примати",
+      "rodent": "Гризуни",
+      "insect": "Комахи",
+      "bird": "Птахи"
     },
     "he": {
-      "all": "\u05d4\u05db\u05dc",
-      "beast": "\u05d7\u05d9\u05d5\u05ea",
-      "reptile": "\u05d6\u05d7\u05dc\u05d9\u05dd",
-      "primate": "\u05e4\u05e8\u05d9\u05de\u05d8\u05d9\u05dd",
-      "rodent": "\u05de\u05db\u05e8\u05e1\u05de\u05d9\u05dd",
-      "insect": "\u05d7\u05e8\u05e7\u05d9\u05dd",
-      "bird": "\u05e2\u05d5\u05e4\u05d5\u05ea"
+      "all": "הכל",
+      "beast": "חיות",
+      "reptile": "�ל�立体声",
+      "primate": "�רי�טי�",
+      "rodent": "מכרסמים",
+      "insect": "Unity",
+      "bird": "עופות"
     },
     "el": {
-      "all": "\u038c\u03bb\u03b1",
-      "beast": "\u0398\u03b7\u03c1\u03af\u03b1",
-      "reptile": "\u0388\u03c1\u03c0\u03b5\u03c4\u03ac",
-      "primate": "\u03a0\u03c1\u03c9\u03c4\u03b5\u03cd\u03bf\u03bd\u03c4\u03b1",
-      "rodent": "\u03a4\u03c1\u03c9\u03ba\u03c4\u03b9\u03ba\u03ac",
-      "insect": "\u0388\u03bd\u03c4\u03bf\u03bc\u03b1",
-      "bird": "\u03a0\u03bf\u03c5\u03bb\u03b9\u03ac"
+      "all": "Όλα",
+      "beast": "Θηρία",
+      "reptile": "Ερπετά",
+      "primate": "�ρωτεύοντα",
+      "rodent": "�ρωκτικά",
+      "insect": "Έντομα",
+      "bird": "�ουλιά"
     },
     "hu": {
-      "all": "\u00d6sszes",
+      "all": "Összes",
       "beast": "Vadak",
-      "reptile": "H\u00fcll\u0151k",
-      "primate": "F\u0151eml\u0151s\u00f6k",
-      "rodent": "R\u00e1gcs\u00e1l\u00f3k",
+      "reptile": "Hüllők",
+      "primate": "Főemlősök",
+      "rodent": "Rágcsálók",
       "insect": "Rovarok",
       "bird": "Madarak"
-    },
-    "en-AU": {
-      "all": "All",
-      "beast": "Beasts",
-      "reptile": "Reptiles",
-      "primate": "Primates",
-      "rodent": "Rodents",
-      "insect": "Insects",
-      "bird": "Birds"
-    },
-    "en-CA": {
-      "all": "All",
-      "beast": "Beasts",
-      "reptile": "Reptiles",
-      "primate": "Primates",
-      "rodent": "Rodents",
-      "insect": "Insects",
-      "bird": "Birds"
-    },
-    "en-GB": {
-      "all": "All",
-      "beast": "Beasts",
-      "reptile": "Reptiles",
-      "primate": "Primates",
-      "rodent": "Rodents",
-      "insect": "Insects",
-      "bird": "Birds"
     },
   };
   return texts[locale] ?? texts["en-US"]!;

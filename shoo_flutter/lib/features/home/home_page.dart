@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:volume_controller/volume_controller.dart';
+import '../../core/platform/native_volume_controller.dart';
 import '../../models/animal.dart';
 import '../../core/audio/audio_controller.dart';
 import '../../core/platform/native_logger.dart';
@@ -1327,7 +1327,7 @@ class _BottomPlayerState extends ConsumerState<_BottomPlayer> {
 
   Future<void> _initSystemVolume() async {
     try {
-      final vol = await VolumeController().getVolume();
+      final vol = await NativeVolumeController.getVolume();
       if (mounted) {
         setState(() => _systemVolume = vol);
         ref.read(systemVolumeProvider.notifier).state = vol;
@@ -1781,7 +1781,7 @@ class _SystemVolumeSliderState extends State<_SystemVolumeSlider> {
               onChangeEnd: (value) {
                 _isDragging = false;
                 // 设置防抖窗口：松手后 300ms 内不接受 provider 的旧值覆盖
-                // 防止 volume_controller 在模拟器上延迟回调导致滑块回弹
+                // 防止原生音量监听在模拟器上延迟回调导致滑块回弹
                 _debounceTimer?.cancel();
                 _debounceTimer = Timer(const Duration(milliseconds: 300), () {
                   _debounceTimer = null;

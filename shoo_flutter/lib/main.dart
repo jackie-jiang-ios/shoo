@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:audio_session/audio_session.dart';
-import 'package:volume_controller/volume_controller.dart';
+import 'core/platform/native_volume_controller.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 import 'app.dart';
 import 'core/audio/audio_controller.dart';
@@ -19,7 +19,7 @@ void main() async {
   await prefs.init();
 
   // 初始化系统音量控制器
-  VolumeController().showSystemUI = false;
+  NativeVolumeController.setShowSystemUI(false);
 
   // 异步初始化：音频会话、屏幕常亮等（不阻塞 runApp）
   appInitialized = _initAsync();

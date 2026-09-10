@@ -53,8 +53,8 @@ class AudioPlayer: ObservableObject {
     func playSound(animalId: String, soundFile: String, soundName: String? = nil) {
         stopSound()
 
-        guard let url = Bundle.main.url(forResource: soundFile, withExtension: "mp3", subdirectory: "Sounds") else {
-            NSLog("[ShooWatch] Sound file not found: Sounds/\(soundFile).mp3")
+        guard let url = Bundle.main.url(forResource: soundFile, withExtension: "mp3") else {
+            NSLog("[ShooWatch] Sound file not found: \(soundFile).mp3")
             return
         }
 

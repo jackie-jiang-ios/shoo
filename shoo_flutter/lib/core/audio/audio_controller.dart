@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:just_audio/just_audio.dart';
-import 'package:volume_controller/volume_controller.dart';
+import '../platform/native_volume_controller.dart';
 
 import '../../models/animal.dart';
 import '../platform/native_logger.dart';
@@ -102,7 +102,7 @@ class AudioController {
   Future<void> initVolumeListener() async {
     debugPrint('>>> INIT_VOLUME_LISTENER_START');
     try {
-      VolumeController().listener((volume) {
+      NativeVolumeController.listen((volume) {
         // 如果用户通过硬件按键将音量调高到自动调大目标值以上，清除手动标记
         // 这样下次播放时就能恢复自动调大行为
         if (_userManuallySetVolume && volume >= autoVolumeTarget) {
@@ -119,7 +119,7 @@ class AudioController {
   /// 获取当前系统音量
   Future<double> getSystemVolume() async {
     try {
-      return await VolumeController().getVolume();
+      return await NativeVolumeController.getVolume();
     } catch (e) {
       debugPrint('获取系统音量失败: $e');
       return 1.0;
@@ -132,7 +132,7 @@ class AudioController {
   }) async {
     try {
       final clamped = (volume.clamp(0.0, 1.0) as num).toDouble();
-      VolumeController().setVolume(clamped, showSystemUI: false);
+      NativeVolumeController.setVolume(clamped, showSystemUI: false);
       _userManuallySetVolume = markAsUserOverride;
       // 立即通知回调，避免 provider 持有旧值导致滑块回弹
       onSystemVolumeChanged?.call(clamped);
@@ -158,7 +158,7 @@ class AudioController {
       return;
     }
     try {
-      final currentVol = await VolumeController().getVolume();
+      final currentVol = await NativeVolumeController.getVolume();
       final defaultVol = (prefs.defaultVolume.clamp(0.0, 1.0) as num).toDouble();
       unawaited(NativeLogger.log(
         scope: 'audio_controller:ensureMinSystemVolume',

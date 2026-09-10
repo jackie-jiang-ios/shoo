@@ -5,7 +5,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'core/screenshot/screenshot_helper.dart';
 import 'core/storage/preferences.dart';
-import 'core/record/record_automation.dart';
 import 'features/home/home_page.dart';
 import 'features/settings/settings_page.dart';
 import 'features/settings/web_view_page.dart';
@@ -19,6 +18,9 @@ final themeModeProvider = StateProvider<ThemeMode>((ref) => ThemeMode.system);
 
 /// 语言 Provider
 final localeProvider = StateProvider<Locale?>((ref) => null);
+
+/// GoRouter Provider - 让 test 能直接控制导航
+final goRouterProvider = StateProvider<GoRouter?>((ref) => null);
 
 /// 根据 prefs.language 值解析 Locale
 /// 'system' -> null (跟随系统)
@@ -125,8 +127,10 @@ class _ShooAppState extends ConsumerState<ShooApp> {
   void initState() {
     super.initState();
     _dynamicRouter = _router;
-    // 检查录制模式（使用时间轴驱动 GoRouter 导航）
-    _initRecordMode();
+    // 暴露 GoRouter 给 test 使用
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ref.read(goRouterProvider.notifier).state = _dynamicRouter;
+    });
     // 初始化截图模式并设置页面
     _initScreenshotMode().then((_) {
       if (_isScreenshotMode && mounted) {
@@ -135,44 +139,6 @@ class _ShooAppState extends ConsumerState<ShooApp> {
           _navigateToScreenshotPage();
         });
       }
-    });
-  }
-
-  /// 初始化录制模式：检测参数后覆盖 locale，用时间轴驱动 GoRouter 场景序列
-  Future<void> _initRecordMode() async {
-    try {
-      final isRecord = await RecordAutomation.isRecordMode();
-      if (!isRecord || !mounted) return;
-
-      final lang = await RecordAutomation.getLaunchLang();
-      debugPrint('>>> RECORD_MODE_INIT: lang=$lang');
-
-      // 覆盖 language provider 为目标语言
-      if (lang != null && lang.isNotEmpty) {
-        ref.read(localeProvider.notifier).state = resolveLocale(lang);
-      }
-      // 覆盖 theme 为 light
-      ref.read(themeModeProvider.notifier).state = ThemeMode.light;
-
-      // 跳过闪屏，直接跳首页
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        _dynamicRouter.go('/');
-        // 启动录制场景时间轴
-        _startRecordingSequence();
-      });
-    } catch (e) {
-      debugPrint('>>> RECORD_MODE_INIT_ERROR: $e');
-    }
-  }
-
-  /// 录制场景时间轴：首页(5s) → 设置页(10s)
-  void _startRecordingSequence() {
-    debugPrint('>>> RECORD_SEQ_START');
-    // Scene 1: 首页 (0-5s)
-    Future.delayed(const Duration(seconds: 5), () {
-      if (!mounted) return;
-      debugPrint('>>> RECORD_SCENE_SETTINGS (t=5s)');
-      _dynamicRouter.go('/settings');
     });
   }
 
@@ -198,6 +164,7 @@ class _ShooAppState extends ConsumerState<ShooApp> {
     return RepaintBoundary(
       key: ScreenshotHelper.repaintBoundaryKey,
       child: MaterialApp.router(
+        key: ValueKey("app_locale_$locale"),
         title: '防兽神器',
         debugShowCheckedModeBanner: false,
         theme: AppTheme.light,

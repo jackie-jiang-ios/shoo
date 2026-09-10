@@ -1,6 +1,7 @@
 import UIKit
 import Flutter
 import AVFoundation
+import MediaPlayer
 
 @main
 @objc class AppDelegate: FlutterAppDelegate, FlutterImplicitEngineDelegate {
@@ -34,6 +35,7 @@ import AVFoundation
         setupNativeLogChannel(messenger: messenger)
         setupBackgroundChannel(messenger: messenger)
         setupScreenshotChannel(messenger: messenger)
+        setupVolumeChannel(messenger: messenger)
         if #available(iOS 15.0, *) {
             PurchaseChannel.setup(messenger: messenger)
         }
@@ -286,6 +288,88 @@ import AVFoundation
         }
     }
     
+    // MARK: - 系统音量控制
+
+    private var volumeView: MPVolumeView?
+    private var volumeObservation: NSKeyValueObservation?
+
+    private func setupVolumeChannel(messenger: FlutterBinaryMessenger) {
+        let volumeChannel = FlutterMethodChannel(
+            name: "com.yangshiqin.shoo/volume",
+            binaryMessenger: messenger
+        )
+
+        volumeChannel.setMethodCallHandler { [weak self] (call, result) in
+            guard let self = self else {
+                result(FlutterMethodNotImplemented)
+                return
+            }
+
+            switch call.method {
+            case "setShowSystemUI":
+                // iOS 无法直接控制系统音量 UI 显示，忽略
+                result(nil)
+
+            case "getVolume":
+                let volume = AVAudioSession.sharedInstance().outputVolume
+                result(Float(volume))
+
+            case "setVolume":
+                guard let args = call.arguments as? [String: Any],
+                      let volume = args["volume"] as? Double else {
+                    result(FlutterError(code: "INVALID_ARGS", message: "Invalid volume argument", details: nil))
+                    return
+                }
+                self.setSystemVolume(Float(min(max(volume, 0.0), 1.0)))
+                result(nil)
+
+            case "startVolumeListener":
+                self.startVolumeObservation(messenger: messenger)
+                result(nil)
+
+            case "stopVolumeListener":
+                self.stopVolumeObservation()
+                result(nil)
+
+            default:
+                result(FlutterMethodNotImplemented)
+            }
+        }
+    }
+
+    private func setSystemVolume(_ volume: Float) {
+        // 使用 MPVolumeView 的 slider 来设置系统音量（不显示 UI）
+        if volumeView == nil {
+            volumeView = MPVolumeView(frame: CGRect(x: -1000, y: -1000, width: 1, height: 1))
+            if let window = UIApplication.shared.windows.first {
+                window.addSubview(volumeView!)
+            }
+        }
+
+        if let slider = volumeView?.subviews.first(where: { $0 is UISlider }) as? UISlider {
+            DispatchQueue.main.async {
+                slider.value = volume
+            }
+        }
+    }
+
+    private func startVolumeObservation(messenger: FlutterBinaryMessenger) {
+        stopVolumeObservation()
+
+        let audioSession = AVAudioSession.sharedInstance()
+        volumeObservation = audioSession.observe(\.outputVolume, options: [.new]) { [weak self] (session, change) in
+            guard let self = self else { return }
+            let volume = session.outputVolume
+            let methodChannel = FlutterMethodChannel(name: "com.yangshiqin.shoo/volume", binaryMessenger: messenger)
+            methodChannel.invokeMethod("onVolumeChanged", arguments: volume)
+        }
+    }
+
+    private func stopVolumeObservation() {
+        volumeObservation?.invalidate()
+        volumeObservation = nil
+    }
+
     // MARK: - 超声波播放
     
     private func playUltrasonic(frequency: Double, volume: Double) -> Bool {
