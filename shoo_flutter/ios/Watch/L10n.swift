@@ -1,10 +1,43 @@
 import Foundation
 
 /// Watch App 本地化辅助
+/// 支持通过启动参数 -WatchLang XX 强制指定语言，覆盖系统语言
 enum L10n {
+    /// 强制使用的语言（截图/录制模式下覆盖系统语言）
+    private static var forcedLanguage: String? {
+        let args = ProcessInfo.processInfo.arguments
+        if args.contains("-WatchLang"),
+           let idx = args.firstIndex(of: "-WatchLang"),
+           idx + 1 < args.count {
+            return args[idx + 1]
+        }
+        if let envLang = ProcessInfo.processInfo.environment["WATCH_LANG"] {
+            return envLang
+        }
+        return nil
+    }
+    
+    /// 用于查找本地化字符串的 bundle
+    private static var localizedBundle: Bundle {
+        guard let lang = forcedLanguage else { return .main }
+        
+        // 尝试加载指定语言的 lproj 目录
+        if let path = Bundle.main.path(forResource: lang, ofType: "lproj"),
+           let bundle = Bundle(path: path) {
+            return bundle
+        }
+        // 回退到 main bundle
+        return .main
+    }
+
     /// 获取本地化字符串
     static func tr(_ key: String) -> String {
-        return NSLocalizedString(key, bundle: .main, comment: "")
+        let value = NSLocalizedString(key, bundle: localizedBundle, comment: "")
+        // 如果 lproj 中未找到，尝试回退
+        if value == key {
+            return NSLocalizedString(key, bundle: .main, comment: "")
+        }
+        return value
     }
 
     // MARK: - 通用
