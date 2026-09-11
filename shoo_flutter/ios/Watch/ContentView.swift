@@ -1,7 +1,6 @@
 import SwiftUI
 
 /// 主界面
-@available(watchOS 16.0, *)
 struct ContentView: View {
     @AppStorage("quickRepelAnimalId") private var quickRepelAnimalId: String = "wild_dog"
     @StateObject private var audioPlayer = AudioPlayer()
@@ -312,7 +311,6 @@ struct ContentView: View {
 }
 
 // MARK: - 设置页
-@available(watchOS 16.0, *)
 struct SettingsView: View {
     @ObservedObject private var purchaseStatus = PurchaseStatus.shared
 

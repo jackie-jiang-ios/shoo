@@ -26,7 +26,7 @@ IPAD_DIR = './fastlane/screenshots_ipad'
 WATCH_DIR = './fastlane/screenshots_watch'
 IPHONE_DISPLAY = 'APP_IPHONE_65'          # iPhone 14 Plus 6.5" 1284x2778
 IPAD_DISPLAY = 'APP_IPAD_PRO_3GEN_129'    # iPad Pro 12.9" 3rd gen+ / 13" (M5) 2064x2752
-WATCH_DISPLAY = 'APP_WATCH_SERIES_3'      # Apple Watch Series 3/4/5/6/7/8/SE/Ultra
+WATCH_DISPLAY = 'APP_WATCH_SERIES_4'      # Apple Watch Series 4+ 44mm 312x390
 
 # Map screenshot directory names to ASC locale codes
 LOCALE_MAP = {
