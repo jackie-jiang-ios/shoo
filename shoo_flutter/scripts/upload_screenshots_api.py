@@ -7,6 +7,7 @@ Usage:
   python3 scripts/upload_screenshots_api.py en-US
   python3 scripts/upload_screenshots_api.py all
   python3 scripts/upload_screenshots_api.py all --platform ipad
+  python3 scripts/upload_screenshots_api.py all --platform watch
   python3 scripts/upload_screenshots_api.py en-US --platform ipad
 """
 import json, time, os, sys, pathlib, requests, jwt
@@ -22,8 +23,10 @@ VERSION_ID = '72ab6e5c-5665-4b2c-9d34-2e3a778625b6'  # 4.0.0
 # Display types
 IPHONE_DIR = './fastlane/screenshots'
 IPAD_DIR = './fastlane/screenshots_ipad'
+WATCH_DIR = './fastlane/screenshots_watch'
 IPHONE_DISPLAY = 'APP_IPHONE_65'          # iPhone 14 Plus 6.5" 1284x2778
 IPAD_DISPLAY = 'APP_IPAD_PRO_3GEN_129'    # iPad Pro 12.9" 3rd gen+ / 13" (M5) 2064x2752
+WATCH_DISPLAY = 'APP_WATCH_SERIES_3'      # Apple Watch Series 3/4/5/6/7/8/SE/Ultra
 
 # Map screenshot directory names to ASC locale codes
 LOCALE_MAP = {
@@ -137,12 +140,12 @@ def create_screenshot_set(H, loc_id, display_type):
     return None
 
 
-def upload_lang(lang, screenshot_dir, display_type, skip_existing=False):
+def upload_lang(lang, screenshot_dir, display_type, skip_existing=False, min_required=3):
     H = get_token()
     dir_path = pathlib.Path(screenshot_dir) / lang
     pngs = sorted(dir_path.glob('*.png'))
-    if len(pngs) < 3:
-        print(f"  SKIP {lang}: only {len(pngs)} pngs")
+    if len(pngs) < min_required:
+        print(f"  SKIP {lang}: only {len(pngs)} pngs (<{min_required})")
         return False
 
     asc_locale = LOCALE_MAP.get(lang, lang)
@@ -186,6 +189,8 @@ if __name__ == '__main__':
 
     if platform == 'ipad':
         screenshot_dir, display_type = IPAD_DIR, IPAD_DISPLAY
+    elif platform == 'watch':
+        screenshot_dir, display_type = WATCH_DIR, WATCH_DISPLAY
     else:
         screenshot_dir, display_type = IPHONE_DIR, IPHONE_DISPLAY
 
@@ -193,14 +198,15 @@ if __name__ == '__main__':
 
     skip_existing = '--skip-existing' in sys.argv
 
+    min_screenshots = 1 if platform == 'watch' else 3
     if lang == 'all':
         results = {}
         for d in sorted(pathlib.Path(screenshot_dir).iterdir()):
             if d.is_dir():
                 l = d.name
                 pngs = list(d.glob('*.png'))
-                if len(pngs) >= 3:
-                    results[l] = upload_lang(l, screenshot_dir, display_type, skip_existing=skip_existing)
+                if len(pngs) >= min_screenshots:
+                    results[l] = upload_lang(l, screenshot_dir, display_type, skip_existing=skip_existing, min_required=min_screenshots)
         print("\n=== SUMMARY ===")
         for l, ok in results.items():
             print(f"  {l}: {'OK' if ok else 'FAIL'}")

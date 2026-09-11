@@ -1,6 +1,7 @@
 import SwiftUI
 
 /// 主界面
+@available(watchOS 16.0, *)
 struct ContentView: View {
     @AppStorage("quickRepelAnimalId") private var quickRepelAnimalId: String = "wild_dog"
     @StateObject private var audioPlayer = AudioPlayer()
@@ -43,7 +44,6 @@ struct ContentView: View {
         currentScrollIndex = 0
         scrollTimer = Timer.scheduledTimer(withTimeInterval: 0.8, repeats: true) { _ in
             guard currentScrollIndex < scrollableItemIDs.count else {
-                // 滚动到底部后回到顶部
                 currentScrollIndex = 0
                 withAnimation { scrollTarget = "top" }
                 return
@@ -63,147 +63,17 @@ struct ContentView: View {
 
     /// 获取 Quick Repel 对应的动物
     private var quickRepelAnimal: WatchAnimal? {
-        // 保存的动物必须是免费的；如果是 Pro 专属，回退到默认免费动物
         if let animal = WatchAnimal.allAnimals.first(where: { $0.id == quickRepelAnimalId }),
            !animal.isProOnly {
             return animal
         }
-        // 默认取第一个免费动物
         return WatchAnimal.allAnimals.first(where: { !$0.isProOnly })
     }
 
     var body: some View {
         NavigationStack {
             ScrollViewReader { proxy in
-                ScrollView {
-                    VStack(spacing: 12) {
-                        // 一键驱赶按钮
-                        Button {
-                            guard let animal = quickRepelAnimal else { return }
-                            if audioPlayer.isPlaying && audioPlayer.playingAnimalId == animal.id {
-                                audioPlayer.stopSound()
-                            } else {
-                                audioPlayer.playSound(animalId: animal.id, soundFile: animal.topSoundFile, soundName: animal.topSoundName)
-                            }
-                        } label: {
-                            HStack(spacing: 8) {
-                                // 录制模式下显示隐藏的进度指示器，强制 GPU 持续渲染
-                                if isRecordingMode {
-                                    TimelineView(.periodic(from: .now, by: 1.0/30.0)) { context in
-                                        Circle()
-                                            .fill(Color.white.opacity(0.01))
-                                            .frame(width: 1, height: 1)
-                                            .id(context.date.timeIntervalSinceReferenceDate)
-                                    }
-                                }
-                                Image(systemName: (audioPlayer.isPlaying && audioPlayer.playingAnimalId == quickRepelAnimal?.id) ? "stop.fill" : "bolt.trianglebadge.exclamationmark.fill")
-                                    .font(.title3)
-                                VStack(spacing: 1) {
-                                    Text(L10n.quickRepel)
-                                        .font(.headline)
-                                        .fontWeight(.bold)
-                                    if let animal = quickRepelAnimal {
-                                        Text(animal.name)
-                                            .font(.caption2)
-                                            .opacity(0.85)
-                                    }
-                                }
-                            }
-                            .foregroundStyle(.white)
-                            .frame(maxWidth: .infinity)
-                            .padding(.vertical, 14)
-                            .background((audioPlayer.isPlaying && audioPlayer.playingAnimalId == quickRepelAnimal?.id) ? Color.orange.gradient : Color.red.gradient, in: RoundedRectangle(cornerRadius: 14))
-                        }
-                        .buttonStyle(.plain)
-                        .id("top")
-
-                        // 动物列表
-                        ForEach(Array(WatchAnimal.categorized.enumerated()), id: \.element.name) { catIndex, category in
-                            VStack(spacing: 6) {
-                                HStack {
-                                    Text(category.emoji)
-                                        .font(.caption)
-                                    Text(category.name)
-                                        .font(.caption)
-                                        .fontWeight(.semibold)
-                                        .foregroundStyle(.secondary)
-                                    Spacer()
-                                }
-                                .padding(.leading, 4)
-                                .padding(.top, 4)
-                                .id("cat_\(catIndex)")
-
-                                ForEach(category.animals) { animal in
-                                    let isThisPlaying = audioPlayer.isPlaying && audioPlayer.playingAnimalId == animal.id
-                                    let isQuickRepel = !animal.isProOnly && quickRepelAnimalId == animal.id
-                                    HStack(spacing: 10) {
-                                        Text(animal.emoji)
-                                            .font(.title2)
-                                            .frame(width: 36, height: 36)
-
-                                        VStack(alignment: .leading, spacing: 2) {
-                                            HStack(spacing: 4) {
-                                                Text(animal.name)
-                                                    .font(.subheadline)
-                                                    .fontWeight(.semibold)
-                                                if isQuickRepel {
-                                                    Image(systemName: "bolt.fill")
-                                                        .font(.caption2)
-                                                        .foregroundStyle(.red)
-                                                }
-                                            }
-                                            Text(animal.topSoundName)
-                                                .font(.caption2)
-                                                .foregroundStyle(.secondary)
-                                        }
-
-                                        Spacer()
-
-                                        Button {
-                                            if isThisPlaying {
-                                                audioPlayer.stopSound()
-                                            } else {
-                                                // Pro 专属且未购买 → 提示购买
-                                                if animal.isProOnly && !purchaseStatus.isProActive {
-                                                    showPurchaseAlert = true
-                                                    return
-                                                }
-                                                audioPlayer.playSound(animalId: animal.id, soundFile: animal.topSoundFile, soundName: animal.topSoundName)
-                                                // 记录用户选择（仅免费动物可作为 Quick Repel 默认）
-                                                if !animal.isProOnly {
-                                                    quickRepelAnimalId = animal.id
-                                                }
-                                            }
-                                        } label: {
-                                            Image(systemName: isThisPlaying ? "stop.fill" : "play.fill")
-                                                .font(.title3)
-                                                .foregroundStyle(isThisPlaying ? .red : (animal.isProOnly && !purchaseStatus.isProActive ? .gray : .orange))
-                                                .padding(.trailing, 2)
-                                        }
-                                        .buttonStyle(.plain)
-                                    }
-                                    .padding(.horizontal, 12)
-                                    .padding(.vertical, 10)
-                                    .background(Color.gray.opacity(isQuickRepel ? 0.15 : 0.08), in: RoundedRectangle(cornerRadius: 12))
-                                    .id("animal_\(animal.id)")
-                                }
-                            }
-                        }
-                    }
-                    .padding(.horizontal, 8)
-                    .padding(.bottom, 20)
-                }
-                .onChange(of: scrollTarget) { _, newValue in
-                    if let id = newValue {
-                        proxy.scrollTo(id, anchor: .center)
-                    }
-                }
-                .onAppear {
-                    startAutoScrollIfNeeded()
-                }
-                .onDisappear {
-                    stopAutoScroll()
-                }
+                scrollContent(proxy: proxy)
             }
             .navigationTitle(L10n.appName)
             .navigationBarTitleDisplayMode(.inline)
@@ -257,9 +127,192 @@ struct ContentView: View {
             }
         }
     }
+
+    // MARK: - Scroll Content
+
+    @ViewBuilder
+    private func scrollContent(proxy: ScrollViewProxy) -> some View {
+        ScrollView {
+            VStack(spacing: 12) {
+                quickRepelButton
+                animalCategories
+            }
+            .padding(.horizontal, 8)
+            .padding(.bottom, 20)
+        }
+        .onChange(of: scrollTarget) { newValue in
+            if let id = newValue {
+                proxy.scrollTo(id, anchor: .center)
+            }
+        }
+        .onAppear {
+            startAutoScrollIfNeeded()
+        }
+        .onDisappear {
+            stopAutoScroll()
+        }
+    }
+
+    // MARK: - Quick Repel Button
+
+    @ViewBuilder
+    private var quickRepelButton: some View {
+        Button {
+            guard let animal = quickRepelAnimal else { return }
+            if audioPlayer.isPlaying && audioPlayer.playingAnimalId == animal.id {
+                audioPlayer.stopSound()
+            } else {
+                audioPlayer.playSound(animalId: animal.id, soundFile: animal.topSoundFile, soundName: animal.topSoundName)
+            }
+        } label: {
+            HStack(spacing: 8) {
+                if isRecordingMode {
+                    TimelineView(.periodic(from: .now, by: 1.0/30.0)) { context in
+                        Circle()
+                            .fill(Color.white.opacity(0.01))
+                            .frame(width: 1, height: 1)
+                            .id(context.date.timeIntervalSinceReferenceDate)
+                    }
+                }
+                let isActive = audioPlayer.isPlaying && audioPlayer.playingAnimalId == quickRepelAnimal?.id
+                Image(systemName: isActive ? "stop.fill" : "bolt.trianglebadge.exclamationmark.fill")
+                    .font(.title3)
+                quickRepelLabel
+            }
+            .foregroundStyle(.white)
+            .frame(maxWidth: .infinity)
+            .padding(.vertical, 14)
+            .background(quickRepelBackground, in: RoundedRectangle(cornerRadius: 14))
+        }
+        .buttonStyle(.plain)
+        .id("top")
+    }
+
+    @ViewBuilder
+    private var quickRepelLabel: some View {
+        VStack(spacing: 1) {
+            Text(L10n.quickRepel)
+                .font(.headline)
+                .fontWeight(.bold)
+            if let animal = quickRepelAnimal {
+                Text(animal.name)
+                    .font(.caption2)
+                    .opacity(0.85)
+            }
+        }
+    }
+
+    private var quickRepelBackground: some ShapeStyle {
+        let isActive = audioPlayer.isPlaying && audioPlayer.playingAnimalId == quickRepelAnimal?.id
+        if isActive {
+            return Color.orange.gradient
+        }
+        return Color.red.gradient
+    }
+
+    // MARK: - Animal Categories
+
+    @ViewBuilder
+    private var animalCategories: some View {
+        ForEach(Array(WatchAnimal.categorized.enumerated()), id: \.element.name) { catIndex, category in
+            VStack(spacing: 6) {
+                categoryHeader(category: category, index: catIndex)
+                animalRows(category: category, catIndex: catIndex)
+            }
+        }
+    }
+
+    @ViewBuilder
+    private func categoryHeader(category: (name: String, emoji: String, animals: [WatchAnimal]), index: Int) -> some View {
+        HStack {
+            Text(category.emoji)
+                .font(.caption)
+            Text(category.name)
+                .font(.caption)
+                .fontWeight(.semibold)
+                .foregroundStyle(.secondary)
+            Spacer()
+        }
+        .padding(.leading, 4)
+        .padding(.top, 4)
+        .id("cat_\(index)")
+    }
+
+    @ViewBuilder
+    private func animalRows(category: (name: String, emoji: String, animals: [WatchAnimal]), catIndex: Int) -> some View {
+        ForEach(category.animals) { animal in
+            animalRow(animal: animal)
+        }
+    }
+
+    @ViewBuilder
+    private func animalRow(animal: WatchAnimal) -> some View {
+        let isPlaying = audioPlayer.isPlaying && audioPlayer.playingAnimalId == animal.id
+        let isQuickRepel = !animal.isProOnly && quickRepelAnimalId == animal.id
+        HStack(spacing: 10) {
+            Text(animal.emoji)
+                .font(.title2)
+                .frame(width: 36, height: 36)
+
+            animalInfo(animal: animal, isQuickRepel: isQuickRepel)
+
+            Spacer()
+
+            playButton(animal: animal, isPlaying: isPlaying)
+        }
+        .padding(.horizontal, 12)
+        .padding(.vertical, 10)
+        .background(Color.gray.opacity(isQuickRepel ? 0.15 : 0.08), in: RoundedRectangle(cornerRadius: 12))
+        .id("animal_\(animal.id)")
+    }
+
+    @ViewBuilder
+    private func animalInfo(animal: WatchAnimal, isQuickRepel: Bool) -> some View {
+        VStack(alignment: .leading, spacing: 2) {
+            HStack(spacing: 4) {
+                Text(animal.name)
+                    .font(.subheadline)
+                    .fontWeight(.semibold)
+                if isQuickRepel {
+                    Image(systemName: "bolt.fill")
+                        .font(.caption2)
+                        .foregroundStyle(.red)
+                }
+            }
+            Text(animal.topSoundName)
+                .font(.caption2)
+                .foregroundStyle(.secondary)
+        }
+    }
+
+    @ViewBuilder
+    private func playButton(animal: WatchAnimal, isPlaying: Bool) -> some View {
+        Button {
+            if isPlaying {
+                audioPlayer.stopSound()
+            } else {
+                if animal.isProOnly && !purchaseStatus.isProActive {
+                    showPurchaseAlert = true
+                    return
+                }
+                audioPlayer.playSound(animalId: animal.id, soundFile: animal.topSoundFile, soundName: animal.topSoundName)
+                if !animal.isProOnly {
+                    quickRepelAnimalId = animal.id
+                }
+            }
+        } label: {
+            let iconColor: Color = isPlaying ? .red : (animal.isProOnly && !purchaseStatus.isProActive ? .gray : .orange)
+            Image(systemName: isPlaying ? "stop.fill" : "play.fill")
+                .font(.title3)
+                .foregroundStyle(iconColor)
+                .padding(.trailing, 2)
+        }
+        .buttonStyle(.plain)
+    }
 }
 
 // MARK: - 设置页
+@available(watchOS 16.0, *)
 struct SettingsView: View {
     @ObservedObject private var purchaseStatus = PurchaseStatus.shared
 
