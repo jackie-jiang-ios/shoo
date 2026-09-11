@@ -9,57 +9,6 @@ struct ContentView: View {
     @State private var purchaseMessage: String?
     @State private var showPurchaseResult = false
 
-    // 检测是否在录制/截图模式（用于强制渲染帧）
-    private var isRecordingMode: Bool {
-        let args = ProcessInfo.processInfo.arguments
-        return args.contains("-WatchLang") || args.contains("-WatchPage")
-            || ProcessInfo.processInfo.environment["WATCH_LANG"] != nil
-            || ProcessInfo.processInfo.environment["SCREENSHOT_MODE"] == "1"
-    }
-
-    // 自动滚动状态
-    @State private var scrollTarget: String? = nil
-    @State private var scrollTimer: Timer? = nil
-    @State private var currentScrollIndex: Int = 0
-
-    /// 所有可滚动的 item ID（用于录屏时自动滚动）
-    private var scrollableItemIDs: [String] {
-        var ids: [String] = ["top"]
-        var index = 0
-        for category in WatchAnimal.categorized {
-            ids.append("cat_\(index)")
-            for animal in category.animals {
-                ids.append("animal_\(animal.id)")
-            }
-            index += 1
-        }
-        return ids
-    }
-
-    /// 启动自动滚动（仅在录制模式）
-    private func startAutoScrollIfNeeded() {
-        guard isRecordingMode else { return }
-        stopAutoScroll()
-        currentScrollIndex = 0
-        scrollTimer = Timer.scheduledTimer(withTimeInterval: 0.8, repeats: true) { _ in
-            guard currentScrollIndex < scrollableItemIDs.count else {
-                currentScrollIndex = 0
-                withAnimation { scrollTarget = "top" }
-                return
-            }
-            withAnimation(.easeInOut(duration: 0.6)) {
-                scrollTarget = scrollableItemIDs[currentScrollIndex]
-            }
-            currentScrollIndex += 1
-        }
-    }
-
-    /// 停止自动滚动
-    private func stopAutoScroll() {
-        scrollTimer?.invalidate()
-        scrollTimer = nil
-    }
-
     /// 获取 Quick Repel 对应的动物
     private var quickRepelAnimal: WatchAnimal? {
         if let animal = WatchAnimal.allAnimals.first(where: { $0.id == quickRepelAnimalId }),
@@ -73,17 +22,6 @@ struct ContentView: View {
         NavigationStack {
             ScrollViewReader { proxy in
                 scrollContent(proxy: proxy)
-            }
-            .navigationTitle(L10n.appName)
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
-                    NavigationLink {
-                        SettingsView()
-                    } label: {
-                        Image(systemName: "gearshape.fill")
-                    }
-                }
             }
             .alert(L10n.upgradeToPro, isPresented: $showPurchaseAlert) {
                 if SimulatorDetector.isSimulator {
@@ -139,17 +77,6 @@ struct ContentView: View {
             .padding(.horizontal, 8)
             .padding(.bottom, 20)
         }
-        .onChange(of: scrollTarget) { newValue in
-            if let id = newValue {
-                proxy.scrollTo(id, anchor: .center)
-            }
-        }
-        .onAppear {
-            startAutoScrollIfNeeded()
-        }
-        .onDisappear {
-            stopAutoScroll()
-        }
     }
 
     // MARK: - Quick Repel Button
@@ -165,14 +92,6 @@ struct ContentView: View {
             }
         } label: {
             HStack(spacing: 8) {
-                if isRecordingMode {
-                    TimelineView(.periodic(from: .now, by: 1.0/30.0)) { context in
-                        Circle()
-                            .fill(Color.white.opacity(0.01))
-                            .frame(width: 1, height: 1)
-                            .id(context.date.timeIntervalSinceReferenceDate)
-                    }
-                }
                 let isActive = audioPlayer.isPlaying && audioPlayer.playingAnimalId == quickRepelAnimal?.id
                 Image(systemName: isActive ? "stop.fill" : "bolt.trianglebadge.exclamationmark.fill")
                     .font(.title3)
