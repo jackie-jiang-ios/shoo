@@ -93,8 +93,13 @@ struct ContentView: View {
         } label: {
             HStack(spacing: 8) {
                 let isActive = audioPlayer.isPlaying && audioPlayer.playingAnimalId == quickRepelAnimal?.id
-                Image(systemName: isActive ? "stop.fill" : "bolt.trianglebadge.exclamationmark.fill")
-                    .font(.title3)
+                if isActive {
+                    Image(systemName: "stop.fill")
+                        .font(.title3)
+                } else if let animal = quickRepelAnimal {
+                    Text(animal.emoji)
+                        .font(.title2)
+                }
                 quickRepelLabel
             }
             .foregroundStyle(.white)
@@ -108,16 +113,9 @@ struct ContentView: View {
 
     @ViewBuilder
     private var quickRepelLabel: some View {
-        VStack(spacing: 1) {
-            Text(L10n.quickRepel)
-                .font(.headline)
-                .fontWeight(.bold)
-            if let animal = quickRepelAnimal {
-                Text(animal.name)
-                    .font(.caption2)
-                    .opacity(0.85)
-            }
-        }
+        Text(L10n.quickRepel)
+            .font(.headline)
+            .fontWeight(.bold)
     }
 
     private var quickRepelBackground: some ShapeStyle {
@@ -167,20 +165,40 @@ struct ContentView: View {
     private func animalRow(animal: WatchAnimal) -> some View {
         let isPlaying = audioPlayer.isPlaying && audioPlayer.playingAnimalId == animal.id
         let isQuickRepel = !animal.isProOnly && quickRepelAnimalId == animal.id
-        HStack(spacing: 10) {
-            Text(animal.emoji)
-                .font(.title2)
-                .frame(width: 36, height: 36)
+        Button {
+            if isPlaying {
+                audioPlayer.stopSound()
+            } else {
+                if animal.isProOnly && !purchaseStatus.isProActive {
+                    showPurchaseAlert = true
+                    return
+                }
+                audioPlayer.playSound(animalId: animal.id, soundFile: animal.topSoundFile, soundName: animal.topSoundName)
+                if !animal.isProOnly {
+                    quickRepelAnimalId = animal.id
+                }
+            }
+        } label: {
+            HStack(spacing: 10) {
+                Text(animal.emoji)
+                    .font(.title2)
+                    .frame(width: 36, height: 36)
 
-            animalInfo(animal: animal, isQuickRepel: isQuickRepel)
+                animalInfo(animal: animal, isQuickRepel: isQuickRepel)
 
-            Spacer()
+                Spacer()
 
-            playButton(animal: animal, isPlaying: isPlaying)
+                let iconColor: Color = isPlaying ? .red : (animal.isProOnly && !purchaseStatus.isProActive ? .gray : .orange)
+                Image(systemName: isPlaying ? "stop.fill" : "play.fill")
+                    .font(.title3)
+                    .foregroundStyle(iconColor)
+                    .padding(.trailing, 2)
+            }
+            .padding(.horizontal, 12)
+            .padding(.vertical, 10)
+            .background(Color.gray.opacity(isQuickRepel ? 0.15 : 0.08), in: RoundedRectangle(cornerRadius: 12))
         }
-        .padding(.horizontal, 12)
-        .padding(.vertical, 10)
-        .background(Color.gray.opacity(isQuickRepel ? 0.15 : 0.08), in: RoundedRectangle(cornerRadius: 12))
+        .buttonStyle(.plain)
         .id("animal_\(animal.id)")
     }
 
@@ -203,30 +221,6 @@ struct ContentView: View {
         }
     }
 
-    @ViewBuilder
-    private func playButton(animal: WatchAnimal, isPlaying: Bool) -> some View {
-        Button {
-            if isPlaying {
-                audioPlayer.stopSound()
-            } else {
-                if animal.isProOnly && !purchaseStatus.isProActive {
-                    showPurchaseAlert = true
-                    return
-                }
-                audioPlayer.playSound(animalId: animal.id, soundFile: animal.topSoundFile, soundName: animal.topSoundName)
-                if !animal.isProOnly {
-                    quickRepelAnimalId = animal.id
-                }
-            }
-        } label: {
-            let iconColor: Color = isPlaying ? .red : (animal.isProOnly && !purchaseStatus.isProActive ? .gray : .orange)
-            Image(systemName: isPlaying ? "stop.fill" : "play.fill")
-                .font(.title3)
-                .foregroundStyle(iconColor)
-                .padding(.trailing, 2)
-        }
-        .buttonStyle(.plain)
-    }
 }
 
 // MARK: - 设置页

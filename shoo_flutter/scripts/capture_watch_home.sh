@@ -4,10 +4,10 @@
 # 
 # 通过 -WatchPage home 强制显示首页（动物声音列表页）
 
-set -e
+# 不使用 set -e，防止单个语言失败中断全部
 
 UDID="FDDC541B-5F2D-4940-ABC2-37F6D6B7E59A"
-BUNDLE_ID="com.yangshiqin.shoo.watch"
+BUNDLE_ID="com.yangshiqin.shoo.watchkitapp"
 OUTPUT_BASE="fastlane/screenshots_watch"
 
 languages=(
@@ -73,20 +73,20 @@ for lang_pair in "${languages[@]}"; do
     
     echo "[$count/${#languages[@]}] $dir_name ($lang_code)"
     
+    # 先终止旧进程
+    xcrun simctl terminate "$UDID" "$BUNDLE_ID" 2>/dev/null || true
+    
     # 启动 app（传 -WatchPage home 强制显示首页）
     xcrun simctl launch "$UDID" "$BUNDLE_ID" -AppleLanguages "($lang_code)" -AppleLocale "$lang_code" -WatchPage home 2>/dev/null
     
-    # 等待加载
-    sleep 2
+    # 等待渲染
+    sleep 3
     
     # 截图
     mkdir -p "$OUTPUT_BASE/$dir_name"
     xcrun simctl io "$UDID" screenshot "$OUTPUT_BASE/$dir_name/01_Home.png" 2>/dev/null
     
-    # 终止 app
-    xcrun simctl terminate "$UDID" "$BUNDLE_ID" 2>/dev/null
-    
-    sleep 0.5
+    sleep 1
 done
 
 echo ""
