@@ -246,6 +246,9 @@ class AppLocalizationsNl extends AppLocalizations {
   String get version => 'Versie';
 
   @override
+  String get shareApp => 'Delen';
+
+  @override
   String get rateUs => 'Beoordeel ons';
 
   @override

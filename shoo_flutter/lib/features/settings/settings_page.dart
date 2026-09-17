@@ -5,6 +5,7 @@ import 'package:package_info_plus/package_info_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 import '../../app.dart';
+import '../../core/platform/share_channel.dart';
 import '../../core/storage/preferences.dart';
 import '../../core/purchase/purchase_manager.dart';
 import '../../l10n/app_localizations.dart';
@@ -267,6 +268,18 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
                 ),
                 const Divider(height: 1),
                 ListTile(
+                  leading: const Icon(Icons.share),
+                  title: Text(s.shareApp),
+                  trailing: const Icon(Icons.chevron_right),
+                  onTap: () {
+                    ShareChannel.shareApp(
+                      'https://apps.apple.com/app/id6779087767',
+                      'Check out Shoo - Animal Repellent App!',
+                    );
+                  },
+                ),
+                const Divider(height: 1),
+                ListTile(
                   leading: const Icon(Icons.star),
                   title: Text(s.rateUs),
                   trailing: const Icon(Icons.chevron_right),
@@ -276,19 +289,6 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
                       Uri.parse(
                         'https://apps.apple.com/app/id6779087767?action=write-review',
                       ),
-                      mode: LaunchMode.externalApplication,
-                    );
-                  },
-                ),
-                const Divider(height: 1),
-                ListTile(
-                  leading: const Icon(Icons.feedback),
-                  title: Text(s.feedback),
-                  trailing: const Icon(Icons.chevron_right),
-                  onTap: () {
-                    // 打开反馈页面（邮件反馈）
-                    launchUrl(
-                      Uri.parse('mailto:13036101641@163.com'),
                       mode: LaunchMode.externalApplication,
                     );
                   },

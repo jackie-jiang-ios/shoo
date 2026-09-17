@@ -246,6 +246,9 @@ class AppLocalizationsDa extends AppLocalizations {
   String get version => 'Version';
 
   @override
+  String get shareApp => 'Del';
+
+  @override
   String get rateUs => 'Bedøm os';
 
   @override

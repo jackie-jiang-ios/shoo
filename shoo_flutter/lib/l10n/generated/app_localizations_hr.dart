@@ -246,6 +246,9 @@ class AppLocalizationsHr extends AppLocalizations {
   String get version => 'Verzija';
 
   @override
+  String get shareApp => 'Podijeli';
+
+  @override
   String get rateUs => 'Ocijenite nas';
 
   @override

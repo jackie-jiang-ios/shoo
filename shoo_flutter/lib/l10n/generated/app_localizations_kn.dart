@@ -246,6 +246,9 @@ class AppLocalizationsKn extends AppLocalizations {
   String get version => 'ಆವೃತ್ತಿ';
 
   @override
+  String get shareApp => 'ಹಂಚಿಕೊಳ್ಳಿ';
+
+  @override
   String get rateUs => 'ನಮಗೆ ರೇಟ್ ಮಾಡಿ';
 
   @override

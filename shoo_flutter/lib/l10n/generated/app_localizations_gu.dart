@@ -246,6 +246,9 @@ class AppLocalizationsGu extends AppLocalizations {
   String get version => 'આવૃત્તિ';
 
   @override
+  String get shareApp => 'શેર કરો';
+
+  @override
   String get rateUs => 'અમને રેટ કરો';
 
   @override

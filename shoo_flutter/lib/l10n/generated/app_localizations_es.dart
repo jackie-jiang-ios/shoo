@@ -246,6 +246,9 @@ class AppLocalizationsEs extends AppLocalizations {
   String get version => 'Versión';
 
   @override
+  String get shareApp => 'Compartir';
+
+  @override
   String get rateUs => 'Califíquenos';
 
   @override
@@ -757,6 +760,9 @@ class AppLocalizationsEsMx extends AppLocalizationsEs {
 
   @override
   String get version => 'Versión';
+
+  @override
+  String get shareApp => 'Compartir';
 
   @override
   String get rateUs => 'Califíquenos';

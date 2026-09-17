@@ -246,6 +246,9 @@ class AppLocalizationsKo extends AppLocalizations {
   String get version => '버전';
 
   @override
+  String get shareApp => '공유';
+
+  @override
   String get rateUs => '평가하기';
 
   @override

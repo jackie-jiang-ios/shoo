@@ -247,6 +247,9 @@ class AppLocalizationsMl extends AppLocalizations {
   String get version => 'പതിപ്പ്';
 
   @override
+  String get shareApp => 'പങ്കിടുക';
+
+  @override
   String get rateUs => 'ഞങ്ങളെ റേറ്റുചെയ്യുക';
 
   @override

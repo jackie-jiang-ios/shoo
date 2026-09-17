@@ -246,6 +246,9 @@ class AppLocalizationsUr extends AppLocalizations {
   String get version => 'ورژن';
 
   @override
+  String get shareApp => 'شیئر کریں';
+
+  @override
   String get rateUs => 'ہمیں درجہ دیں';
 
   @override

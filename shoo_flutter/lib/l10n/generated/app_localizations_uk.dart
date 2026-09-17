@@ -246,6 +246,9 @@ class AppLocalizationsUk extends AppLocalizations {
   String get version => 'Версія';
 
   @override
+  String get shareApp => 'Поділитися';
+
+  @override
   String get rateUs => 'Оцініть Нас';
 
   @override

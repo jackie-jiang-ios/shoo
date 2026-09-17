@@ -246,6 +246,9 @@ class AppLocalizationsCs extends AppLocalizations {
   String get version => 'Verze';
 
   @override
+  String get shareApp => 'Sdílet';
+
+  @override
   String get rateUs => 'Ohodnoťte nás';
 
   @override

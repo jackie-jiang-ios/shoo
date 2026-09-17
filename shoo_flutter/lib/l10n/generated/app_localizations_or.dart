@@ -246,6 +246,9 @@ class AppLocalizationsOr extends AppLocalizations {
   String get version => 'Version';
 
   @override
+  String get shareApp => 'ଶେୟାର କରନ୍ତୁ';
+
+  @override
   String get rateUs => 'Rate Us';
 
   @override

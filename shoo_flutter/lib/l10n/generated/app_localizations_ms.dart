@@ -246,6 +246,9 @@ class AppLocalizationsMs extends AppLocalizations {
   String get version => 'Versi';
 
   @override
+  String get shareApp => 'Kongsi';
+
+  @override
   String get rateUs => 'Nilai kami';
 
   @override

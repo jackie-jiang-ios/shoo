@@ -246,6 +246,9 @@ class AppLocalizationsSk extends AppLocalizations {
   String get version => 'Verzia';
 
   @override
+  String get shareApp => 'Zdieľať';
+
+  @override
   String get rateUs => 'Ohodnoťte Nás';
 
   @override

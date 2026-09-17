@@ -246,6 +246,9 @@ class AppLocalizationsId extends AppLocalizations {
   String get version => 'Versi';
 
   @override
+  String get shareApp => 'Bagikan';
+
+  @override
   String get rateUs => 'Beri nilai';
 
   @override

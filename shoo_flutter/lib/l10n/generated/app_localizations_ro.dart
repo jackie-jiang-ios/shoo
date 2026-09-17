@@ -246,6 +246,9 @@ class AppLocalizationsRo extends AppLocalizations {
   String get version => 'Versiune';
 
   @override
+  String get shareApp => 'Distribuie';
+
+  @override
   String get rateUs => 'Evaluează-ne';
 
   @override

@@ -246,6 +246,9 @@ class AppLocalizationsMr extends AppLocalizations {
   String get version => 'आवृत्ती';
 
   @override
+  String get shareApp => 'शेअर करा';
+
+  @override
   String get rateUs => 'आम्हाला रेट करा';
 
   @override

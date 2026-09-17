@@ -246,6 +246,9 @@ class AppLocalizationsBn extends AppLocalizations {
   String get version => 'সংস্করণ';
 
   @override
+  String get shareApp => 'শেয়ার করুন';
+
+  @override
   String get rateUs => 'রেটিং দিন';
 
   @override

@@ -246,6 +246,9 @@ class AppLocalizationsSv extends AppLocalizations {
   String get version => 'Version';
 
   @override
+  String get shareApp => 'Dela';
+
+  @override
   String get rateUs => 'Betygsätt oss';
 
   @override

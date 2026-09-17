@@ -246,6 +246,9 @@ class AppLocalizationsNo extends AppLocalizations {
   String get version => 'Versjon';
 
   @override
+  String get shareApp => 'Del';
+
+  @override
   String get rateUs => 'Ranger oss';
 
   @override

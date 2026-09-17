@@ -246,6 +246,9 @@ class AppLocalizationsZh extends AppLocalizations {
   String get version => '版本';
 
   @override
+  String get shareApp => '分享';
+
+  @override
   String get rateUs => '给我们评分';
 
   @override
@@ -750,6 +753,9 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get version => '版本';
+
+  @override
+  String get shareApp => '分享';
 
   @override
   String get rateUs => '給我們評分';

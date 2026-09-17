@@ -246,6 +246,9 @@ class AppLocalizationsTr extends AppLocalizations {
   String get version => 'Sürüm';
 
   @override
+  String get shareApp => 'Paylaş';
+
+  @override
   String get rateUs => 'Bizi değerlendir';
 
   @override

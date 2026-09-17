@@ -207,6 +207,7 @@ class S {
   String get autoStop => _l10n.autoStop;
   String get about => _l10n.about;
   String get version => _l10n.version;
+  String get shareApp => _l10n.shareApp;
   String get rateUs => _l10n.rateUs;
   String get feedback => _l10n.feedback;
   String get legal => _l10n.legal;

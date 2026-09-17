@@ -246,6 +246,9 @@ class AppLocalizationsFr extends AppLocalizations {
   String get version => 'Version';
 
   @override
+  String get shareApp => 'Partager';
+
+  @override
   String get rateUs => 'Nous noter';
 
   @override
@@ -745,6 +748,9 @@ class AppLocalizationsFrCa extends AppLocalizationsFr {
 
   @override
   String get version => 'Version';
+
+  @override
+  String get shareApp => 'Partager';
 
   @override
   String get rateUs => 'Nous noter';

@@ -246,6 +246,9 @@ class AppLocalizationsFi extends AppLocalizations {
   String get version => 'Versio';
 
   @override
+  String get shareApp => 'Jaa';
+
+  @override
   String get rateUs => 'Arvostele meidät';
 
   @override

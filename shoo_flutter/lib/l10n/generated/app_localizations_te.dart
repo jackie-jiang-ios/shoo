@@ -246,6 +246,9 @@ class AppLocalizationsTe extends AppLocalizations {
   String get version => 'వెర్షన్';
 
   @override
+  String get shareApp => 'షేర్ చేయండి';
+
+  @override
   String get rateUs => 'మాకు రేటింగ్ ఇవ్వండి';
 
   @override

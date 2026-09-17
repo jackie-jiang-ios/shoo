@@ -246,6 +246,9 @@ class AppLocalizationsJa extends AppLocalizations {
   String get version => 'バージョン';
 
   @override
+  String get shareApp => '共有';
+
+  @override
   String get rateUs => '評価する';
 
   @override

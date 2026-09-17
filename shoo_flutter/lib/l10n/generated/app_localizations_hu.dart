@@ -246,6 +246,9 @@ class AppLocalizationsHu extends AppLocalizations {
   String get version => 'Verzió';
 
   @override
+  String get shareApp => 'Megosztás';
+
+  @override
   String get rateUs => 'Értékeljen minket';
 
   @override

@@ -656,6 +656,12 @@ abstract class AppLocalizations {
   /// **'Version'**
   String get version;
 
+  /// No description provided for @shareApp.
+  ///
+  /// In en, this message translates to:
+  /// **'Share'**
+  String get shareApp;
+
   /// No description provided for @rateUs.
   ///
   /// In en, this message translates to:

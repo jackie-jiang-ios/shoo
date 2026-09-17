@@ -246,6 +246,9 @@ class AppLocalizationsPl extends AppLocalizations {
   String get version => 'Wersja';
 
   @override
+  String get shareApp => 'Udostępnij';
+
+  @override
   String get rateUs => 'Oceń nas';
 
   @override

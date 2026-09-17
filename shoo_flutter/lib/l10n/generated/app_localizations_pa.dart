@@ -246,6 +246,9 @@ class AppLocalizationsPa extends AppLocalizations {
   String get version => 'ਵਰਜਨ';
 
   @override
+  String get shareApp => 'ਸ਼ੇਅਰ ਕਰੋ';
+
+  @override
   String get rateUs => 'ਸਾਨੂੰ ਰੇਟ ਕਰੋ';
 
   @override

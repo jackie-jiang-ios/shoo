@@ -246,6 +246,9 @@ class AppLocalizationsTa extends AppLocalizations {
   String get version => 'பதிப்பு';
 
   @override
+  String get shareApp => 'பகிர்';
+
+  @override
   String get rateUs => 'எங்களை மதிப்பிடு';
 
   @override

@@ -246,6 +246,9 @@ class AppLocalizationsPt extends AppLocalizations {
   String get version => 'Versão';
 
   @override
+  String get shareApp => 'Partilhar';
+
+  @override
   String get rateUs => 'Avalie-nos';
 
   @override

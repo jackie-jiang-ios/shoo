@@ -246,6 +246,9 @@ class AppLocalizationsVi extends AppLocalizations {
   String get version => 'Phiên bản';
 
   @override
+  String get shareApp => 'Chia sẻ';
+
+  @override
   String get rateUs => 'Đánh giá';
 
   @override

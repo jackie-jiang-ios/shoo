@@ -246,6 +246,9 @@ class AppLocalizationsSl extends AppLocalizations {
   String get version => 'Različica';
 
   @override
+  String get shareApp => 'Deli';
+
+  @override
   String get rateUs => 'Ocenite Nas';
 
   @override

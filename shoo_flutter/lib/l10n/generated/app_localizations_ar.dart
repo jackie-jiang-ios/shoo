@@ -246,6 +246,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get version => 'الإصدار';
 
   @override
+  String get shareApp => 'مشاركة';
+
+  @override
   String get rateUs => 'قيّمنا';
 
   @override

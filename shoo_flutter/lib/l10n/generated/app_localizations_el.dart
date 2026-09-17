@@ -246,6 +246,9 @@ class AppLocalizationsEl extends AppLocalizations {
   String get version => 'Έκδοση';
 
   @override
+  String get shareApp => 'Κοινοποίηση';
+
+  @override
   String get rateUs => 'Βαθμολογήστε μας';
 
   @override

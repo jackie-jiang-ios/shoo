@@ -246,6 +246,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get version => 'Version';
 
   @override
+  String get shareApp => 'Share';
+
+  @override
   String get rateUs => 'Rate Us';
 
   @override
@@ -756,6 +759,9 @@ class AppLocalizationsEnAu extends AppLocalizationsEn {
 
   @override
   String get version => 'Version';
+
+  @override
+  String get shareApp => 'Share';
 
   @override
   String get rateUs => 'Rate Us';
@@ -1270,6 +1276,9 @@ class AppLocalizationsEnCa extends AppLocalizationsEn {
   String get version => 'Version';
 
   @override
+  String get shareApp => 'Share';
+
+  @override
   String get rateUs => 'Rate Us';
 
   @override
@@ -1780,6 +1789,9 @@ class AppLocalizationsEnGb extends AppLocalizationsEn {
 
   @override
   String get version => 'Version';
+
+  @override
+  String get shareApp => 'Share';
 
   @override
   String get rateUs => 'Rate Us';

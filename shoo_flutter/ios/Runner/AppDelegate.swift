@@ -158,6 +158,16 @@ import MediaPlayer
                 }
                 result(config)
 
+            case "shareApp":
+                // 弹出系统分享面板
+                guard let args = call.arguments as? [String: Any],
+                      let text = args["text"] as? String else {
+                    result(FlutterError(code: "INVALID_ARGS", message: "Invalid arguments", details: nil))
+                    return
+                }
+                let urlString = args["url"] as? String
+                self?.presentShareSheet(text: text, urlString: urlString, result: result)
+
             default:
                 result(FlutterMethodNotImplemented)
             }
@@ -440,5 +450,41 @@ import MediaPlayer
         }
         
         return data
+    }
+
+    // MARK: - 系统分享
+
+    private func presentShareSheet(text: String, urlString: String?, result: @escaping FlutterResult) {
+        guard let window = UIApplication.shared.windows.first,
+              let rootViewController = window.rootViewController else {
+            result(FlutterError(code: "NO_VIEW", message: "No root view controller", details: nil))
+            return
+        }
+
+        var items: [Any] = [text]
+        if let urlString = urlString, let url = URL(string: urlString) {
+            items.append(url)
+        }
+
+        let activityVC = UIActivityViewController(activityItems: items, applicationActivities: nil)
+
+        // iPad 需要设置 popover 位置
+        if let popover = activityVC.popoverPresentationController {
+            popover.sourceView = rootViewController.view
+            popover.sourceRect = CGRect(x: rootViewController.view.bounds.midX,
+                                        y: rootViewController.view.bounds.midY,
+                                        width: 0, height: 0)
+            popover.permittedArrowDirections = []
+        }
+
+        // 找到最顶层的 ViewController 来 present
+        var topController = rootViewController
+        while let presentedController = topController.presentedViewController {
+            topController = presentedController
+        }
+
+        topController.present(activityVC, animated: true) {
+            result(true)
+        }
     }
 }
