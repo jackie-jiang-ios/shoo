@@ -70,7 +70,7 @@ class _LanguageSelectPageState extends State<LanguageSelectPage> {
               controller: _searchController,
               onChanged: (v) => setState(() => _query = v),
               decoration: InputDecoration(
-                hintText: '🔍  Search languages',
+                hintText: '🔍  ${s.language}',
                 filled: true,
                 fillColor: isDark ? Colors.white12 : Colors.white,
                 contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
