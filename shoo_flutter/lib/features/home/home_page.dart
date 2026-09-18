@@ -846,9 +846,11 @@ class _AnimalDetailSheetState extends ConsumerState<_AnimalDetailSheet> {
     // 记录上次播放的动物和声音组
     prefs.setLastPlayedAnimalId(widget.animal.id);
     prefs.setLastPlayedSoundGroup(sound.soundGroup);
-    ref.read(currentAnimalProvider.notifier).state = audio.currentAnimal;
-    ref.read(isPlayingProvider.notifier).state = audio.isPlaying;
-    if (!audio.isPlaying) {
+    // playWithVolume 完成后，AudioController 状态可能仍在异步更新中，
+    // 此时若直接覆盖 provider 会把已设的 isPlayingProvider 错误重置。
+    // 详情页有 140ms 轮询同步状态，首页有 200ms 轮询，无需在此强制覆盖。
+    // 仅当 AudioController 明确没有内容时才清理本地状态
+    if (audio.currentAnimal == null) {
       setState(() {
         _currentPlayingAssetPath = null;
         _playbackProgress = 0;
@@ -1585,10 +1587,7 @@ class _BottomPlayerState extends ConsumerState<_BottomPlayer> {
           'mounted': mounted,
         },
       ));
-      if (mounted) {
-        ref.read(currentAnimalProvider.notifier).state = audio.currentAnimal;
-        ref.read(isPlayingProvider.notifier).state = audio.isPlaying;
-      }
+      // 不覆盖 provider：乐观更新已设置值，首页 200ms 轮询会同步最终状态
     }
 
     _isPlayPending = false;
