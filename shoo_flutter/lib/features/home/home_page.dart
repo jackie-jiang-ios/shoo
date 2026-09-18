@@ -417,6 +417,9 @@ class _AnimalCard extends ConsumerWidget {
     final hasMultipleThemes = animal.availableThemes.length > 1;
 
     final isDark = Theme.of(context).brightness == Brightness.dark;
+    final currentAnimal = ref.watch(currentAnimalProvider);
+    final isPlaying = ref.watch(isPlayingProvider);
+    final isActive = currentAnimal?.id == animal.id && isPlaying;
     final isLocked = () =>
         !AnimalDatabase.freeAnimalIds.contains(animal.id) &&
         !PurchaseManager.instance.isPro;
@@ -426,12 +429,23 @@ class _AnimalCard extends ConsumerWidget {
       decoration: BoxDecoration(
           color: isDark ? AppColorsDark.cardBackground : Colors.white,
           borderRadius: BorderRadius.circular(16),
-          boxShadow: [
-            BoxShadow(
-                color: Colors.black.withValues(alpha: isDark ? 0.02 : 0.05),
-                blurRadius: 8,
-                offset: const Offset(0, 2))
-          ]),
+          border: isActive
+              ? Border.all(color: catColor.withValues(alpha: 0.5), width: 2)
+              : null,
+          boxShadow: isActive
+              ? [
+                  BoxShadow(
+                      color: catColor.withValues(alpha: 0.3),
+                      blurRadius: 10,
+                      offset: const Offset(0, 2)),
+                ]
+              : [
+                  BoxShadow(
+                      color:
+                          Colors.black.withValues(alpha: isDark ? 0.02 : 0.05),
+                      blurRadius: 8,
+                      offset: const Offset(0, 2)),
+                ]),
       child: Material(
         color: Colors.transparent,
         borderRadius: BorderRadius.circular(16),
@@ -542,6 +556,13 @@ class _AnimalCard extends ConsumerWidget {
                     color: isDark ? AppColorsDark.textHint : Colors.grey[400]),
             ]),
             ),
+            // 正在播放指示器
+            if (isActive)
+              Positioned(
+                top: 8,
+                right: 8,
+                child: _PlayingIndicator(color: catColor),
+              ),
           ],
         ),
       ),
@@ -1780,6 +1801,68 @@ class _BottomPlayerState extends ConsumerState<_BottomPlayer> {
 }
 
 // ============ 工具方法 ============
+
+/// 正在播放的动态指示器（跳动的音波条）
+class _PlayingIndicator extends StatefulWidget {
+  final Color color;
+  const _PlayingIndicator({required this.color});
+
+  @override
+  State<_PlayingIndicator> createState() => _PlayingIndicatorState();
+}
+
+class _PlayingIndicatorState extends State<_PlayingIndicator>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 800),
+    )..repeat(reverse: true);
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedBuilder(
+      animation: _controller,
+      builder: (context, child) {
+        return Container(
+          padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 3),
+          decoration: BoxDecoration(
+            color: widget.color.withValues(alpha: 0.15),
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: List.generate(3, (i) {
+              final delay = i * 0.15;
+              final value = ((_controller.value + delay) % 1.0);
+              final height = 4.0 + 8.0 * (value < 0.5 ? value * 2 : (1 - value) * 2);
+              return Container(
+                width: 2.5,
+                height: height.clamp(4.0, 12.0),
+                margin: const EdgeInsets.symmetric(horizontal: 1),
+                decoration: BoxDecoration(
+                  color: widget.color,
+                  borderRadius: BorderRadius.circular(1),
+                ),
+              );
+            }),
+          ),
+        );
+      },
+    );
+  }
+}
 
 Color _catColor(AnimalCategory cat) {
   switch (cat) {
