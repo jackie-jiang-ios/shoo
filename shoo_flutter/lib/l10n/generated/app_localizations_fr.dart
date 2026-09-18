@@ -418,7 +418,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get freeAnimals => 'Animaux gratuits';
 
   @override
-  String get freeAnimalsDesc => 'Chien, Serpent, Souris, Corbeau';
+  String get freeAnimalsDesc => 'Chien, Souris';
 
   @override
   String get proAnimals => 'Tous les animaux';
@@ -852,7 +852,7 @@ class AppLocalizationsFrCa extends AppLocalizationsFr {
   String get freeAnimals => 'Animaux gratuits';
 
   @override
-  String get freeAnimalsDesc => 'Chien, Serpent, Souris, Corbeau';
+  String get freeAnimalsDesc => 'Chien, Souris';
 
   @override
   String get proAnimals => 'Tous les animaux';

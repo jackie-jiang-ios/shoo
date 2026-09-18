@@ -417,7 +417,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get freeAnimals => 'Ücretsiz hayvanlar';
 
   @override
-  String get freeAnimalsDesc => 'Vahşi köpek, Yılan, Fare, Karga';
+  String get freeAnimalsDesc => 'Vahşi köpek, Fare';
 
   @override
   String get proAnimals => 'Tüm hayvanlar';

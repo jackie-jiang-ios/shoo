@@ -418,7 +418,7 @@ class AppLocalizationsBn extends AppLocalizations {
   String get freeAnimals => 'বিনামূল্যের প্রাণী';
 
   @override
-  String get freeAnimalsDesc => 'বুনো কুকুর';
+  String get freeAnimalsDesc => 'বুনো কুকুর, ইঁদুর';
 
   @override
   String get proAnimals => 'সব প্রাণী';

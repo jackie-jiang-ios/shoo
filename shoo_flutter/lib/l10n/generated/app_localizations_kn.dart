@@ -418,7 +418,7 @@ class AppLocalizationsKn extends AppLocalizations {
   String get freeAnimals => 'ಉಚಿತ ಪ್ರಾಣಿಗಳು';
 
   @override
-  String get freeAnimalsDesc => 'ಕಾಡು ನಾಯಿ, ಹಾವು, ಇಲಿ, ಕಾಗೆ';
+  String get freeAnimalsDesc => 'ಕಾಡು ನಾಯಿ, ಇಲಿ';
 
   @override
   String get proAnimals => 'ಎಲ್ಲಾ ಪ್ರಾಣಿಗಳು';

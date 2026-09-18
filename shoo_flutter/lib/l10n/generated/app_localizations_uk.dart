@@ -418,7 +418,7 @@ class AppLocalizationsUk extends AppLocalizations {
   String get freeAnimals => 'Безкоштовні Тварини';
 
   @override
-  String get freeAnimalsDesc => 'Дикий Собака, Змія, Миша, Ворона';
+  String get freeAnimalsDesc => 'Дикий Собака, Миша';
 
   @override
   String get proAnimals => 'Всі Тварини';

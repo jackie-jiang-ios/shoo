@@ -414,7 +414,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get freeAnimals => '免费动物';
 
   @override
-  String get freeAnimalsDesc => '野狗';
+  String get freeAnimalsDesc => '野狗、老鼠';
 
   @override
   String get proAnimals => '全部动物';
@@ -875,7 +875,7 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get freeAnimals => '免費動物';
 
   @override
-  String get freeAnimalsDesc => '野狗';
+  String get freeAnimalsDesc => '野狗、老鼠';
 
   @override
   String get proAnimals => '全部動物';

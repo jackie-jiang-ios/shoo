@@ -414,7 +414,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get freeAnimals => '無料動物';
 
   @override
-  String get freeAnimalsDesc => '野良犬、毒蛇、ネズミ、カラス';
+  String get freeAnimalsDesc => '野良犬、ネズミ';
 
   @override
   String get proAnimals => '全動物';

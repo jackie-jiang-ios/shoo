@@ -418,7 +418,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get freeAnimals => 'Бесплатные животные';
 
   @override
-  String get freeAnimalsDesc => 'Собака, Змея, Мышь, Ворона';
+  String get freeAnimalsDesc => 'Собака, Мышь';
 
   @override
   String get proAnimals => 'Все животные';

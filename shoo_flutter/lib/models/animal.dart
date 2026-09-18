@@ -505,13 +505,14 @@ class AnimalDatabase {
   }
 
   /// 免费可用的动物 ID 列表（其余动物需要 Pro 解锁）
-  static const freeAnimalIds = {'wild_dog'};
+  static const freeAnimalIds = {'wild_dog', 'mouse'};
 
   /// 免费动物可免费播放的声音组列表（其余声音组需要 Pro 解锁）
   /// key: 动物ID, value: 可免费播放的 soundGroup 集合
-  static const freeSoundGroups = <String, Set<String>>{
-    'wild_dog': {'tiger'},
-  };
+static const freeSoundGroups = <String, Set<String>>{
+  'wild_dog': {'tiger'},
+  'mouse': {'cat'},
+};
 
   /// 判断指定动物的指定声音组是否在免费列表中（不考虑 Pro 状态）
   /// 调用方需要额外检查 PurchaseManager.instance.isPro

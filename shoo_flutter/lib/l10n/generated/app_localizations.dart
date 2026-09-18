@@ -995,7 +995,7 @@ abstract class AppLocalizations {
   /// No description provided for @freeAnimalsDesc.
   ///
   /// In en, this message translates to:
-  /// **'Wild dog'**
+  /// **'Wild dog, Mouse'**
   String get freeAnimalsDesc;
 
   /// No description provided for @proAnimals.

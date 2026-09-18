@@ -418,7 +418,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get freeAnimals => 'Kostenlose Tiere';
 
   @override
-  String get freeAnimalsDesc => 'Wildhund';
+  String get freeAnimalsDesc => 'Wildhund, Maus';
 
   @override
   String get proAnimals => 'Alle Tiere';

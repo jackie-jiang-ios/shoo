@@ -418,7 +418,7 @@ class AppLocalizationsSv extends AppLocalizations {
   String get freeAnimals => 'Gratis djur';
 
   @override
-  String get freeAnimalsDesc => 'Vildhund, Orm, Mus, Kråka';
+  String get freeAnimalsDesc => 'Vildhund, Mus';
 
   @override
   String get proAnimals => 'Alla djur';

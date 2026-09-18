@@ -418,7 +418,7 @@ class AppLocalizationsEl extends AppLocalizations {
   String get freeAnimals => 'Δωρεάν ζώα';
 
   @override
-  String get freeAnimalsDesc => 'Αγρίμσκυλο, Φίδι, Ποντίκι, Κοράκι';
+  String get freeAnimalsDesc => 'Αγρίμσκυλο, Ποντίκι';
 
   @override
   String get proAnimals => 'Όλα τα ζώα';

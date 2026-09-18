@@ -418,7 +418,7 @@ class AppLocalizationsFi extends AppLocalizations {
   String get freeAnimals => 'Ilmaiset eläimet';
 
   @override
-  String get freeAnimalsDesc => 'Villikoira, Käärme, Hiiri, Varis';
+  String get freeAnimalsDesc => 'Villikoira, Hiiri';
 
   @override
   String get proAnimals => 'Kaikki eläimet';

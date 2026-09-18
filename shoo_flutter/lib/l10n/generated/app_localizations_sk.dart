@@ -418,7 +418,7 @@ class AppLocalizationsSk extends AppLocalizations {
   String get freeAnimals => 'Bezplatné Zvieratá';
 
   @override
-  String get freeAnimalsDesc => 'Divoký Pes, Had, Myš, Vrana';
+  String get freeAnimalsDesc => 'Divoký Pes, Myš';
 
   @override
   String get proAnimals => 'Všetky Zvieratá';

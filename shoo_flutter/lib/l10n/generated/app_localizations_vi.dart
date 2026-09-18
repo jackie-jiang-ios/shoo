@@ -416,7 +416,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get freeAnimals => 'Động vật miễn phí';
 
   @override
-  String get freeAnimalsDesc => 'Chó hoang, Rắn, Chuột, Quạ';
+  String get freeAnimalsDesc => 'Chó hoang, Chuột';
 
   @override
   String get proAnimals => 'Tất cả động vật';

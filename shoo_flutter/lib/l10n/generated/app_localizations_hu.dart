@@ -418,7 +418,7 @@ class AppLocalizationsHu extends AppLocalizations {
   String get freeAnimals => 'Ingyenes állatok';
 
   @override
-  String get freeAnimalsDesc => 'Vadkutya, Kígyó, Egér, Varjú';
+  String get freeAnimalsDesc => 'Vadkutya, Egér';
 
   @override
   String get proAnimals => 'Összes állat';

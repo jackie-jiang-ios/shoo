@@ -418,7 +418,7 @@ class AppLocalizationsPa extends AppLocalizations {
   String get freeAnimals => 'ਮੁਫ਼ਤ ਜਾਨਵਰ';
 
   @override
-  String get freeAnimalsDesc => 'ਜੰਗਲੀ ਕੁੱਤਾ, ਸੱਪ, ਚੂਹਾ, ਕਾਂ';
+  String get freeAnimalsDesc => 'ਜੰਗਲੀ ਕੁੱਤਾ, ਚੂਹਾ';
 
   @override
   String get proAnimals => 'ਸਾਰੇ ਜਾਨਵਰ';

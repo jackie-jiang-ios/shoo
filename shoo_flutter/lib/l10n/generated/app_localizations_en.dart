@@ -418,7 +418,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get freeAnimals => 'Free animals';
 
   @override
-  String get freeAnimalsDesc => 'Wild dog';
+  String get freeAnimalsDesc => 'Wild dog, Mouse';
 
   @override
   String get proAnimals => 'All animals';
@@ -884,7 +884,7 @@ class AppLocalizationsEnAu extends AppLocalizationsEn {
   String get freeAnimals => 'Free animals';
 
   @override
-  String get freeAnimalsDesc => 'Wild dog';
+  String get freeAnimalsDesc => 'Wild dog, Mouse';
 
   @override
   String get proAnimals => 'All animals';
@@ -1350,7 +1350,7 @@ class AppLocalizationsEnCa extends AppLocalizationsEn {
   String get freeAnimals => 'Free animals';
 
   @override
-  String get freeAnimalsDesc => 'Wild dog';
+  String get freeAnimalsDesc => 'Wild dog, Mouse';
 
   @override
   String get proAnimals => 'All animals';
@@ -1816,7 +1816,7 @@ class AppLocalizationsEnGb extends AppLocalizationsEn {
   String get freeAnimals => 'Free animals';
 
   @override
-  String get freeAnimalsDesc => 'Wild dog';
+  String get freeAnimalsDesc => 'Wild dog, Mouse';
 
   @override
   String get proAnimals => 'All animals';

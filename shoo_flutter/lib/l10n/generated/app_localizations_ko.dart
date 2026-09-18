@@ -415,7 +415,7 @@ class AppLocalizationsKo extends AppLocalizations {
   String get freeAnimals => '무료 동물';
 
   @override
-  String get freeAnimalsDesc => '들개, 독사, 쥐, 까마귀';
+  String get freeAnimalsDesc => '들개, 쥐';
 
   @override
   String get proAnimals => '모든 동물';

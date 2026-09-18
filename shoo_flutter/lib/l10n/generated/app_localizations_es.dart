@@ -418,7 +418,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get freeAnimals => 'Animales gratuitos';
 
   @override
-  String get freeAnimalsDesc => 'Perro, Serpiente, Ratón, Cuervo';
+  String get freeAnimalsDesc => 'Perro, Ratón';
 
   @override
   String get proAnimals => 'Todos los animales';
@@ -884,7 +884,7 @@ class AppLocalizationsEsMx extends AppLocalizationsEs {
   String get freeAnimals => 'Animales gratuitos';
 
   @override
-  String get freeAnimalsDesc => 'Perro, Serpiente, Ratón, Cuervo';
+  String get freeAnimalsDesc => 'Perro, Ratón';
 
   @override
   String get proAnimals => 'Todos los animales';

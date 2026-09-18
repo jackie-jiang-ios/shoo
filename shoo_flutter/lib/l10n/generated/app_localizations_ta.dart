@@ -418,7 +418,7 @@ class AppLocalizationsTa extends AppLocalizations {
   String get freeAnimals => 'இலவச விலங்குகள்';
 
   @override
-  String get freeAnimalsDesc => 'காட்டு நாய், பாம்பு, எலி, காகம்';
+  String get freeAnimalsDesc => 'காட்டு நாய், எலி';
 
   @override
   String get proAnimals => 'அனைத்து விலங்குகள்';

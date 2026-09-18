@@ -418,7 +418,7 @@ class AppLocalizationsTh extends AppLocalizations {
   String get freeAnimals => 'สัตว์ฟรี';
 
   @override
-  String get freeAnimalsDesc => 'หมา งู หนู อีกา';
+  String get freeAnimalsDesc => 'หมา หนู';
 
   @override
   String get proAnimals => 'สัตว์ทั้งหมด';

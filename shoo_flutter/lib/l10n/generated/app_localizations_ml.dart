@@ -419,7 +419,7 @@ class AppLocalizationsMl extends AppLocalizations {
   String get freeAnimals => 'സൗജന്യ മൃഗങ്ങൾ';
 
   @override
-  String get freeAnimalsDesc => 'വന്യനായ, പാമ്പ്, എലി, കാക്ക';
+  String get freeAnimalsDesc => 'വന്യനായ, എലി';
 
   @override
   String get proAnimals => 'എല്ലാ മൃഗങ്ങളും';

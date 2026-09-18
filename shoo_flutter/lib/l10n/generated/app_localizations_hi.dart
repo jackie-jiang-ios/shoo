@@ -418,7 +418,7 @@ class AppLocalizationsHi extends AppLocalizations {
   String get freeAnimals => 'मुफ्त जानवर';
 
   @override
-  String get freeAnimalsDesc => 'जंगली कुत्ता, साँप, चूहा, कौआ';
+  String get freeAnimalsDesc => 'जंगली कुत्ता, चूहा';
 
   @override
   String get proAnimals => 'सभी जानवर';

@@ -418,7 +418,7 @@ class AppLocalizationsNl extends AppLocalizations {
   String get freeAnimals => 'Gratis dieren';
 
   @override
-  String get freeAnimalsDesc => 'Wilde hond, Slang, Muis, Kraai';
+  String get freeAnimalsDesc => 'Wilde hond, Muis';
 
   @override
   String get proAnimals => 'Alle dieren';

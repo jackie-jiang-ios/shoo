@@ -418,7 +418,7 @@ class AppLocalizationsSl extends AppLocalizations {
   String get freeAnimals => 'Brezplačne Živali';
 
   @override
-  String get freeAnimalsDesc => 'Divji Pes, Kača, Miš, Vrana';
+  String get freeAnimalsDesc => 'Divji Pes, Miš';
 
   @override
   String get proAnimals => 'Vse Živali';
