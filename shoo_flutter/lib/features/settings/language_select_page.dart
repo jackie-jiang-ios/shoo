@@ -72,11 +72,11 @@ class _LanguageSelectPageState extends State<LanguageSelectPage> {
               decoration: InputDecoration(
                 hintText: '🔍  Search languages',
                 filled: true,
-                fillColor: isDark ? Colors.white12 : Colors.black.withValues(alpha: 0.05),
+                fillColor: isDark ? Colors.white12 : Colors.white,
                 contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
-                  borderSide: BorderSide.none,
+                  borderSide: BorderSide(color: Colors.grey.withValues(alpha: 0.15)),
                 ),
                 suffixIcon: _query.isEmpty
                     ? null
