@@ -121,7 +121,7 @@ class _HomePageState extends ConsumerState<HomePage> {
               SliverToBoxAdapter(child: _CategoryTabs(s: s)),
               SliverPadding(
                 key: animalListKey,
-                padding: const EdgeInsets.fromLTRB(16, 0, 16, 140),
+                padding: EdgeInsets.fromLTRB(16, 0, 16, currentAnimal != null ? 100 : 16),
                 sliver: SliverList(
                   delegate: SliverChildBuilderDelegate(
                     (context, index) =>
@@ -132,13 +132,14 @@ class _HomePageState extends ConsumerState<HomePage> {
               ),
             ],
           ),
-          Positioned(
-            left: 0,
-            right: 0,
-            bottom: 0,
-            child: _BottomPlayer(
-                animal: currentAnimal, isPlaying: isPlaying, s: s),
-          ),
+          if (currentAnimal != null)
+            Positioned(
+              left: 0,
+              right: 0,
+              bottom: 0,
+              child: _BottomPlayer(
+                  animal: currentAnimal, isPlaying: isPlaying, s: s),
+            ),
         ],
       ),
     );
@@ -1633,7 +1634,7 @@ class _BottomPlayerState extends ConsumerState<_BottomPlayer> {
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
     final name = hasContent
-        ? effectiveAnimal!
+        ? effectiveAnimal
             .getLocalizedName(Localizations.localeOf(context).languageCode)
         : s.appName;
     final currentSound = audio.currentSound;
@@ -1641,11 +1642,11 @@ class _BottomPlayerState extends ConsumerState<_BottomPlayer> {
         ? (currentSound != null
             ? currentSound
                 .getLocalizedName(Localizations.localeOf(context).languageCode)
-            : effectiveAnimal!.getLocalizedCounterSound(
+            : effectiveAnimal.getLocalizedCounterSound(
                 Localizations.localeOf(context).languageCode))
         : s.tapToPreview;
     final themeId = hasContent
-        ? prefs.getAnimalIconTheme(effectiveAnimal!.id)
+        ? prefs.getAnimalIconTheme(effectiveAnimal.id)
         : prefs.iconTheme;
     final imagePath = effectiveAnimal?.getIconPath(themeId);
     final fallbackIcon = Container(
