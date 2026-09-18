@@ -469,7 +469,7 @@ class AppLocalizationsCa extends AppLocalizations {
   String get freeAnimals => 'Animals gratuïts';
 
   @override
-  String get freeAnimalsDesc => 'Gos salvatge, Serp, Ratolí, Corb';
+  String get freeAnimalsDesc => 'Gos salvatge';
 
   @override
   String get proAnimals => 'Tots els animals';

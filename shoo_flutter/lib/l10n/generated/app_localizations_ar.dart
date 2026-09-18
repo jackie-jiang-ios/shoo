@@ -466,7 +466,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get freeAnimals => 'حيوانات مجانية';
 
   @override
-  String get freeAnimalsDesc => 'كلب بري، أفعى، فأر، غداف';
+  String get freeAnimalsDesc => 'كلب بري';
 
   @override
   String get proAnimals => 'جميع الحيوانات';

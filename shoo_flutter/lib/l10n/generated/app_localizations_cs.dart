@@ -468,7 +468,7 @@ class AppLocalizationsCs extends AppLocalizations {
   String get freeAnimals => 'Bezplatná zvířata';
 
   @override
-  String get freeAnimalsDesc => 'Divoký pes, Had, Myš, Vrána';
+  String get freeAnimalsDesc => 'Divoký pes';
 
   @override
   String get proAnimals => 'Všechna zvířata';

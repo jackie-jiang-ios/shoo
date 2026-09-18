@@ -467,7 +467,7 @@ class AppLocalizationsOr extends AppLocalizations {
   String get freeAnimals => 'Free animals';
 
   @override
-  String get freeAnimalsDesc => 'Wild dog, Snake, Mouse, Crow';
+  String get freeAnimalsDesc => 'Wild dog';
 
   @override
   String get proAnimals => 'All animals';
