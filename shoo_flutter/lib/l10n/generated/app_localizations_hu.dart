@@ -189,27 +189,6 @@ class AppLocalizationsHu extends AppLocalizations {
   String get noAutoStop => 'Nincs automatikus leállítás';
 
   @override
-  String get watchConnect => 'Óra';
-
-  @override
-  String get watchConnected => 'Óra csatlakoztatva';
-
-  @override
-  String get watchDisconnected => 'Nincs óra';
-
-  @override
-  String get remotePlay => 'Távlejátszás';
-
-  @override
-  String get emergencyBtn => 'Gyors riasztás';
-
-  @override
-  String get hapticFeedback => 'Haptikus visszajelzés';
-
-  @override
-  String get rescanWatch => 'Újrakeresés';
-
-  @override
   String get settings => 'Beállítások';
 
   @override
@@ -301,9 +280,6 @@ class AppLocalizationsHu extends AppLocalizations {
 
   @override
   String get navTimer => 'Időzítő';
-
-  @override
-  String get navWatch => 'Óra';
 
   @override
   String get navSettings => 'Beállítások';
@@ -409,32 +385,6 @@ class AppLocalizationsHu extends AppLocalizations {
   @override
   String get waveformStaticDesc =>
       'Az előnézet tétlen állapotban statikus, lejátszás közben animált.';
-
-  @override
-  String get watchRemoteFeature => 'Watch Remote';
-
-  @override
-  String get remotePlayDesc => 'Válasszon ki és játsszon le hangokat az órán';
-
-  @override
-  String get emergencyBtnDesc =>
-      'Riasztóhang azonnali lejátszása maximális hangerőn';
-
-  @override
-  String get hapticFeedbackDesc => 'Az óra rezeg lejátszás közben';
-
-  @override
-  String get watchConnectedHint => 'Vezérelje a lejátszást az órájáról';
-
-  @override
-  String get watchDisconnectedHint =>
-      'Győződjön meg róla, hogy az óra párosítva van és a telefon közelében van';
-
-  @override
-  String get communicationLog => 'Kommunikációs napló';
-
-  @override
-  String get rescanWatchFull => 'Óra újrakeresése';
 
   @override
   String get customDuration => 'Egyéni időtartam';

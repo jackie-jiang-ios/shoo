@@ -542,48 +542,6 @@ abstract class AppLocalizations {
   /// **'No auto stop'**
   String get noAutoStop;
 
-  /// No description provided for @watchConnect.
-  ///
-  /// In en, this message translates to:
-  /// **'Watch'**
-  String get watchConnect;
-
-  /// No description provided for @watchConnected.
-  ///
-  /// In en, this message translates to:
-  /// **'Watch Connected'**
-  String get watchConnected;
-
-  /// No description provided for @watchDisconnected.
-  ///
-  /// In en, this message translates to:
-  /// **'No Watch'**
-  String get watchDisconnected;
-
-  /// No description provided for @remotePlay.
-  ///
-  /// In en, this message translates to:
-  /// **'Remote Play'**
-  String get remotePlay;
-
-  /// No description provided for @emergencyBtn.
-  ///
-  /// In en, this message translates to:
-  /// **'Quick Repel'**
-  String get emergencyBtn;
-
-  /// No description provided for @hapticFeedback.
-  ///
-  /// In en, this message translates to:
-  /// **'Haptic'**
-  String get hapticFeedback;
-
-  /// No description provided for @rescanWatch.
-  ///
-  /// In en, this message translates to:
-  /// **'Rescan'**
-  String get rescanWatch;
-
   /// No description provided for @settings.
   ///
   /// In en, this message translates to:
@@ -769,12 +727,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Timer'**
   String get navTimer;
-
-  /// No description provided for @navWatch.
-  ///
-  /// In en, this message translates to:
-  /// **'Watch'**
-  String get navWatch;
 
   /// No description provided for @navSettings.
   ///
@@ -979,54 +931,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'The preview stays static when idle and animates during playback.'**
   String get waveformStaticDesc;
-
-  /// No description provided for @watchRemoteFeature.
-  ///
-  /// In en, this message translates to:
-  /// **'Watch Remote'**
-  String get watchRemoteFeature;
-
-  /// No description provided for @remotePlayDesc.
-  ///
-  /// In en, this message translates to:
-  /// **'Select and play sounds on watch'**
-  String get remotePlayDesc;
-
-  /// No description provided for @emergencyBtnDesc.
-  ///
-  /// In en, this message translates to:
-  /// **'Play max volume repelling sound instantly'**
-  String get emergencyBtnDesc;
-
-  /// No description provided for @hapticFeedbackDesc.
-  ///
-  /// In en, this message translates to:
-  /// **'Watch vibrates during playback'**
-  String get hapticFeedbackDesc;
-
-  /// No description provided for @watchConnectedHint.
-  ///
-  /// In en, this message translates to:
-  /// **'Control playback from your watch'**
-  String get watchConnectedHint;
-
-  /// No description provided for @watchDisconnectedHint.
-  ///
-  /// In en, this message translates to:
-  /// **'Make sure watch is paired and near phone'**
-  String get watchDisconnectedHint;
-
-  /// No description provided for @communicationLog.
-  ///
-  /// In en, this message translates to:
-  /// **'Communication Log'**
-  String get communicationLog;
-
-  /// No description provided for @rescanWatchFull.
-  ///
-  /// In en, this message translates to:
-  /// **'Rescan for Watch'**
-  String get rescanWatchFull;
 
   /// No description provided for @customDuration.
   ///

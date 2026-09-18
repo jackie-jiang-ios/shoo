@@ -189,27 +189,6 @@ class AppLocalizationsEl extends AppLocalizations {
   String get noAutoStop => 'Χωρίς αυτόματη διακοπή';
 
   @override
-  String get watchConnect => 'Ρολόι';
-
-  @override
-  String get watchConnected => 'Το ρολόι συνδέθηκε';
-
-  @override
-  String get watchDisconnected => 'Χωρίς ρολόι';
-
-  @override
-  String get remotePlay => 'Αναπαραγωγή εξ αποστάσεως';
-
-  @override
-  String get emergencyBtn => 'Γρήγορη απώθηση';
-
-  @override
-  String get hapticFeedback => 'Απτική ανάδραση';
-
-  @override
-  String get rescanWatch => 'Επανασάρωση';
-
-  @override
   String get settings => 'Ρυθμίσεις';
 
   @override
@@ -301,9 +280,6 @@ class AppLocalizationsEl extends AppLocalizations {
 
   @override
   String get navTimer => 'Χρονοδιακόπτης';
-
-  @override
-  String get navWatch => 'Ρολόι';
 
   @override
   String get navSettings => 'Ρυθμίσεις';
@@ -409,32 +385,6 @@ class AppLocalizationsEl extends AppLocalizations {
   @override
   String get waveformStaticDesc =>
       'Η προεπισκόπηση είναι στατική σε αδράνεια και κινείται κατά την αναπαραγωγή.';
-
-  @override
-  String get watchRemoteFeature => 'Τηλεχειριστήριο ρολογιού';
-
-  @override
-  String get remotePlayDesc => 'Επιλέξτε και αναπαράγετε ήχους στο ρολόι';
-
-  @override
-  String get emergencyBtnDesc =>
-      'Αναπαραγωγή απωθητικού ήχου στη μέγιστη ένταση άμεσα';
-
-  @override
-  String get hapticFeedbackDesc => 'Το ρολόι δονείται κατά την αναπαραγωγή';
-
-  @override
-  String get watchConnectedHint => 'Ελέγξτε την αναπαραγωγή από το ρολόι σας';
-
-  @override
-  String get watchDisconnectedHint =>
-      'Βεβαιωθείτε ότι το ρολόι είναι ζευγαρωμένο και κοντά στο τηλέφωνο';
-
-  @override
-  String get communicationLog => 'Αρχείο επικοινωνίας';
-
-  @override
-  String get rescanWatchFull => 'Επανασάρωση για ρολόι';
 
   @override
   String get customDuration => 'Προσαρμοσμένη διάρκεια';

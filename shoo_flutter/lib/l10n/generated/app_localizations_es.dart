@@ -189,27 +189,6 @@ class AppLocalizationsEs extends AppLocalizations {
   String get noAutoStop => 'Sin parada automática';
 
   @override
-  String get watchConnect => 'Reloj';
-
-  @override
-  String get watchConnected => 'Reloj conectado';
-
-  @override
-  String get watchDisconnected => 'Sin reloj';
-
-  @override
-  String get remotePlay => 'Reproducción remota';
-
-  @override
-  String get emergencyBtn => 'Repeler al instante';
-
-  @override
-  String get hapticFeedback => 'Háptico';
-
-  @override
-  String get rescanWatch => 'Escanear de nuevo';
-
-  @override
   String get settings => 'Ajustes';
 
   @override
@@ -301,9 +280,6 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get navTimer => 'Temporizador';
-
-  @override
-  String get navWatch => 'Reloj';
 
   @override
   String get navSettings => 'Ajustes';
@@ -409,32 +385,6 @@ class AppLocalizationsEs extends AppLocalizations {
   @override
   String get waveformStaticDesc =>
       'La vista previa permanece estática en reposo y se anima durante la reproducción.';
-
-  @override
-  String get watchRemoteFeature => 'Control remoto del reloj';
-
-  @override
-  String get remotePlayDesc => 'Seleccionar y reproducir sonidos en el reloj';
-
-  @override
-  String get emergencyBtnDesc =>
-      'Sonido de repulsión a volumen máximo con un toque';
-
-  @override
-  String get hapticFeedbackDesc => 'El reloj vibra durante la reproducción';
-
-  @override
-  String get watchConnectedHint => 'Controle la reproducción desde el reloj';
-
-  @override
-  String get watchDisconnectedHint =>
-      'Asegúrese de que el reloj esté emparejado y cerca del teléfono';
-
-  @override
-  String get communicationLog => 'Registro de comunicación';
-
-  @override
-  String get rescanWatchFull => 'Buscar reloj de nuevo';
 
   @override
   String get customDuration => 'Duración personalizada';
@@ -705,27 +655,6 @@ class AppLocalizationsEsMx extends AppLocalizationsEs {
   String get noAutoStop => 'Sin parada automática';
 
   @override
-  String get watchConnect => 'Reloj';
-
-  @override
-  String get watchConnected => 'Reloj conectado';
-
-  @override
-  String get watchDisconnected => 'Sin reloj';
-
-  @override
-  String get remotePlay => 'Reproducción remota';
-
-  @override
-  String get emergencyBtn => 'Repeler al instante';
-
-  @override
-  String get hapticFeedback => 'Háptico';
-
-  @override
-  String get rescanWatch => 'Escanear de nuevo';
-
-  @override
   String get settings => 'Ajustes';
 
   @override
@@ -817,9 +746,6 @@ class AppLocalizationsEsMx extends AppLocalizationsEs {
 
   @override
   String get navTimer => 'Temporizador';
-
-  @override
-  String get navWatch => 'Reloj';
 
   @override
   String get navSettings => 'Ajustes';
@@ -925,32 +851,6 @@ class AppLocalizationsEsMx extends AppLocalizationsEs {
   @override
   String get waveformStaticDesc =>
       'La vista previa permanece estática en reposo y se anima durante la reproducción.';
-
-  @override
-  String get watchRemoteFeature => 'Control remoto del reloj';
-
-  @override
-  String get remotePlayDesc => 'Seleccionar y reproducir sonidos en el reloj';
-
-  @override
-  String get emergencyBtnDesc =>
-      'Sonido de repulsión a volumen máximo con un toque';
-
-  @override
-  String get hapticFeedbackDesc => 'El reloj vibra durante la reproducción';
-
-  @override
-  String get watchConnectedHint => 'Controle la reproducción desde el reloj';
-
-  @override
-  String get watchDisconnectedHint =>
-      'Asegúrese de que el reloj esté emparejado y cerca del teléfono';
-
-  @override
-  String get communicationLog => 'Registro de comunicación';
-
-  @override
-  String get rescanWatchFull => 'Buscar reloj de nuevo';
 
   @override
   String get customDuration => 'Duración personalizada';

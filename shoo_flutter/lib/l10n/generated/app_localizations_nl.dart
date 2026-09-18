@@ -189,27 +189,6 @@ class AppLocalizationsNl extends AppLocalizations {
   String get noAutoStop => 'Geen auto-stop';
 
   @override
-  String get watchConnect => 'Horloge';
-
-  @override
-  String get watchConnected => 'Horloge verbonden';
-
-  @override
-  String get watchDisconnected => 'Geen horloge';
-
-  @override
-  String get remotePlay => 'Afstand bediening';
-
-  @override
-  String get emergencyBtn => 'Snel verjagen';
-
-  @override
-  String get hapticFeedback => 'Trillen';
-
-  @override
-  String get rescanWatch => 'Opnieuw scannen';
-
-  @override
   String get settings => 'Instellingen';
 
   @override
@@ -301,9 +280,6 @@ class AppLocalizationsNl extends AppLocalizations {
 
   @override
   String get navTimer => 'Timer';
-
-  @override
-  String get navWatch => 'Horloge';
 
   @override
   String get navSettings => 'Instellingen';
@@ -409,31 +385,6 @@ class AppLocalizationsNl extends AppLocalizations {
   @override
   String get waveformStaticDesc =>
       'Voorbeeld is statisch in rust en geanimeerd tijdens afspelen.';
-
-  @override
-  String get watchRemoteFeature => 'Horloge afstandsbediening';
-
-  @override
-  String get remotePlayDesc => 'Selecteer en speel geluiden op horloge';
-
-  @override
-  String get emergencyBtnDesc => 'Speel verjagingsgeluid op max volume direct';
-
-  @override
-  String get hapticFeedbackDesc => 'Horloge trilt tijdens afspelen';
-
-  @override
-  String get watchConnectedHint => 'Bedien afspelen vanaf je horloge';
-
-  @override
-  String get watchDisconnectedHint =>
-      'Zorg dat horloge is gekoppeld en dichtbij telefoon';
-
-  @override
-  String get communicationLog => 'Communicatielog';
-
-  @override
-  String get rescanWatchFull => 'Opnieuw scannen voor horloge';
 
   @override
   String get customDuration => 'Aangepaste duur';

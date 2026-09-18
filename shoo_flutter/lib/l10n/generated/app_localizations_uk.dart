@@ -189,27 +189,6 @@ class AppLocalizationsUk extends AppLocalizations {
   String get noAutoStop => 'Без Автоматичного Зупинення';
 
   @override
-  String get watchConnect => 'Годинник';
-
-  @override
-  String get watchConnected => 'Годинник Підключено';
-
-  @override
-  String get watchDisconnected => 'Немає Годинника';
-
-  @override
-  String get remotePlay => 'Віддалене Відтворення';
-
-  @override
-  String get emergencyBtn => 'Швидке Відлякування';
-
-  @override
-  String get hapticFeedback => 'Тактильна Відповідь';
-
-  @override
-  String get rescanWatch => 'Повторне Сканування';
-
-  @override
   String get settings => 'Налаштування';
 
   @override
@@ -301,9 +280,6 @@ class AppLocalizationsUk extends AppLocalizations {
 
   @override
   String get navTimer => 'Таймер';
-
-  @override
-  String get navWatch => 'Годинник';
 
   @override
   String get navSettings => 'Налаштування';
@@ -409,32 +385,6 @@ class AppLocalizationsUk extends AppLocalizations {
   @override
   String get waveformStaticDesc =>
       'Попередній Перегляд Статичний У Режимі Очікування Й Анімований Під Час Відтворення.';
-
-  @override
-  String get watchRemoteFeature => 'Пульт Для Годинника';
-
-  @override
-  String get remotePlayDesc => 'Вибирайте Та Відтворюйте Звуки На Годиннику';
-
-  @override
-  String get emergencyBtnDesc =>
-      'Відтворити Відлякувальний Звук На Максимальній Гучності Миттєво';
-
-  @override
-  String get hapticFeedbackDesc => 'Годинник Вібрує Під Час Відтворення';
-
-  @override
-  String get watchConnectedHint => 'Керуйте Відтворенням Зі Свого Годинника';
-
-  @override
-  String get watchDisconnectedHint =>
-      'Переконайтеся, Що Годинник Спарено Та Знаходиться Поруч Із Телефоном';
-
-  @override
-  String get communicationLog => 'Журнал Зв\'язку';
-
-  @override
-  String get rescanWatchFull => 'Пошук Годинника';
 
   @override
   String get customDuration => 'Користувацька Тривалість';

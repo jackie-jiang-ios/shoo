@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../core/platform/native_volume_controller.dart';
+import '../../core/recommend/smart_recommend.dart';
 import '../../models/animal.dart';
 import '../../core/audio/audio_controller.dart';
 import '../../core/platform/native_logger.dart';
@@ -116,7 +117,7 @@ class _HomePageState extends ConsumerState<HomePage> {
           CustomScrollView(
             slivers: [
               const SliverToBoxAdapter(child: _NavBar()),
-              SliverToBoxAdapter(child: _SmartBanner(s: s)),
+              SliverToBoxAdapter(child: _SmartBanner(s: s, animals: filteredAnimals)),
               SliverToBoxAdapter(child: _CategoryTabs(s: s)),
               SliverPadding(
                 key: animalListKey,
@@ -177,45 +178,140 @@ class _NavBar extends StatelessWidget {
 
 class _SmartBanner extends StatelessWidget {
   final S s;
-  const _SmartBanner({required this.s});
+  final List<Animal> animals;
+  const _SmartBanner({required this.s, required this.animals});
 
   @override
   Widget build(BuildContext context) {
+    final langCode = Localizations.localeOf(context).languageCode;
+    final recommendedIds = SmartRecommendEngine.getRecommendedAnimalIds();
+    final recommendedNames = SmartRecommendEngine.getRecommendedNames(langCode);
+    final hintText = recommendedNames.isNotEmpty
+        ? recommendedNames.join(' · ')
+        : s.smartRecommendHint;
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     return Container(
       margin: const EdgeInsets.fromLTRB(16, 16, 16, 8),
-      padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        gradient: const LinearGradient(
-            colors: [Color(0xFFFF9800), Color(0xFFF44336)]),
+        gradient: LinearGradient(
+            colors: isDark
+                ? [const Color(0xFF6B3A00), const Color(0xFF8B2020)]
+                : [const Color(0xFFFF9800), const Color(0xFFF44336)]),
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
-              color: Colors.orange.withValues(alpha: 0.3),
+              color: Colors.orange.withValues(alpha: isDark ? 0.15 : 0.3),
               blurRadius: 12,
               offset: const Offset(0, 4))
         ],
       ),
-      child: Row(
-        children: [
-          const Icon(Icons.lightbulb, color: Colors.yellowAccent, size: 28),
-          const SizedBox(width: 12),
-          Expanded(
-              child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(s.smartRecommend,
-                  style: const TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w600,
-                      fontSize: 16)),
-              const SizedBox(height: 2),
-              Text(s.smartRecommendHint,
-                  style: TextStyle(
-                      color: Colors.white.withValues(alpha: 0.9),
-                      fontSize: 13)),
-            ],
-          )),
-        ],
+      child: Material(
+        color: Colors.transparent,
+        borderRadius: BorderRadius.circular(16),
+        child: InkWell(
+          borderRadius: BorderRadius.circular(16),
+          onTap: () => _onTap(context, recommendedIds),
+          child: Padding(
+            padding: const EdgeInsets.all(16),
+            child: Row(
+              children: [
+                const Icon(Icons.lightbulb, color: Colors.yellowAccent, size: 28),
+                const SizedBox(width: 12),
+                Expanded(
+                    child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(children: [
+                      Text(s.smartRecommend,
+                          style: const TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w600,
+                              fontSize: 16)),
+                      const SizedBox(width: 6),
+                      _TimeBadge(),
+                    ]),
+                    const SizedBox(height: 4),
+                    Text(hintText,
+                        style: TextStyle(
+                            color: Colors.white.withValues(alpha: 0.9),
+                            fontSize: 13)),
+                  ],
+                )),
+                Icon(Icons.chevron_right,
+                    color: Colors.white.withValues(alpha: 0.7), size: 20),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  /// 点击 Banner：弹出第一个推荐动物的详情页
+  void _onTap(BuildContext context, List<String> recommendedIds) {
+    if (recommendedIds.isEmpty || animals.isEmpty) return;
+
+    // 找到第一个推荐动物（优先免费）
+    final isPro = PurchaseManager.instance.isPro;
+    Animal? target;
+    for (final id in recommendedIds) {
+      final found = animals.firstWhere(
+        (a) => a.id == id,
+        orElse: () => animals.first,
+      );
+      if (found.id == id) {
+        // 检查是否可免费使用
+        if (AnimalDatabase.freeAnimalIds.contains(id) || isPro) {
+          target = found;
+          break;
+        }
+      }
+    }
+    // 如果没找到免费的，取第一个推荐（会触发付费墙）
+    target ??= animals.firstWhere(
+      (a) => a.id == recommendedIds.first,
+      orElse: () => animals.first,
+    );
+
+    // 弹出详情页
+    final isTablet = MediaQuery.of(context).size.shortestSide >= 600;
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      constraints: isTablet
+          ? BoxConstraints(maxWidth: MediaQuery.of(context).size.width)
+          : null,
+      builder: (ctx) => DraggableScrollableSheet(
+        initialChildSize: 0.94,
+        minChildSize: 0.72,
+        maxChildSize: 0.98,
+        builder: (_, controller) => RepaintBoundary(
+          key: detailSheetKey,
+          child: _AnimalDetailSheet(
+              animal: target!, scrollController: controller),
+        ),
+      ),
+    );
+  }
+}
+
+/// 当前时段的小标签
+class _TimeBadge extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final hour = DateTime.now().hour;
+    final isNight = hour >= 18 || hour < 6;
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+      decoration: BoxDecoration(
+        color: Colors.white.withValues(alpha: 0.2),
+        borderRadius: BorderRadius.circular(4),
+      ),
+      child: Text(
+        isNight ? '🌙' : '☀️',
+        style: const TextStyle(fontSize: 10),
       ),
     );
   }

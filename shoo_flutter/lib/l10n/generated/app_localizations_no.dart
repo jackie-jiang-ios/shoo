@@ -189,27 +189,6 @@ class AppLocalizationsNo extends AppLocalizations {
   String get noAutoStop => 'Ingen automatisk stopp';
 
   @override
-  String get watchConnect => 'Klokke';
-
-  @override
-  String get watchConnected => 'Klokke tilkoblet';
-
-  @override
-  String get watchDisconnected => 'Ingen klokke';
-
-  @override
-  String get remotePlay => 'Fjernavspilling';
-
-  @override
-  String get emergencyBtn => 'Hurtig skremming';
-
-  @override
-  String get hapticFeedback => 'Haptisk tilbakemelding';
-
-  @override
-  String get rescanWatch => 'Skann på nytt';
-
-  @override
   String get settings => 'Innstillinger';
 
   @override
@@ -301,9 +280,6 @@ class AppLocalizationsNo extends AppLocalizations {
 
   @override
   String get navTimer => 'Tidtaker';
-
-  @override
-  String get navWatch => 'Klokke';
 
   @override
   String get navSettings => 'Innstillinger';
@@ -409,32 +385,6 @@ class AppLocalizationsNo extends AppLocalizations {
   @override
   String get waveformStaticDesc =>
       'Forhåndsvisningen er statisk i ro og animert under avspilling.';
-
-  @override
-  String get watchRemoteFeature => 'Klokkefjernkontroll';
-
-  @override
-  String get remotePlayDesc => 'Velg og spill av lyder på klokken';
-
-  @override
-  String get emergencyBtnDesc =>
-      'Spill av skremmelyd med maks volum umiddelbart';
-
-  @override
-  String get hapticFeedbackDesc => 'Klokken vibrerer under avspilling';
-
-  @override
-  String get watchConnectedHint => 'Styr avspilling fra klokken din';
-
-  @override
-  String get watchDisconnectedHint =>
-      'Sørg for at klokken er paret og i nærheten av telefonen';
-
-  @override
-  String get communicationLog => 'Kommunikasjonslogg';
-
-  @override
-  String get rescanWatchFull => 'Skann på nytt for klokke';
 
   @override
   String get customDuration => 'Egendefinert varighet';

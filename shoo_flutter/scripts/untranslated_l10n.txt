@@ -1,22 +1,14 @@
 {
   "da": [
-    "rescanWatch",
     "notSelected",
     "futureUpdates"
-  ],
-
-  "hu": [
-    "watchRemoteFeature"
   ],
 
   "it": [
     "generatingWaveform",
     "waveformPreview",
     "waveformPlayingDesc",
-    "waveformStaticDesc",
-    "remotePlayDesc",
-    "hapticFeedbackDesc",
-    "watchDisconnectedHint"
+    "waveformStaticDesc"
   ],
 
   "or": [
@@ -78,13 +70,6 @@
     "cancelTimer",
     "timerFinished",
     "noAutoStop",
-    "watchConnect",
-    "watchConnected",
-    "watchDisconnected",
-    "remotePlay",
-    "emergencyBtn",
-    "hapticFeedback",
-    "rescanWatch",
     "settings",
     "appearance",
     "themeMode",
@@ -115,7 +100,6 @@
     "navSounds",
     "navMix",
     "navTimer",
-    "navWatch",
     "navSettings",
     "iconStyle",
     "mode",
@@ -150,14 +134,6 @@
     "toneUltraHigh",
     "waveformPlayingDesc",
     "waveformStaticDesc",
-    "watchRemoteFeature",
-    "remotePlayDesc",
-    "emergencyBtnDesc",
-    "hapticFeedbackDesc",
-    "watchConnectedHint",
-    "watchDisconnectedHint",
-    "communicationLog",
-    "rescanWatchFull",
     "customDuration",
     "volumeLowTitle",
     "volumeLowHint",

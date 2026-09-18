@@ -189,27 +189,6 @@ class AppLocalizationsZh extends AppLocalizations {
   String get noAutoStop => '不自动停止';
 
   @override
-  String get watchConnect => '手表连接';
-
-  @override
-  String get watchConnected => '手表已连接';
-
-  @override
-  String get watchDisconnected => '未检测到手表';
-
-  @override
-  String get remotePlay => '遥控播放';
-
-  @override
-  String get emergencyBtn => '一键驱赶';
-
-  @override
-  String get hapticFeedback => '触觉反馈';
-
-  @override
-  String get rescanWatch => '重新搜索';
-
-  @override
   String get settings => '设置';
 
   @override
@@ -301,9 +280,6 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get navTimer => '定时';
-
-  @override
-  String get navWatch => '手表';
 
   @override
   String get navSettings => '设置';
@@ -406,30 +382,6 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get waveformStaticDesc => '未播放时展示静态声波轮廓，播放后会变成动态效果。';
-
-  @override
-  String get watchRemoteFeature => '手表遥控功能';
-
-  @override
-  String get remotePlayDesc => '在手表上选择并播放声音';
-
-  @override
-  String get emergencyBtnDesc => '一键播放最大音量驱赶声';
-
-  @override
-  String get hapticFeedbackDesc => '播放时手表振动提醒';
-
-  @override
-  String get watchConnectedHint => '可以通过手表遥控播放';
-
-  @override
-  String get watchDisconnectedHint => '请确保手表已配对并靠近手机';
-
-  @override
-  String get communicationLog => '通信日志';
-
-  @override
-  String get rescanWatchFull => '重新搜索手表';
 
   @override
   String get customDuration => '自定义时长';
@@ -698,27 +650,6 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get noAutoStop => '不自動停止';
 
   @override
-  String get watchConnect => '手錶連接';
-
-  @override
-  String get watchConnected => '手錶已連接';
-
-  @override
-  String get watchDisconnected => '未偵測到手錶';
-
-  @override
-  String get remotePlay => '遙控播放';
-
-  @override
-  String get emergencyBtn => '一鍵驅趕';
-
-  @override
-  String get hapticFeedback => '觸覺回饋';
-
-  @override
-  String get rescanWatch => '重新搜尋';
-
-  @override
   String get settings => '設定';
 
   @override
@@ -810,9 +741,6 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get navTimer => '定時';
-
-  @override
-  String get navWatch => '手錶';
 
   @override
   String get navSettings => '設定';
@@ -915,30 +843,6 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get waveformStaticDesc => '未播放時展示靜態聲波輪廓，播放後會變成動態效果。';
-
-  @override
-  String get watchRemoteFeature => '手錶遙控功能';
-
-  @override
-  String get remotePlayDesc => '在手錶上選擇並播放聲音';
-
-  @override
-  String get emergencyBtnDesc => '一鍵播放最大音量驅趕聲';
-
-  @override
-  String get hapticFeedbackDesc => '播放時手錶振動提醒';
-
-  @override
-  String get watchConnectedHint => '可以透過手錶遙控播放';
-
-  @override
-  String get watchDisconnectedHint => '請確保手錶已配對並靠近手機';
-
-  @override
-  String get communicationLog => '通訊日誌';
-
-  @override
-  String get rescanWatchFull => '重新搜尋手錶';
 
   @override
   String get customDuration => '自訂時長';

@@ -189,27 +189,6 @@ class AppLocalizationsMs extends AppLocalizations {
   String get noAutoStop => 'Tiada henti auto';
 
   @override
-  String get watchConnect => 'Jam';
-
-  @override
-  String get watchConnected => 'Jam disambung';
-
-  @override
-  String get watchDisconnected => 'Tiada jam';
-
-  @override
-  String get remotePlay => 'Main jauh';
-
-  @override
-  String get emergencyBtn => 'Usir pantas';
-
-  @override
-  String get hapticFeedback => 'Getaran';
-
-  @override
-  String get rescanWatch => 'Imbas semula';
-
-  @override
   String get settings => 'Tetapan';
 
   @override
@@ -301,9 +280,6 @@ class AppLocalizationsMs extends AppLocalizations {
 
   @override
   String get navTimer => 'Pemasa';
-
-  @override
-  String get navWatch => 'Jam';
 
   @override
   String get navSettings => 'Tetapan';
@@ -409,32 +385,6 @@ class AppLocalizationsMs extends AppLocalizations {
   @override
   String get waveformStaticDesc =>
       'Pratonton statik ketika rehat dan beranimasi semasa main.';
-
-  @override
-  String get watchRemoteFeature => 'Remote jam';
-
-  @override
-  String get remotePlayDesc => 'Pilih dan main bunyi di jam';
-
-  @override
-  String get emergencyBtnDesc =>
-      'Main bunyi pengusir kelantangan maksima serta-merta';
-
-  @override
-  String get hapticFeedbackDesc => 'Jam bergetar semasa main';
-
-  @override
-  String get watchConnectedHint => 'Kawal main dari jam anda';
-
-  @override
-  String get watchDisconnectedHint =>
-      'Pastikan jam dipasangkan dan berdekatan telefon';
-
-  @override
-  String get communicationLog => 'Log komunikasi';
-
-  @override
-  String get rescanWatchFull => 'Imbas semula jam';
 
   @override
   String get customDuration => 'Tempoh tersuai';

@@ -189,27 +189,6 @@ class AppLocalizationsGu extends AppLocalizations {
   String get noAutoStop => 'કોઈ સ્વચાલિત બંધ નહીં';
 
   @override
-  String get watchConnect => 'ઘડિયાળ';
-
-  @override
-  String get watchConnected => 'ઘડિયાળ કનેક્ટ થઈ';
-
-  @override
-  String get watchDisconnected => 'ઘડિયાળ નથી';
-
-  @override
-  String get remotePlay => 'રિમોટ ચલાવો';
-
-  @override
-  String get emergencyBtn => 'ઝડપી નિવારણ';
-
-  @override
-  String get hapticFeedback => 'સ્પર્શ પ્રતિસાદ';
-
-  @override
-  String get rescanWatch => 'ફરી સ્કેન કરો';
-
-  @override
   String get settings => 'સેટિંગ્સ';
 
   @override
@@ -301,9 +280,6 @@ class AppLocalizationsGu extends AppLocalizations {
 
   @override
   String get navTimer => 'ટાઈમર';
-
-  @override
-  String get navWatch => 'ઘડિયાળ';
 
   @override
   String get navSettings => 'સેટિંગ્સ';
@@ -409,31 +385,6 @@ class AppLocalizationsGu extends AppLocalizations {
   @override
   String get waveformStaticDesc =>
       'પૂર્વદર્શન નિષ્ક્રિય હોય ત્યારે સ્થિર રહે છે અને પ્લેબેક દરમિયાન ગતિશીલ બને છે.';
-
-  @override
-  String get watchRemoteFeature => 'ઘડિયાળ રિમોટ';
-
-  @override
-  String get remotePlayDesc => 'ઘડિયાળ પર ધ્વનિઓ પસંદ કરો અને ચલાવો';
-
-  @override
-  String get emergencyBtnDesc => 'તાત્કાલિક મહત્તમ અવાજે નિવારક ધ્વનિ ચલાવો';
-
-  @override
-  String get hapticFeedbackDesc => 'પ્લેબેક દરમિયાન ઘડિયાળ વાઇબ્રેટ કરે છે';
-
-  @override
-  String get watchConnectedHint => 'તમારી ઘડિયાળથી પ્લેબેક નિયંત્રિત કરો';
-
-  @override
-  String get watchDisconnectedHint =>
-      'ખાતરી કરો કે ઘડિયાળ જોડાયેલ છે અને ફોન નજીક છે';
-
-  @override
-  String get communicationLog => 'સંચાર લોગ';
-
-  @override
-  String get rescanWatchFull => 'ઘડિયાળ માટે ફરી સ્કેન કરો';
 
   @override
   String get customDuration => 'કસ્ટમ અવધિ';

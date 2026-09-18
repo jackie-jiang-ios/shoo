@@ -165,7 +165,7 @@ class _ShooAppState extends ConsumerState<ShooApp> {
       key: ScreenshotHelper.repaintBoundaryKey,
       child: MaterialApp.router(
         key: ValueKey("app_locale_$locale"),
-        title: '防兽神器',
+        onGenerateTitle: (context) => S.of(context).appName,
         debugShowCheckedModeBanner: false,
         theme: AppTheme.light,
         darkTheme: AppTheme.dark,

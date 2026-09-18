@@ -189,27 +189,6 @@ class AppLocalizationsUr extends AppLocalizations {
   String get noAutoStop => 'خودکار روک نہیں';
 
   @override
-  String get watchConnect => 'گھڑی';
-
-  @override
-  String get watchConnected => 'گھڑی منسلک';
-
-  @override
-  String get watchDisconnected => 'کوئی گھڑی نہیں';
-
-  @override
-  String get remotePlay => 'ریموٹ چلائیں';
-
-  @override
-  String get emergencyBtn => 'فوری بھگائیں';
-
-  @override
-  String get hapticFeedback => 'لپس جوابی';
-
-  @override
-  String get rescanWatch => 'دوبارہ اسکین کریں';
-
-  @override
   String get settings => 'ترتیبات';
 
   @override
@@ -301,9 +280,6 @@ class AppLocalizationsUr extends AppLocalizations {
 
   @override
   String get navTimer => 'ٹائمر';
-
-  @override
-  String get navWatch => 'گھڑی';
 
   @override
   String get navSettings => 'ترتیبات';
@@ -409,32 +385,6 @@ class AppLocalizationsUr extends AppLocalizations {
   @override
   String get waveformStaticDesc =>
       'پیش منظر بیکار ہونے پر جامد رہتا ہے اور پلے بیک کے دوران متحرک ہوتا ہے۔';
-
-  @override
-  String get watchRemoteFeature => 'گھڑی ریموٹ';
-
-  @override
-  String get remotePlayDesc => 'گھڑی پر آوازیں منتخب کریں اور چلائیں';
-
-  @override
-  String get emergencyBtnDesc =>
-      'فوری طور پر زیادہ سے زیادہ آواز پر بھگانے والی آواز چلائیں';
-
-  @override
-  String get hapticFeedbackDesc => 'پلے بیک کے دوران گھڑی وائبریٹ کرتی ہے';
-
-  @override
-  String get watchConnectedHint => 'اپنی گھڑی سے پلے بیک کو کنٹرول کریں';
-
-  @override
-  String get watchDisconnectedHint =>
-      'یقینی بنائیں کہ گھڑی جوڑی گئی ہے اور فون کے قریب ہے';
-
-  @override
-  String get communicationLog => 'مواصلاتی لاگ';
-
-  @override
-  String get rescanWatchFull => 'گھڑی کے لیے دوبارہ اسکین کریں';
 
   @override
   String get customDuration => 'اپنی مرضی کی مدت';

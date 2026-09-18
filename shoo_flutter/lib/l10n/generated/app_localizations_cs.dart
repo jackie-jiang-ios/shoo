@@ -189,27 +189,6 @@ class AppLocalizationsCs extends AppLocalizations {
   String get noAutoStop => 'Bez automatického zastavení';
 
   @override
-  String get watchConnect => 'Hodinky';
-
-  @override
-  String get watchConnected => 'Hodinky připojeny';
-
-  @override
-  String get watchDisconnected => 'Žádné hodinky';
-
-  @override
-  String get remotePlay => 'Vzdálené přehrávání';
-
-  @override
-  String get emergencyBtn => 'Rychlé odehnání';
-
-  @override
-  String get hapticFeedback => 'Haptická odezva';
-
-  @override
-  String get rescanWatch => 'Znovu vyhledat';
-
-  @override
   String get settings => 'Nastavení';
 
   @override
@@ -301,9 +280,6 @@ class AppLocalizationsCs extends AppLocalizations {
 
   @override
   String get navTimer => 'Časovač';
-
-  @override
-  String get navWatch => 'Hodinky';
 
   @override
   String get navSettings => 'Nastavení';
@@ -409,32 +385,6 @@ class AppLocalizationsCs extends AppLocalizations {
   @override
   String get waveformStaticDesc =>
       'Náhled je v nečinnosti statický a během přehrávání se animuje.';
-
-  @override
-  String get watchRemoteFeature => 'Ovládání hodinek';
-
-  @override
-  String get remotePlayDesc => 'Vyberte a přehrávejte zvuky na hodinkách';
-
-  @override
-  String get emergencyBtnDesc =>
-      'Okamžitě přehrát odeháněcí zvuk na maximální hlasitost';
-
-  @override
-  String get hapticFeedbackDesc => 'Hodinky vibrují během přehrávání';
-
-  @override
-  String get watchConnectedHint => 'Ovládejte přehrávání z hodinek';
-
-  @override
-  String get watchDisconnectedHint =>
-      'Ujistěte se, že jsou hodinky spárovány a v blízkosti telefonu';
-
-  @override
-  String get communicationLog => 'Protokol komunikace';
-
-  @override
-  String get rescanWatchFull => 'Znovu vyhledat hodinky';
 
   @override
   String get customDuration => 'Vlastní doba trvání';

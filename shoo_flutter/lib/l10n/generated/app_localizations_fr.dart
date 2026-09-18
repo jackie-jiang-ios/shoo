@@ -189,27 +189,6 @@ class AppLocalizationsFr extends AppLocalizations {
   String get noAutoStop => 'Pas d\'arrêt auto';
 
   @override
-  String get watchConnect => 'Montre';
-
-  @override
-  String get watchConnected => 'Montre connectée';
-
-  @override
-  String get watchDisconnected => 'Pas de montre';
-
-  @override
-  String get remotePlay => 'Lecture à distance';
-
-  @override
-  String get emergencyBtn => 'Répulsion rapide';
-
-  @override
-  String get hapticFeedback => 'Haptique';
-
-  @override
-  String get rescanWatch => 'Rechercher';
-
-  @override
   String get settings => 'Paramètres';
 
   @override
@@ -301,9 +280,6 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get navTimer => 'Minuteur';
-
-  @override
-  String get navWatch => 'Montre';
 
   @override
   String get navSettings => 'Paramètres';
@@ -409,32 +385,6 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get waveformStaticDesc =>
       'L\'aperçu reste statique au repos et s\'anime pendant la lecture.';
-
-  @override
-  String get watchRemoteFeature => 'Télécommande montre';
-
-  @override
-  String get remotePlayDesc => 'Sélectionner et lire des sons sur la montre';
-
-  @override
-  String get emergencyBtnDesc =>
-      'Son de répulsion au volume maximum en un clic';
-
-  @override
-  String get hapticFeedbackDesc => 'La montre vibre pendant la lecture';
-
-  @override
-  String get watchConnectedHint => 'Contrôlez la lecture depuis la montre';
-
-  @override
-  String get watchDisconnectedHint =>
-      'Assurez-vous que la montre est appairée et proche du téléphone';
-
-  @override
-  String get communicationLog => 'Journal de communication';
-
-  @override
-  String get rescanWatchFull => 'Rechercher la montre';
 
   @override
   String get customDuration => 'Durée personnalisée';
@@ -696,27 +646,6 @@ class AppLocalizationsFrCa extends AppLocalizationsFr {
   String get timerFinished => 'Minuteur terminé, arrêté';
 
   @override
-  String get watchConnect => 'Montre';
-
-  @override
-  String get watchConnected => 'Montre connectée';
-
-  @override
-  String get watchDisconnected => 'Pas de montre';
-
-  @override
-  String get remotePlay => 'Lecture à distance';
-
-  @override
-  String get emergencyBtn => 'Répulsion rapide';
-
-  @override
-  String get hapticFeedback => 'Haptique';
-
-  @override
-  String get rescanWatch => 'Rechercher';
-
-  @override
   String get settings => 'Paramètres';
 
   @override
@@ -802,9 +731,6 @@ class AppLocalizationsFrCa extends AppLocalizationsFr {
 
   @override
   String get navTimer => 'Minuteur';
-
-  @override
-  String get navWatch => 'Montre';
 
   @override
   String get navSettings => 'Paramètres';
@@ -893,32 +819,6 @@ class AppLocalizationsFrCa extends AppLocalizationsFr {
 
   @override
   String get toneUltraHigh => 'Ultra-aigus';
-
-  @override
-  String get watchRemoteFeature => 'Télécommande montre';
-
-  @override
-  String get remotePlayDesc => 'Sélectionner et lire des sons sur la montre';
-
-  @override
-  String get emergencyBtnDesc =>
-      'Son de répulsion au volume maximum en un clic';
-
-  @override
-  String get hapticFeedbackDesc => 'La montre vibre pendant la lecture';
-
-  @override
-  String get watchConnectedHint => 'Contrôlez la lecture depuis la montre';
-
-  @override
-  String get watchDisconnectedHint =>
-      'Assurez-vous que la montre est appairée et proche du téléphone';
-
-  @override
-  String get communicationLog => 'Journal de communication';
-
-  @override
-  String get rescanWatchFull => 'Rechercher la montre';
 
   @override
   String get customDuration => 'Durée personnalisée';

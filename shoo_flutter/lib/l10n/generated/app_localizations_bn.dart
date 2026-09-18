@@ -189,27 +189,6 @@ class AppLocalizationsBn extends AppLocalizations {
   String get noAutoStop => 'স্বয়ংক্রিয় বন্ধ নেই';
 
   @override
-  String get watchConnect => 'ঘড়ি সংযোগ';
-
-  @override
-  String get watchConnected => 'ঘড়ি সংযুক্ত';
-
-  @override
-  String get watchDisconnected => 'ঘড়ি নেই';
-
-  @override
-  String get remotePlay => 'রিমোট চালান';
-
-  @override
-  String get emergencyBtn => 'জরুরি তাড়না';
-
-  @override
-  String get hapticFeedback => 'কম্পন প্রতিক্রিয়া';
-
-  @override
-  String get rescanWatch => 'আবার স্ক্যান';
-
-  @override
   String get settings => 'সেটিংস';
 
   @override
@@ -301,9 +280,6 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get navTimer => 'টাইমার';
-
-  @override
-  String get navWatch => 'ঘড়ি';
 
   @override
   String get navSettings => 'সেটিংস';
@@ -409,32 +385,6 @@ class AppLocalizationsBn extends AppLocalizations {
   @override
   String get waveformStaticDesc =>
       'নিষ্ক্রিয় অবস্থায় প্রিভিউ স্থির থাকে এবং চালানোর সময় অ্যানিমেট হয়।';
-
-  @override
-  String get watchRemoteFeature => 'ঘড়ি রিমোট';
-
-  @override
-  String get remotePlayDesc => 'ঘড়িতে শব্দ নির্বাচন ও চালান';
-
-  @override
-  String get emergencyBtnDesc =>
-      'তাৎক্ষণিকভাবে সর্বোচ্চ শব্দে প্রাণী তাড়না চালান';
-
-  @override
-  String get hapticFeedbackDesc => 'চালানোর সময় ঘড়ি কম্বন করবে';
-
-  @override
-  String get watchConnectedHint => 'আপনার ঘড়ি থেকে প্লেব্যাক নিয়ন্ত্রণ করুন';
-
-  @override
-  String get watchDisconnectedHint =>
-      'ঘড়ি যুক্ত ও ফোনের কাছে আছে কিনা নিশ্চিত করুন';
-
-  @override
-  String get communicationLog => 'যোগাযোগ লগ';
-
-  @override
-  String get rescanWatchFull => 'ঘড়ির জন্য আবার স্ক্যান';
 
   @override
   String get customDuration => 'কাস্টম সময়কাল';

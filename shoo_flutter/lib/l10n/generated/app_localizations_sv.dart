@@ -189,27 +189,6 @@ class AppLocalizationsSv extends AppLocalizations {
   String get noAutoStop => 'Ingen automatisk stopp';
 
   @override
-  String get watchConnect => 'Klocka';
-
-  @override
-  String get watchConnected => 'Klocka ansluten';
-
-  @override
-  String get watchDisconnected => 'Ingen klocka';
-
-  @override
-  String get remotePlay => 'Fjärruppspelning';
-
-  @override
-  String get emergencyBtn => 'Snabbt avskräcka';
-
-  @override
-  String get hapticFeedback => 'Haptisk feedback';
-
-  @override
-  String get rescanWatch => 'Skanna igen';
-
-  @override
   String get settings => 'Inställningar';
 
   @override
@@ -301,9 +280,6 @@ class AppLocalizationsSv extends AppLocalizations {
 
   @override
   String get navTimer => 'Timer';
-
-  @override
-  String get navWatch => 'Klocka';
 
   @override
   String get navSettings => 'Inställningar';
@@ -409,32 +385,6 @@ class AppLocalizationsSv extends AppLocalizations {
   @override
   String get waveformStaticDesc =>
       'Förhandsgranskningen är statisk i viloläge och animeras under uppspelning.';
-
-  @override
-  String get watchRemoteFeature => 'Klockfjärrkontroll';
-
-  @override
-  String get remotePlayDesc => 'Välj och spela ljud på klockan';
-
-  @override
-  String get emergencyBtnDesc =>
-      'Spela omedelbart avskräckande ljud med maxvolym';
-
-  @override
-  String get hapticFeedbackDesc => 'Klockan vibrerar under uppspelning';
-
-  @override
-  String get watchConnectedHint => 'Styr uppspelningen från din klocka';
-
-  @override
-  String get watchDisconnectedHint =>
-      'Se till att klockan är ihopparad och nära telefonen';
-
-  @override
-  String get communicationLog => 'Kommunikationslogg';
-
-  @override
-  String get rescanWatchFull => 'Skanna efter klocka igen';
 
   @override
   String get customDuration => 'Anpassad varaktighet';

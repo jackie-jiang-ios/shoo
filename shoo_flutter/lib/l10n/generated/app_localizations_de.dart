@@ -189,27 +189,6 @@ class AppLocalizationsDe extends AppLocalizations {
   String get noAutoStop => 'Kein Auto-Stopp';
 
   @override
-  String get watchConnect => 'Uhr';
-
-  @override
-  String get watchConnected => 'Uhr verbunden';
-
-  @override
-  String get watchDisconnected => 'Keine Uhr';
-
-  @override
-  String get remotePlay => 'Fernbedienung';
-
-  @override
-  String get emergencyBtn => 'Sofort vertreiben';
-
-  @override
-  String get hapticFeedback => 'Haptik';
-
-  @override
-  String get rescanWatch => 'Erneut suchen';
-
-  @override
   String get settings => 'Einstellungen';
 
   @override
@@ -301,9 +280,6 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get navTimer => 'Timer';
-
-  @override
-  String get navWatch => 'Uhr';
 
   @override
   String get navSettings => 'Einstellungen';
@@ -409,32 +385,6 @@ class AppLocalizationsDe extends AppLocalizations {
   @override
   String get waveformStaticDesc =>
       'Die Vorschau bleibt im Leerlauf statisch und animiert während der Wiedergabe.';
-
-  @override
-  String get watchRemoteFeature => 'Uhr-Fernbedienung';
-
-  @override
-  String get remotePlayDesc => 'Sounds auf der Uhr auswählen und abspielen';
-
-  @override
-  String get emergencyBtnDesc =>
-      'Vertreibungston mit maximaler Lautstärke auf Knopfdruck';
-
-  @override
-  String get hapticFeedbackDesc => 'Uhr vibriert während der Wiedergabe';
-
-  @override
-  String get watchConnectedHint => 'Steuerung der Wiedergabe von der Uhr';
-
-  @override
-  String get watchDisconnectedHint =>
-      'Stellen Sie sicher, dass die Uhr gekoppelt und in der Nähe ist';
-
-  @override
-  String get communicationLog => 'Kommunikationsprotokoll';
-
-  @override
-  String get rescanWatchFull => 'Uhr erneut suchen';
 
   @override
   String get customDuration => 'Benutzerdefinierte Dauer';

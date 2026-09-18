@@ -189,27 +189,6 @@ class AppLocalizationsKn extends AppLocalizations {
   String get noAutoStop => 'ಸ್ವಯಂ ನಿಲುಗಡೆ ಇಲ್ಲ';
 
   @override
-  String get watchConnect => 'ವಾಚ್';
-
-  @override
-  String get watchConnected => 'ವಾಚ್ ಸಂಪರ್ಕಗೊಂಡಿದೆ';
-
-  @override
-  String get watchDisconnected => 'ವಾಚ್ ಇಲ್ಲ';
-
-  @override
-  String get remotePlay => 'ರಿಮೋಟ್ ಪ್ಲೇ';
-
-  @override
-  String get emergencyBtn => 'ತ್ವರಿತ ನಿವಾರಣೆ';
-
-  @override
-  String get hapticFeedback => 'ಸ್ಪರ್ಶ ಪ್ರತಿಕ್ರಿಯೆ';
-
-  @override
-  String get rescanWatch => 'ಮರು ಸ್ಕ್ಯಾನ್ ಮಾಡಿ';
-
-  @override
   String get settings => 'ಸೆಟ್ಟಿಂಗ್ಗಳು';
 
   @override
@@ -301,9 +280,6 @@ class AppLocalizationsKn extends AppLocalizations {
 
   @override
   String get navTimer => 'ಟೈಮರ್';
-
-  @override
-  String get navWatch => 'ವಾಚ್';
 
   @override
   String get navSettings => 'ಸೆಟ್ಟಿಂಗ್ಗಳು';
@@ -409,33 +385,6 @@ class AppLocalizationsKn extends AppLocalizations {
   @override
   String get waveformStaticDesc =>
       'ಮುನ್ನೋಟವು ನಿಷ್ಕ್ರಿಯವಾಗಿದ್ದಾಗ ಸ್ಥಿರವಾಗಿರುತ್ತದೆ ಮತ್ತು ಪ್ಲೇಬ್ಯಾಕ್ ಸಮಯದಲ್ಲಿ ಚಲನಶೀಲವಾಗಿರುತ್ತದೆ.';
-
-  @override
-  String get watchRemoteFeature => 'ವಾಚ್ ರಿಮೋಟ್';
-
-  @override
-  String get remotePlayDesc =>
-      'ವಾಚ್ನಲ್ಲಿ ಶಬ್ದಗಳನ್ನು ಆಯ್ಕೆ ಮಾಡಿ ಮತ್ತು ಪ್ಲೇ ಮಾಡಿ';
-
-  @override
-  String get emergencyBtnDesc =>
-      'ತಕ್ಷಣ ಗರಿಷ್ಠ ಶಬ್ದದಲ್ಲಿ ನಿವಾರಕ ಶಬ್ದವನ್ನು ಪ್ಲೇ ಮಾಡಿ';
-
-  @override
-  String get hapticFeedbackDesc => 'ಪ್ಲೇಬ್ಯಾಕ್ ಸಮಯದಲ್ಲಿ ವಾಚ್ ಕಂಪಿಸುತ್ತದೆ';
-
-  @override
-  String get watchConnectedHint => 'ನಿಮ್ಮ ವಾಚ್ನಿಂದ ಪ್ಲೇಬ್ಯಾಕ್ ಅನ್ನು ನಿಯಂತ್ರಿಸಿ';
-
-  @override
-  String get watchDisconnectedHint =>
-      'ವಾಚ್ ಜೋಡಿಯಾಗಿದೆ ಮತ್ತು ಫೋನ್ ಬಳಿ ಇದೆ ಎಂದು ಖಚಿತಪಡಿಸಿಕೊಳ್ಳಿ';
-
-  @override
-  String get communicationLog => 'ಸಂವಹನ ಲಾಗ್';
-
-  @override
-  String get rescanWatchFull => 'ವಾಚ್ಗಾಗಿ ಮರು ಸ್ಕ್ಯಾನ್ ಮಾಡಿ';
 
   @override
   String get customDuration => 'ಕಸ್ಟಮ್ ಅವಧಿ';

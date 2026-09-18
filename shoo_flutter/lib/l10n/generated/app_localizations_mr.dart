@@ -189,27 +189,6 @@ class AppLocalizationsMr extends AppLocalizations {
   String get noAutoStop => 'स्वयंचलित थांबा नाही';
 
   @override
-  String get watchConnect => 'घड्याळ';
-
-  @override
-  String get watchConnected => 'घड्याळ कनेक्ट केले';
-
-  @override
-  String get watchDisconnected => 'घड्याळ नाही';
-
-  @override
-  String get remotePlay => 'रिमोट प्ले';
-
-  @override
-  String get emergencyBtn => 'त्वरित निवारण';
-
-  @override
-  String get hapticFeedback => 'स्पर्श प्रतिसाद';
-
-  @override
-  String get rescanWatch => 'पुन्हा स्कॅन करा';
-
-  @override
   String get settings => 'सेटिंग्ज';
 
   @override
@@ -301,9 +280,6 @@ class AppLocalizationsMr extends AppLocalizations {
 
   @override
   String get navTimer => 'टाइमर';
-
-  @override
-  String get navWatch => 'घड्याळ';
 
   @override
   String get navSettings => 'सेटिंग्ज';
@@ -409,31 +385,6 @@ class AppLocalizationsMr extends AppLocalizations {
   @override
   String get waveformStaticDesc =>
       'पूर्वावलोकन निष्क्रिय असताना स्थिर राहते आणि प्लेबॅक दरम्यान गतिमान होते.';
-
-  @override
-  String get watchRemoteFeature => 'घड्याळ रिमोट';
-
-  @override
-  String get remotePlayDesc => 'घड्याळावर आवाज निवडा आणि प्ले करा';
-
-  @override
-  String get emergencyBtnDesc => 'त्वरित कमाल आवाजात निवारक आवाज प्ले करा';
-
-  @override
-  String get hapticFeedbackDesc => 'प्लेबॅक दरम्यान घड्याळ कंपन करते';
-
-  @override
-  String get watchConnectedHint => 'आपल्या घड्याळावरून प्लेबॅक नियंत्रित करा';
-
-  @override
-  String get watchDisconnectedHint =>
-      'घड्याळ जोडलेले आणि फोन जवळ आहे याची खात्री करा';
-
-  @override
-  String get communicationLog => 'संप्रेषण लॉग';
-
-  @override
-  String get rescanWatchFull => 'घड्याळासाठी पुन्हा स्कॅन करा';
 
   @override
   String get customDuration => 'सानुकूल कालावधी';

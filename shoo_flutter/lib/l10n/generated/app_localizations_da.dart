@@ -189,27 +189,6 @@ class AppLocalizationsDa extends AppLocalizations {
   String get noAutoStop => 'Ingen automatisk stop';
 
   @override
-  String get watchConnect => 'Ur';
-
-  @override
-  String get watchConnected => 'Ur tilsluttet';
-
-  @override
-  String get watchDisconnected => 'Intet ur';
-
-  @override
-  String get remotePlay => 'Fjernafspilning';
-
-  @override
-  String get emergencyBtn => 'Hurtig afskrækkelse';
-
-  @override
-  String get hapticFeedback => 'Haptisk feedback';
-
-  @override
-  String get rescanWatch => 'Rescan';
-
-  @override
   String get settings => 'Indstillinger';
 
   @override
@@ -301,9 +280,6 @@ class AppLocalizationsDa extends AppLocalizations {
 
   @override
   String get navTimer => 'Timer';
-
-  @override
-  String get navWatch => 'Ur';
 
   @override
   String get navSettings => 'Indstillinger';
@@ -409,32 +385,6 @@ class AppLocalizationsDa extends AppLocalizations {
   @override
   String get waveformStaticDesc =>
       'Forhåndsvisningen er statisk i tomgang og animeret under afspilning.';
-
-  @override
-  String get watchRemoteFeature => 'Ur fjernbetjening';
-
-  @override
-  String get remotePlayDesc => 'Vælg og afspil lyde på uret';
-
-  @override
-  String get emergencyBtnDesc =>
-      'Afspil øjeblikkeligt afskrækkende lyd ved maks. volumen';
-
-  @override
-  String get hapticFeedbackDesc => 'Uret vibrerer under afspilning';
-
-  @override
-  String get watchConnectedHint => 'Styr afspilning fra dit ur';
-
-  @override
-  String get watchDisconnectedHint =>
-      'Sørg for, at uret er parret og tæt på telefonen';
-
-  @override
-  String get communicationLog => 'Kommunikationslog';
-
-  @override
-  String get rescanWatchFull => 'Genscan for ur';
 
   @override
   String get customDuration => 'Brugerdefineret varighed';

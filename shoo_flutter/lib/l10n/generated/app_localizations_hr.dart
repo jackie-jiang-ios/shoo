@@ -189,27 +189,6 @@ class AppLocalizationsHr extends AppLocalizations {
   String get noAutoStop => 'Bez automatskog zaustavljanja';
 
   @override
-  String get watchConnect => 'Sat';
-
-  @override
-  String get watchConnected => 'Sat povezan';
-
-  @override
-  String get watchDisconnected => 'Nema sata';
-
-  @override
-  String get remotePlay => 'Daljinska reprodukcija';
-
-  @override
-  String get emergencyBtn => 'Brzo odbijanje';
-
-  @override
-  String get hapticFeedback => 'Haptička povratna informacija';
-
-  @override
-  String get rescanWatch => 'Ponovno skeniraj';
-
-  @override
   String get settings => 'Postavke';
 
   @override
@@ -301,9 +280,6 @@ class AppLocalizationsHr extends AppLocalizations {
 
   @override
   String get navTimer => 'Timer';
-
-  @override
-  String get navWatch => 'Sat';
 
   @override
   String get navSettings => 'Postavke';
@@ -409,32 +385,6 @@ class AppLocalizationsHr extends AppLocalizations {
   @override
   String get waveformStaticDesc =>
       'Pregled je miran u mirovanju i animiran tijekom reprodukcije.';
-
-  @override
-  String get watchRemoteFeature => 'Daljinski upravljač za sat';
-
-  @override
-  String get remotePlayDesc => 'Odaberite i reproducirajte zvukove na satu';
-
-  @override
-  String get emergencyBtnDesc =>
-      'Odmah reproduciraj zvuk za odbijanje pri maksimalnoj glasnoći';
-
-  @override
-  String get hapticFeedbackDesc => 'Sat vibrira tijekom reprodukcije';
-
-  @override
-  String get watchConnectedHint => 'Upravljajte reprodukcijom sa svog sata';
-
-  @override
-  String get watchDisconnectedHint =>
-      'Provjerite je li sat uparen i blizu telefona';
-
-  @override
-  String get communicationLog => 'Dnevnik komunikacije';
-
-  @override
-  String get rescanWatchFull => 'Ponovno skeniraj sat';
 
   @override
   String get customDuration => 'Prilagođeno trajanje';

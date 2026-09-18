@@ -189,27 +189,6 @@ class AppLocalizationsCa extends AppLocalizations {
   String get noAutoStop => 'Sense parada automàtica';
 
   @override
-  String get watchConnect => 'Rellotge';
-
-  @override
-  String get watchConnected => 'Rellotge connectat';
-
-  @override
-  String get watchDisconnected => 'Sense rellotge';
-
-  @override
-  String get remotePlay => 'Reproducció remota';
-
-  @override
-  String get emergencyBtn => 'Repulsió ràpida';
-
-  @override
-  String get hapticFeedback => 'Retorn hàptic';
-
-  @override
-  String get rescanWatch => 'Tornar a escanejar';
-
-  @override
   String get settings => 'Configuració';
 
   @override
@@ -301,9 +280,6 @@ class AppLocalizationsCa extends AppLocalizations {
 
   @override
   String get navTimer => 'Temporitzador';
-
-  @override
-  String get navWatch => 'Rellotge';
 
   @override
   String get navSettings => 'Configuració';
@@ -409,33 +385,6 @@ class AppLocalizationsCa extends AppLocalizations {
   @override
   String get waveformStaticDesc =>
       'La previsualització es manté estàtica en repòs i s\'anima durant la reproducció.';
-
-  @override
-  String get watchRemoteFeature => 'Control remot del rellotge';
-
-  @override
-  String get remotePlayDesc => 'Seleccioneu i reproduïu sons al rellotge';
-
-  @override
-  String get emergencyBtnDesc =>
-      'Reproduir instantàniament el so repel·lent al màxim volum';
-
-  @override
-  String get hapticFeedbackDesc => 'El rellotge vibra durant la reproducció';
-
-  @override
-  String get watchConnectedHint =>
-      'Controleu la reproducció des del vostre rellotge';
-
-  @override
-  String get watchDisconnectedHint =>
-      'Assegureu-vos que el rellotge estigui aparellat i a prop del telèfon';
-
-  @override
-  String get communicationLog => 'Registre de comunicació';
-
-  @override
-  String get rescanWatchFull => 'Tornar a escanejar el rellotge';
 
   @override
   String get customDuration => 'Durada personalitzada';

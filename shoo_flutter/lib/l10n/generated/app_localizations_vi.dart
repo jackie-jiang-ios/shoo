@@ -189,27 +189,6 @@ class AppLocalizationsVi extends AppLocalizations {
   String get noAutoStop => 'Không tự dừng';
 
   @override
-  String get watchConnect => 'Đồng hồ';
-
-  @override
-  String get watchConnected => 'Đồng hồ đã kết nối';
-
-  @override
-  String get watchDisconnected => 'Không có đồng hồ';
-
-  @override
-  String get remotePlay => 'Phát từ xa';
-
-  @override
-  String get emergencyBtn => 'Xua đuổi nhanh';
-
-  @override
-  String get hapticFeedback => 'Rung';
-
-  @override
-  String get rescanWatch => 'Quét lại';
-
-  @override
   String get settings => 'Cài đặt';
 
   @override
@@ -301,9 +280,6 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get navTimer => 'Hẹn giờ';
-
-  @override
-  String get navWatch => 'Đồng hồ';
 
   @override
   String get navSettings => 'Cài đặt';
@@ -407,31 +383,6 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get waveformStaticDesc => 'Xem trước tĩnh khi nghỉ và động khi phát.';
-
-  @override
-  String get watchRemoteFeature => 'Điều khiển đồng hồ';
-
-  @override
-  String get remotePlayDesc => 'Chọn và phát âm thanh trên đồng hồ';
-
-  @override
-  String get emergencyBtnDesc => 'Phát âm thanh xua đuổi âm lượng tối đa ngay';
-
-  @override
-  String get hapticFeedbackDesc => 'Đồng hồ rung khi phát';
-
-  @override
-  String get watchConnectedHint => 'Điều khiển phát từ đồng hồ';
-
-  @override
-  String get watchDisconnectedHint =>
-      'Đảm bảo đồng hồ đã ghép và gần điện thoại';
-
-  @override
-  String get communicationLog => 'Nhật ký liên lạc';
-
-  @override
-  String get rescanWatchFull => 'Quét lại đồng hồ';
 
   @override
   String get customDuration => 'Thời lượng tùy chỉnh';

@@ -189,27 +189,6 @@ class AppLocalizationsSl extends AppLocalizations {
   String get noAutoStop => 'Brez Samodejne Ustavitve';
 
   @override
-  String get watchConnect => 'Ura';
-
-  @override
-  String get watchConnected => 'Ura Povezana';
-
-  @override
-  String get watchDisconnected => 'Ni Ure';
-
-  @override
-  String get remotePlay => 'Oddaljeno Predvajanje';
-
-  @override
-  String get emergencyBtn => 'Hitro Odganjanje';
-
-  @override
-  String get hapticFeedback => 'Haptični Odziv';
-
-  @override
-  String get rescanWatch => 'Ponovno Skeniraj';
-
-  @override
   String get settings => 'Nastavitve';
 
   @override
@@ -301,9 +280,6 @@ class AppLocalizationsSl extends AppLocalizations {
 
   @override
   String get navTimer => 'Časovnik';
-
-  @override
-  String get navWatch => 'Ura';
 
   @override
   String get navSettings => 'Nastavitve';
@@ -409,32 +385,6 @@ class AppLocalizationsSl extends AppLocalizations {
   @override
   String get waveformStaticDesc =>
       'Predogled Je V Mirovanju Statičen In Med Predvajanjem Animiran.';
-
-  @override
-  String get watchRemoteFeature => 'Daljinski Upravljalnik Za Uro';
-
-  @override
-  String get remotePlayDesc => 'Izberite In Predvajajte Zvoke Na Uri';
-
-  @override
-  String get emergencyBtnDesc =>
-      'Takoj Predvajaj Odganjajoč Zvok Pri Največji Glasnosti';
-
-  @override
-  String get hapticFeedbackDesc => 'Ura Vibrira Med Predvajanjem';
-
-  @override
-  String get watchConnectedHint => 'Upravljajte Predvajanje S Svoje Ure';
-
-  @override
-  String get watchDisconnectedHint =>
-      'Prepričajte Se, Da Je Ura Seznanjena In V Bližini Telefona';
-
-  @override
-  String get communicationLog => 'Dnevnik Komunikacije';
-
-  @override
-  String get rescanWatchFull => 'Ponovno Skeniraj Za Uro';
 
   @override
   String get customDuration => 'Poljubno Trajanje';

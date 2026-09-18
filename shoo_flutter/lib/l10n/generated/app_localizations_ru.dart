@@ -189,27 +189,6 @@ class AppLocalizationsRu extends AppLocalizations {
   String get noAutoStop => 'Без автостопа';
 
   @override
-  String get watchConnect => 'Часы';
-
-  @override
-  String get watchConnected => 'Часы подключены';
-
-  @override
-  String get watchDisconnected => 'Нет часов';
-
-  @override
-  String get remotePlay => 'Дистанционное управление';
-
-  @override
-  String get emergencyBtn => 'Мгновенное отпугивание';
-
-  @override
-  String get hapticFeedback => 'Тактильная отдача';
-
-  @override
-  String get rescanWatch => 'Пересканировать';
-
-  @override
   String get settings => 'Настройки';
 
   @override
@@ -301,9 +280,6 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get navTimer => 'Таймер';
-
-  @override
-  String get navWatch => 'Часы';
 
   @override
   String get navSettings => 'Настройки';
@@ -409,32 +385,6 @@ class AppLocalizationsRu extends AppLocalizations {
   @override
   String get waveformStaticDesc =>
       'Предпросмотр статичен в покое и анимируется при воспроизведении.';
-
-  @override
-  String get watchRemoteFeature => 'Дистанционное управление часами';
-
-  @override
-  String get remotePlayDesc => 'Выбирайте и воспроизводите звуки на часах';
-
-  @override
-  String get emergencyBtnDesc =>
-      'Мгновенный звук отпугивания на максимальной громкости';
-
-  @override
-  String get hapticFeedbackDesc => 'Часы вибрируют при воспроизведении';
-
-  @override
-  String get watchConnectedHint => 'Управляйте воспроизведением с часов';
-
-  @override
-  String get watchDisconnectedHint =>
-      'Убедитесь, что часы сопряжены и находятся рядом с телефоном';
-
-  @override
-  String get communicationLog => 'Журнал связи';
-
-  @override
-  String get rescanWatchFull => 'Повторный поиск часов';
 
   @override
   String get customDuration => 'Пользовательская длительность';

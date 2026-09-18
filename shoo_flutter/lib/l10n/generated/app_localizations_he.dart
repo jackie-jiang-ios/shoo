@@ -189,27 +189,6 @@ class AppLocalizationsHe extends AppLocalizations {
   String get noAutoStop => 'ללא עצירה אוטומטית';
 
   @override
-  String get watchConnect => 'שעון';
-
-  @override
-  String get watchConnected => 'שעון מחובר';
-
-  @override
-  String get watchDisconnected => 'אין שעון';
-
-  @override
-  String get remotePlay => 'ניגון מרחוק';
-
-  @override
-  String get emergencyBtn => 'הרחקה מהירה';
-
-  @override
-  String get hapticFeedback => 'משוב הפטי';
-
-  @override
-  String get rescanWatch => 'סרוק שוב';
-
-  @override
   String get settings => 'הגדרות';
 
   @override
@@ -301,9 +280,6 @@ class AppLocalizationsHe extends AppLocalizations {
 
   @override
   String get navTimer => 'טיימר';
-
-  @override
-  String get navWatch => 'שעון';
 
   @override
   String get navSettings => 'הגדרות';
@@ -409,30 +385,6 @@ class AppLocalizationsHe extends AppLocalizations {
   @override
   String get waveformStaticDesc =>
       'התצוגה המקדימה סטטית במצב המתנה ומונפשת במהלך הניגון.';
-
-  @override
-  String get watchRemoteFeature => 'שלט לשעון';
-
-  @override
-  String get remotePlayDesc => 'בחר והפעל צלילים על השעון';
-
-  @override
-  String get emergencyBtnDesc => 'נגן צליל דוחה בעוצמה מרבית באופן מיידי';
-
-  @override
-  String get hapticFeedbackDesc => 'השעון רוטט במהלך הניגון';
-
-  @override
-  String get watchConnectedHint => 'שלוט בניגון מהשעון שלך';
-
-  @override
-  String get watchDisconnectedHint => 'ודא שהשעון מזווג וקרוב לטלפון';
-
-  @override
-  String get communicationLog => 'יומן תקשורת';
-
-  @override
-  String get rescanWatchFull => 'סרוק שוב את השעון';
 
   @override
   String get customDuration => 'משך מותאם אישית';

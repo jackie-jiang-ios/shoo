@@ -189,27 +189,6 @@ class AppLocalizationsTe extends AppLocalizations {
   String get noAutoStop => 'స్వయంచాలక ఆపు లేదు';
 
   @override
-  String get watchConnect => 'వాచ్';
-
-  @override
-  String get watchConnected => 'వాచ్ కనెక్ట్ చేయబడింది';
-
-  @override
-  String get watchDisconnected => 'వాచ్ లేదు';
-
-  @override
-  String get remotePlay => 'రిమోట్ ప్లే';
-
-  @override
-  String get emergencyBtn => 'త్వరిత నివారణ';
-
-  @override
-  String get hapticFeedback => 'స్పర్శ ప్రతిస్పందన';
-
-  @override
-  String get rescanWatch => 'మళ్లీ స్కాన్ చేయి';
-
-  @override
   String get settings => 'సెట్టింగ్లు';
 
   @override
@@ -301,9 +280,6 @@ class AppLocalizationsTe extends AppLocalizations {
 
   @override
   String get navTimer => 'టైమర్';
-
-  @override
-  String get navWatch => 'వాచ్';
 
   @override
   String get navSettings => 'సెట్టింగ్లు';
@@ -409,32 +385,6 @@ class AppLocalizationsTe extends AppLocalizations {
   @override
   String get waveformStaticDesc =>
       'మునుపటి ప్రదర్శన నిష్క్రియంగా ఉన్నప్పుడు స్థిరంగా ఉంటుంది మరియు ప్లేబ్యాక్ సమయంలో కదలికలతో ఉంటుంది.';
-
-  @override
-  String get watchRemoteFeature => 'వాచ్ రిమోట్';
-
-  @override
-  String get remotePlayDesc => 'వాచ్లో శబ్దాలను ఎంచుకుని ప్లే చేయండి';
-
-  @override
-  String get emergencyBtnDesc =>
-      'వెంటనే గరిష్ట ధ్వనిలో నివారిణి శబ్దాన్ని ప్లే చేయి';
-
-  @override
-  String get hapticFeedbackDesc => 'ప్లేబ్యాక్ సమయంలో వాచ్ కంపిస్తుంది';
-
-  @override
-  String get watchConnectedHint => 'మీ వాచ్ నుండి ప్లేబ్యాక్ను నియంత్రించండి';
-
-  @override
-  String get watchDisconnectedHint =>
-      'వాచ్ జత చేయబడి, ఫోన్ దగ్గర ఉందని నిర్ధారించుకోండి';
-
-  @override
-  String get communicationLog => 'కమ్యూనికేషన్ లాగ్';
-
-  @override
-  String get rescanWatchFull => 'వాచ్ కోసం మళ్లీ స్కాన్ చేయి';
 
   @override
   String get customDuration => 'అనుకూల వ్యవధి';

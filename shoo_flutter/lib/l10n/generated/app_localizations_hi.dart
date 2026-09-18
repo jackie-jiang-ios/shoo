@@ -189,27 +189,6 @@ class AppLocalizationsHi extends AppLocalizations {
   String get noAutoStop => 'कोई स्वत: रोक नहीं';
 
   @override
-  String get watchConnect => 'घड़ी';
-
-  @override
-  String get watchConnected => 'घड़ी कनेक्ट हुई';
-
-  @override
-  String get watchDisconnected => 'कोई घड़ी नहीं';
-
-  @override
-  String get remotePlay => 'दूरस्थ चलाएं';
-
-  @override
-  String get emergencyBtn => 'त्वरित निवारण';
-
-  @override
-  String get hapticFeedback => 'स्पर्श प्रतिक्रिया';
-
-  @override
-  String get rescanWatch => 'पुनः स्कैन करें';
-
-  @override
   String get settings => 'सेटिंग्स';
 
   @override
@@ -301,9 +280,6 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get navTimer => 'टाइमर';
-
-  @override
-  String get navWatch => 'घड़ी';
 
   @override
   String get navSettings => 'सेटिंग्स';
@@ -409,31 +385,6 @@ class AppLocalizationsHi extends AppLocalizations {
   @override
   String get waveformStaticDesc =>
       'पूर्वावलोकन निष्क्रिय होने पर स्थिर रहता है और प्लेबैक के दौरान गतिशील होता है।';
-
-  @override
-  String get watchRemoteFeature => 'घड़ी रिमोट';
-
-  @override
-  String get remotePlayDesc => 'घड़ी पर ध्वनियाँ चुनें और चलाएं';
-
-  @override
-  String get emergencyBtnDesc => 'तुरंत अधिकतम आवाज़ पर निवारक ध्वनि चलाएं';
-
-  @override
-  String get hapticFeedbackDesc => 'प्लेबैक के दौरान घड़ी कंपन करती है';
-
-  @override
-  String get watchConnectedHint => 'अपनी घड़ी से प्लेबैक नियंत्रित करें';
-
-  @override
-  String get watchDisconnectedHint =>
-      'सुनिश्चित करें कि घड़ी युग्मित है और फ़ोन के पास है';
-
-  @override
-  String get communicationLog => 'संचार लॉग';
-
-  @override
-  String get rescanWatchFull => 'घड़ी के लिए पुनः स्कैन करें';
 
   @override
   String get customDuration => 'अनुकूलित अवधि';

@@ -189,27 +189,6 @@ class AppLocalizationsTr extends AppLocalizations {
   String get noAutoStop => 'Otomatik durdurma yok';
 
   @override
-  String get watchConnect => 'Saat';
-
-  @override
-  String get watchConnected => 'Saat bağlandı';
-
-  @override
-  String get watchDisconnected => 'Saat yok';
-
-  @override
-  String get remotePlay => 'Uzaktan oynat';
-
-  @override
-  String get emergencyBtn => 'Hızlı kov';
-
-  @override
-  String get hapticFeedback => 'Titreşim';
-
-  @override
-  String get rescanWatch => 'Yeniden tara';
-
-  @override
   String get settings => 'Ayarlar';
 
   @override
@@ -301,9 +280,6 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get navTimer => 'Zamanlayıcı';
-
-  @override
-  String get navWatch => 'Saat';
 
   @override
   String get navSettings => 'Ayarlar';
@@ -408,31 +384,6 @@ class AppLocalizationsTr extends AppLocalizations {
   @override
   String get waveformStaticDesc =>
       'Önizleme boştayken statik, çalma sırasında hareketli.';
-
-  @override
-  String get watchRemoteFeature => 'Saat uzaktan kumanda';
-
-  @override
-  String get remotePlayDesc => 'Saatten ses seç ve çal';
-
-  @override
-  String get emergencyBtnDesc => 'Maksimum sesle kovucu sesi anında çal';
-
-  @override
-  String get hapticFeedbackDesc => 'Saat çalma sırasında titreşir';
-
-  @override
-  String get watchConnectedHint => 'Oynatmayı saatinizden kontrol edin';
-
-  @override
-  String get watchDisconnectedHint =>
-      'Saat eşleştirilmiş ve telefona yakın olsun';
-
-  @override
-  String get communicationLog => 'İletişim günlüğü';
-
-  @override
-  String get rescanWatchFull => 'Saati yeniden tara';
 
   @override
   String get customDuration => 'Özel süre';

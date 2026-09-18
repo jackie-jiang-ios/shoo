@@ -189,27 +189,6 @@ class AppLocalizationsFi extends AppLocalizations {
   String get noAutoStop => 'Ei automaattista pysäytystä';
 
   @override
-  String get watchConnect => 'Kello';
-
-  @override
-  String get watchConnected => 'Kello yhdistetty';
-
-  @override
-  String get watchDisconnected => 'Ei kelloa';
-
-  @override
-  String get remotePlay => 'Etätoisto';
-
-  @override
-  String get emergencyBtn => 'Pikakarkotus';
-
-  @override
-  String get hapticFeedback => 'Haptinen palaute';
-
-  @override
-  String get rescanWatch => 'Skannaa uudelleen';
-
-  @override
   String get settings => 'Asetukset';
 
   @override
@@ -301,9 +280,6 @@ class AppLocalizationsFi extends AppLocalizations {
 
   @override
   String get navTimer => 'Ajastin';
-
-  @override
-  String get navWatch => 'Kello';
 
   @override
   String get navSettings => 'Asetukset';
@@ -409,32 +385,6 @@ class AppLocalizationsFi extends AppLocalizations {
   @override
   String get waveformStaticDesc =>
       'Esikatselu on staattinen lepotilassa ja animoituu toiston aikana.';
-
-  @override
-  String get watchRemoteFeature => 'Kellon kaukosäädin';
-
-  @override
-  String get remotePlayDesc => 'Valitse ja toista ääniä kellossa';
-
-  @override
-  String get emergencyBtnDesc =>
-      'Toista karkotusääni välittömästi maksimiteholla';
-
-  @override
-  String get hapticFeedbackDesc => 'Kello värisee toiston aikana';
-
-  @override
-  String get watchConnectedHint => 'Ohjaa toistoa kellostasi';
-
-  @override
-  String get watchDisconnectedHint =>
-      'Varmista, että kello on paritettu ja lähellä puhelinta';
-
-  @override
-  String get communicationLog => 'Viestintäloki';
-
-  @override
-  String get rescanWatchFull => 'Etsi kello uudelleen';
 
   @override
   String get customDuration => 'Mukautettu kesto';

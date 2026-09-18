@@ -188,13 +188,6 @@ class S {
   String get cancelTimer => _l10n.cancelTimer;
   String get timerFinished => _l10n.timerFinished;
   String get noAutoStop => _l10n.noAutoStop;
-  String get watchConnect => _l10n.watchConnect;
-  String get watchConnected => _l10n.watchConnected;
-  String get watchDisconnected => _l10n.watchDisconnected;
-  String get remotePlay => _l10n.remotePlay;
-  String get emergencyBtn => _l10n.emergencyBtn;
-  String get hapticFeedback => _l10n.hapticFeedback;
-  String get rescanWatch => _l10n.rescanWatch;
   String get settings => _l10n.settings;
   String get appearance => _l10n.appearance;
   String get themeMode => _l10n.themeMode;
@@ -226,7 +219,6 @@ class S {
   String get navSounds => _l10n.navSounds;
   String get navMix => _l10n.navMix;
   String get navTimer => _l10n.navTimer;
-  String get navWatch => _l10n.navWatch;
   String get navSettings => _l10n.navSettings;
   String get iconStyle => _l10n.iconStyle;
   String get mode => _l10n.mode;
@@ -261,14 +253,6 @@ class S {
   String get toneUltraHigh => _l10n.toneUltraHigh;
   String get waveformPlayingDesc => _l10n.waveformPlayingDesc;
   String get waveformStaticDesc => _l10n.waveformStaticDesc;
-  String get watchRemoteFeature => _l10n.watchRemoteFeature;
-  String get remotePlayDesc => _l10n.remotePlayDesc;
-  String get emergencyBtnDesc => _l10n.emergencyBtnDesc;
-  String get hapticFeedbackDesc => _l10n.hapticFeedbackDesc;
-  String get watchConnectedHint => _l10n.watchConnectedHint;
-  String get watchDisconnectedHint => _l10n.watchDisconnectedHint;
-  String get communicationLog => _l10n.communicationLog;
-  String get rescanWatchFull => _l10n.rescanWatchFull;
   String get customDuration => _l10n.customDuration;
   String get volumeLowTitle => _l10n.volumeLowTitle;
   String get volumeLowHint => _l10n.volumeLowHint;

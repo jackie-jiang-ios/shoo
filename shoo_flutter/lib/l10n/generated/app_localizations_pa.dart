@@ -189,27 +189,6 @@ class AppLocalizationsPa extends AppLocalizations {
   String get noAutoStop => 'ਕੋਈ ਆਟੋ ਸਟਾਪ ਨਹੀਂ';
 
   @override
-  String get watchConnect => 'ਘੜੀ';
-
-  @override
-  String get watchConnected => 'ਘੜੀ ਕਨੈਕਟ ਹੋਈ';
-
-  @override
-  String get watchDisconnected => 'ਕੋਈ ਘੜੀ ਨਹੀਂ';
-
-  @override
-  String get remotePlay => 'ਰਿਮੋਟ ਚਲਾਓ';
-
-  @override
-  String get emergencyBtn => 'ਤੁਰੰਤ ਭਜਾਓ';
-
-  @override
-  String get hapticFeedback => 'ਸਪਰਸ਼ ਪ੍ਰਤੀਕਿਰਿਆ';
-
-  @override
-  String get rescanWatch => 'ਮੁੜ ਸਕੈਨ ਕਰੋ';
-
-  @override
   String get settings => 'ਸੈਟਿੰਗਾਂ';
 
   @override
@@ -301,9 +280,6 @@ class AppLocalizationsPa extends AppLocalizations {
 
   @override
   String get navTimer => 'ਟਾਈਮਰ';
-
-  @override
-  String get navWatch => 'ਘੜੀ';
 
   @override
   String get navSettings => 'ਸੈਟਿੰਗਾਂ';
@@ -409,32 +385,6 @@ class AppLocalizationsPa extends AppLocalizations {
   @override
   String get waveformStaticDesc =>
       'ਪੂਰਵ-ਦਰਸ਼ਨ ਬੇਕਾਰ ਹੋਣ \'ਤੇ ਸਥਿਰ ਰਹਿੰਦਾ ਹੈ ਅਤੇ ਪਲੇਬੈਕ ਦੌਰਾਨ ਐਨੀਮੇਟ ਹੁੰਦਾ ਹੈ।';
-
-  @override
-  String get watchRemoteFeature => 'ਘੜੀ ਰਿਮੋਟ';
-
-  @override
-  String get remotePlayDesc => 'ਘੜੀ \'ਤੇ ਆਵਾਜ਼ਾਂ ਚੁਣੋ ਅਤੇ ਚਲਾਓ';
-
-  @override
-  String get emergencyBtnDesc =>
-      'ਤੁਰੰਤ ਵੱਧ ਤੋਂ ਵੱਧ ਆਵਾਜ਼ \'ਤੇ ਭਜਾਉਣ ਵਾਲੀ ਆਵਾਜ਼ ਚਲਾਓ';
-
-  @override
-  String get hapticFeedbackDesc => 'ਪਲੇਬੈਕ ਦੌਰਾਨ ਘੜੀ ਵਾਈਬ੍ਰੇਟ ਕਰਦੀ ਹੈ';
-
-  @override
-  String get watchConnectedHint => 'ਆਪਣੀ ਘੜੀ ਤੋਂ ਪਲੇਬੈਕ ਨਿਯੰਤਰਿਤ ਕਰੋ';
-
-  @override
-  String get watchDisconnectedHint =>
-      'ਯਕੀਨੀ ਬਣਾਓ ਕਿ ਘੜੀ ਜੋੜੀ ਗਈ ਹੈ ਅਤੇ ਫੋਨ ਨੇੜੇ ਹੈ';
-
-  @override
-  String get communicationLog => 'ਸੰਚਾਰ ਲੌਗ';
-
-  @override
-  String get rescanWatchFull => 'ਘੜੀ ਲਈ ਮੁੜ ਸਕੈਨ ਕਰੋ';
 
   @override
   String get customDuration => 'ਕਸਟਮ ਮਿਆਦ';

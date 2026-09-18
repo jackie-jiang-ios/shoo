@@ -189,27 +189,6 @@ class AppLocalizationsPl extends AppLocalizations {
   String get noAutoStop => 'Bez auto-stopu';
 
   @override
-  String get watchConnect => 'Zegarek';
-
-  @override
-  String get watchConnected => 'Zegarek połączony';
-
-  @override
-  String get watchDisconnected => 'Brak zegarka';
-
-  @override
-  String get remotePlay => 'Odtwarzanie zdalne';
-
-  @override
-  String get emergencyBtn => 'Szybkie odstraszanie';
-
-  @override
-  String get hapticFeedback => 'Wibracje';
-
-  @override
-  String get rescanWatch => 'Skanuj ponownie';
-
-  @override
   String get settings => 'Ustawienia';
 
   @override
@@ -301,9 +280,6 @@ class AppLocalizationsPl extends AppLocalizations {
 
   @override
   String get navTimer => 'Minutnik';
-
-  @override
-  String get navWatch => 'Zegarek';
 
   @override
   String get navSettings => 'Ustawienia';
@@ -409,32 +385,6 @@ class AppLocalizationsPl extends AppLocalizations {
   @override
   String get waveformStaticDesc =>
       'Podgląd jest statyczny w spoczynku i animowany podczas odtwarzania.';
-
-  @override
-  String get watchRemoteFeature => 'Pilot zegarka';
-
-  @override
-  String get remotePlayDesc => 'Wybierz i odtwarzaj dźwięki na zegarku';
-
-  @override
-  String get emergencyBtnDesc =>
-      'Odtwórz dźwięk odstraszający na maks. głośność natychmiast';
-
-  @override
-  String get hapticFeedbackDesc => 'Zegarek wibruje podczas odtwarzania';
-
-  @override
-  String get watchConnectedHint => 'Steruj odtwarzaniem z zegarka';
-
-  @override
-  String get watchDisconnectedHint =>
-      'Upewnij się, że zegarek jest sparowany i blisko telefonu';
-
-  @override
-  String get communicationLog => 'Dziennik komunikacji';
-
-  @override
-  String get rescanWatchFull => 'Skanuj ponownie zegarek';
 
   @override
   String get customDuration => 'Niestandardowy czas';

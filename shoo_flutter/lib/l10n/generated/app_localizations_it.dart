@@ -189,27 +189,6 @@ class AppLocalizationsIt extends AppLocalizations {
   String get noAutoStop => 'Senza arresto automatico';
 
   @override
-  String get watchConnect => 'Orologio';
-
-  @override
-  String get watchConnected => 'Orologio connesso';
-
-  @override
-  String get watchDisconnected => 'Nessun orologio';
-
-  @override
-  String get remotePlay => 'Riproduzione remota';
-
-  @override
-  String get emergencyBtn => 'Repellente rapido';
-
-  @override
-  String get hapticFeedback => 'Tattile';
-
-  @override
-  String get rescanWatch => 'Riscansiona';
-
-  @override
   String get settings => 'Impostazioni';
 
   @override
@@ -301,9 +280,6 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get navTimer => 'Timer';
-
-  @override
-  String get navWatch => 'Orologio';
 
   @override
   String get navSettings => 'Impostazioni';
@@ -409,32 +385,6 @@ class AppLocalizationsIt extends AppLocalizations {
   @override
   String get waveformStaticDesc =>
       'The preview stays static when idle and animates during playback.';
-
-  @override
-  String get watchRemoteFeature => 'Telecomando orologio';
-
-  @override
-  String get remotePlayDesc => 'Select and play sounds on watch';
-
-  @override
-  String get emergencyBtnDesc =>
-      'Riproduci suono repellente al volume massimo istantaneamente';
-
-  @override
-  String get hapticFeedbackDesc => 'Watch vibrates during playback';
-
-  @override
-  String get watchConnectedHint => 'Controlla la riproduzione dal tuo orologio';
-
-  @override
-  String get watchDisconnectedHint =>
-      'Make sure watch is paired and near phone';
-
-  @override
-  String get communicationLog => 'Log comunicazione';
-
-  @override
-  String get rescanWatchFull => 'Riscansiona orologio';
 
   @override
   String get customDuration => 'Durata personalizzata';

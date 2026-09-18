@@ -190,27 +190,6 @@ class AppLocalizationsMl extends AppLocalizations {
   String get noAutoStop => 'സ്വയം നിർത്തൽ ഇല്ല';
 
   @override
-  String get watchConnect => 'വാച്ച്';
-
-  @override
-  String get watchConnected => 'വാച്ച് കണക്റ്റുചെയ്തു';
-
-  @override
-  String get watchDisconnected => 'വാച്ച് ഇല്ല';
-
-  @override
-  String get remotePlay => 'വിദൂര പ്ലേ';
-
-  @override
-  String get emergencyBtn => 'ദ്രുത വിരട്ടൽ';
-
-  @override
-  String get hapticFeedback => 'സ്പർശന പ്രതികരണം';
-
-  @override
-  String get rescanWatch => 'വീണ്ടും സ്കാൻ ചെയ്യുക';
-
-  @override
   String get settings => 'ക്രമീകരണങ്ങൾ';
 
   @override
@@ -302,9 +281,6 @@ class AppLocalizationsMl extends AppLocalizations {
 
   @override
   String get navTimer => 'ടൈമർ';
-
-  @override
-  String get navWatch => 'വാച്ച്';
 
   @override
   String get navSettings => 'ക്രമീകരണങ്ങൾ';
@@ -410,34 +386,6 @@ class AppLocalizationsMl extends AppLocalizations {
   @override
   String get waveformStaticDesc =>
       'പ്രിവ്യൂ നിഷ്ക്രിയമാകുമ്പോൾ സ്റ്റാറ്റിക്ക് ആയിരിക്കും, പ്ലേബാക്ക് സമയത്ത് അനിമേറ്റ് ചെയ്യും.';
-
-  @override
-  String get watchRemoteFeature => 'വാച്ച് റിമോട്ട്';
-
-  @override
-  String get remotePlayDesc => 'വാച്ചിൽ ശബ്ദങ്ങൾ തിരഞ്ഞെടുത്ത് പ്ലേ ചെയ്യുക';
-
-  @override
-  String get emergencyBtnDesc =>
-      'ഉടൻ തന്നെ പരമാവധി ശബ്ദത്തിൽ വിരട്ടൽ ശബ്ദം പ്ലേ ചെയ്യുക';
-
-  @override
-  String get hapticFeedbackDesc =>
-      'പ്ലേബാക്ക് സമയത്ത് വാച്ച് വൈബ്രേറ്റ് ചെയ്യുന്നു';
-
-  @override
-  String get watchConnectedHint =>
-      'നിങ്ങളുടെ വാച്ചിൽ നിന്ന് പ്ലേബാക്ക് നിയന്ത്രിക്കുക';
-
-  @override
-  String get watchDisconnectedHint =>
-      'വാച്ച് ജോഡിയാക്കി ഫോണിന് സമീപമാണെന്ന് ഉറപ്പാക്കുക';
-
-  @override
-  String get communicationLog => 'ആശയവിനിമയ ലോഗ്';
-
-  @override
-  String get rescanWatchFull => 'വാച്ചിനായി വീണ്ടും സ്കാൻ ചെയ്യുക';
 
   @override
   String get customDuration => 'ഇഷ്ടാനുസൃത ദൈർഘ്യം';

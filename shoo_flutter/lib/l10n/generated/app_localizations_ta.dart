@@ -189,27 +189,6 @@ class AppLocalizationsTa extends AppLocalizations {
   String get noAutoStop => 'தானியங்கி நிறுத்தம் இல்லை';
 
   @override
-  String get watchConnect => 'கடிகாரம்';
-
-  @override
-  String get watchConnected => 'கடிகாரம் இணைக்கப்பட்டது';
-
-  @override
-  String get watchDisconnected => 'கடிகாரம் இல்லை';
-
-  @override
-  String get remotePlay => 'தொலை இயக்கம்';
-
-  @override
-  String get emergencyBtn => 'விரைவு விரட்டல்';
-
-  @override
-  String get hapticFeedback => 'தொட்டுணர்வு பதில்';
-
-  @override
-  String get rescanWatch => 'மீண்டும் ஸ்கேன் செய்';
-
-  @override
   String get settings => 'அமைப்புகள்';
 
   @override
@@ -301,9 +280,6 @@ class AppLocalizationsTa extends AppLocalizations {
 
   @override
   String get navTimer => 'டைமர்';
-
-  @override
-  String get navWatch => 'கடிகாரம்';
 
   @override
   String get navSettings => 'அமைப்புகள்';
@@ -409,33 +385,6 @@ class AppLocalizationsTa extends AppLocalizations {
   @override
   String get waveformStaticDesc =>
       'முன்னோட்டம் செயலற்ற நிலையில் நிலையானதாகவும், மீண்டும் இயக்கத்தின் போது அனிமேஷனாகவும் இருக்கும்.';
-
-  @override
-  String get watchRemoteFeature => 'கடிகார ரிமோட்';
-
-  @override
-  String get remotePlayDesc => 'கடிகாரத்தில் ஒலிகளைத் தேர்ந்தெடுத்து இயக்கவும்';
-
-  @override
-  String get emergencyBtnDesc =>
-      'உடனடியாக அதிகபட்ச ஒலியில் விரட்டும் ஒலியை இயக்கு';
-
-  @override
-  String get hapticFeedbackDesc => 'மீண்டும் இயக்கத்தின் போது கடிகாரம் அதிரும்';
-
-  @override
-  String get watchConnectedHint =>
-      'உங்கள் கடிகாரத்திலிருந்து மீண்டும் இயக்கத்தைக் கட்டுப்படுத்தவும்';
-
-  @override
-  String get watchDisconnectedHint =>
-      'கடிகாரம் இணைக்கப்பட்டு, தொலைபேசிக்கு அருகில் இருப்பதை உறுதிசெய்யவும்';
-
-  @override
-  String get communicationLog => 'தகவல் தொடர்பு பதிவு';
-
-  @override
-  String get rescanWatchFull => 'கடிகாரத்திற்கு மீண்டும் ஸ்கேன் செய்';
 
   @override
   String get customDuration => 'தனிப்பயன் கால அளவு';

@@ -189,27 +189,6 @@ class AppLocalizationsRo extends AppLocalizations {
   String get noAutoStop => 'Fără oprire automată';
 
   @override
-  String get watchConnect => 'Ceas';
-
-  @override
-  String get watchConnected => 'Ceas conectat';
-
-  @override
-  String get watchDisconnected => 'Fără ceas';
-
-  @override
-  String get remotePlay => 'Redare la distanță';
-
-  @override
-  String get emergencyBtn => 'Respingere rapidă';
-
-  @override
-  String get hapticFeedback => 'Feedback haptic';
-
-  @override
-  String get rescanWatch => 'Rescanează';
-
-  @override
   String get settings => 'Setări';
 
   @override
@@ -301,9 +280,6 @@ class AppLocalizationsRo extends AppLocalizations {
 
   @override
   String get navTimer => 'Cronometru';
-
-  @override
-  String get navWatch => 'Ceas';
 
   @override
   String get navSettings => 'Setări';
@@ -409,32 +385,6 @@ class AppLocalizationsRo extends AppLocalizations {
   @override
   String get waveformStaticDesc =>
       'Previzualizarea este statică în repaus și animată în timpul redării.';
-
-  @override
-  String get watchRemoteFeature => 'Telecomandă ceas';
-
-  @override
-  String get remotePlayDesc => 'Selectați și redați sunete pe ceas';
-
-  @override
-  String get emergencyBtnDesc =>
-      'Redați instantaneu sunetul de respingere la volum maxim';
-
-  @override
-  String get hapticFeedbackDesc => 'Ceasul vibrează în timpul redării';
-
-  @override
-  String get watchConnectedHint => 'Controlați redarea de pe ceas';
-
-  @override
-  String get watchDisconnectedHint =>
-      'Asigurați-vă că ceasul este împerecheat și aproape de telefon';
-
-  @override
-  String get communicationLog => 'Jurnal de comunicare';
-
-  @override
-  String get rescanWatchFull => 'Rescanează pentru ceas';
 
   @override
   String get customDuration => 'Durată personalizată';

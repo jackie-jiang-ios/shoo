@@ -189,27 +189,6 @@ class AppLocalizationsPt extends AppLocalizations {
   String get noAutoStop => 'Sem parada automática';
 
   @override
-  String get watchConnect => 'Relógio';
-
-  @override
-  String get watchConnected => 'Relógio conectado';
-
-  @override
-  String get watchDisconnected => 'Sem relógio';
-
-  @override
-  String get remotePlay => 'Reprodução remota';
-
-  @override
-  String get emergencyBtn => 'Repulsão rápida';
-
-  @override
-  String get hapticFeedback => 'Háptico';
-
-  @override
-  String get rescanWatch => 'Escanear novamente';
-
-  @override
   String get settings => 'Configurações';
 
   @override
@@ -301,9 +280,6 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get navTimer => 'Timer';
-
-  @override
-  String get navWatch => 'Relógio';
 
   @override
   String get navSettings => 'Configurações';
@@ -409,32 +385,6 @@ class AppLocalizationsPt extends AppLocalizations {
   @override
   String get waveformStaticDesc =>
       'A visualização permanece estática em repouso e anima durante a reprodução.';
-
-  @override
-  String get watchRemoteFeature => 'Controle remoto do relógio';
-
-  @override
-  String get remotePlayDesc => 'Selecionar e reproduzir sons no relógio';
-
-  @override
-  String get emergencyBtnDesc =>
-      'Som de repulsão de volume máximo com um toque';
-
-  @override
-  String get hapticFeedbackDesc => 'Relógio vibra durante a reprodução';
-
-  @override
-  String get watchConnectedHint => 'Controle a reprodução do relógio';
-
-  @override
-  String get watchDisconnectedHint =>
-      'Certifique-se de que o relógio está emparelhado e próximo ao telefone';
-
-  @override
-  String get communicationLog => 'Registro de comunicação';
-
-  @override
-  String get rescanWatchFull => 'Escanear relógio novamente';
 
   @override
   String get customDuration => 'Duração personalizada';

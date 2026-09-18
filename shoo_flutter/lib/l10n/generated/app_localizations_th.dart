@@ -189,27 +189,6 @@ class AppLocalizationsTh extends AppLocalizations {
   String get noAutoStop => 'ไม่หยุดอัตโนมัติ';
 
   @override
-  String get watchConnect => 'นาฬิกา';
-
-  @override
-  String get watchConnected => 'นาฬิกาเชื่อมต่อแล้ว';
-
-  @override
-  String get watchDisconnected => 'ไม่พบนาฬิกา';
-
-  @override
-  String get remotePlay => 'เล่นระยะไกล';
-
-  @override
-  String get emergencyBtn => 'ไล่ทันที';
-
-  @override
-  String get hapticFeedback => 'สัมผัส';
-
-  @override
-  String get rescanWatch => 'ค้นหาใหม่';
-
-  @override
   String get settings => 'การตั้งค่า';
 
   @override
@@ -301,9 +280,6 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get navTimer => 'ตั้งเวลา';
-
-  @override
-  String get navWatch => 'นาฬิกา';
 
   @override
   String get navSettings => 'การตั้งค่า';
@@ -409,31 +385,6 @@ class AppLocalizationsTh extends AppLocalizations {
   @override
   String get waveformStaticDesc =>
       'ตัวอย่างอยู่นิ่งเมื่อไม่เล่น และเคลื่อนไหวเมื่อเล่น';
-
-  @override
-  String get watchRemoteFeature => 'รีโมตนาฬิกา';
-
-  @override
-  String get remotePlayDesc => 'เลือกและเล่นเสียงบนนาฬิกา';
-
-  @override
-  String get emergencyBtnDesc => 'เล่นเสียงไล่เสียงดังสุดทันที';
-
-  @override
-  String get hapticFeedbackDesc => 'นาฬิกาสั่นขณะเล่น';
-
-  @override
-  String get watchConnectedHint => 'ควบคุมการเล่นจากนาฬิกา';
-
-  @override
-  String get watchDisconnectedHint =>
-      'ตรวจสอบว่านาฬิกาจับคู่แล้วและอยู่ใกล้โทรศัพท์';
-
-  @override
-  String get communicationLog => 'บันทึกการสื่อสาร';
-
-  @override
-  String get rescanWatchFull => 'ค้นหานาฬิกาอีกครั้ง';
 
   @override
   String get customDuration => 'ระยะเวลาที่กำหนดเอง';

@@ -189,27 +189,6 @@ class AppLocalizationsJa extends AppLocalizations {
   String get noAutoStop => '自動停止しない';
 
   @override
-  String get watchConnect => '時計接続';
-
-  @override
-  String get watchConnected => '時計接続済み';
-
-  @override
-  String get watchDisconnected => '時計未検出';
-
-  @override
-  String get remotePlay => 'リモート再生';
-
-  @override
-  String get emergencyBtn => 'すぐ追い払う';
-
-  @override
-  String get hapticFeedback => 'ハプティック';
-
-  @override
-  String get rescanWatch => '再スキャン';
-
-  @override
   String get settings => '設定';
 
   @override
@@ -301,9 +280,6 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get navTimer => 'タイマー';
-
-  @override
-  String get navWatch => '時計';
 
   @override
   String get navSettings => '設定';
@@ -406,30 +382,6 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get waveformStaticDesc => '停止中は静的波形を表示し、再生時にアニメーションします。';
-
-  @override
-  String get watchRemoteFeature => '時計リモート機能';
-
-  @override
-  String get remotePlayDesc => '時計で音声を選択して再生';
-
-  @override
-  String get emergencyBtnDesc => 'ワンタップで最大音量の追い払い音再生';
-
-  @override
-  String get hapticFeedbackDesc => '再生中に時計が振動で知らせる';
-
-  @override
-  String get watchConnectedHint => '時計から再生をコントロールできます';
-
-  @override
-  String get watchDisconnectedHint => '時計がペアリングされ、スマホの近くにあることを確認してください';
-
-  @override
-  String get communicationLog => '通信ログ';
-
-  @override
-  String get rescanWatchFull => '時計を再スキャン';
 
   @override
   String get customDuration => 'カスタム時間';

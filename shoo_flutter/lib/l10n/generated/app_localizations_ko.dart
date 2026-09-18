@@ -189,27 +189,6 @@ class AppLocalizationsKo extends AppLocalizations {
   String get noAutoStop => '자동 정지 안함';
 
   @override
-  String get watchConnect => '워치 연결';
-
-  @override
-  String get watchConnected => '워치 연결됨';
-
-  @override
-  String get watchDisconnected => '워치 없음';
-
-  @override
-  String get remotePlay => '원격 재생';
-
-  @override
-  String get emergencyBtn => '원터치 퇴치';
-
-  @override
-  String get hapticFeedback => '햅틱 피드백';
-
-  @override
-  String get rescanWatch => '다시 검색';
-
-  @override
   String get settings => '설정';
 
   @override
@@ -301,9 +280,6 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get navTimer => '타이머';
-
-  @override
-  String get navWatch => '워치';
 
   @override
   String get navSettings => '설정';
@@ -406,30 +382,6 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get waveformStaticDesc => '미재생 시 정적 파형을 표시하고, 재생 시 애니메이션으로 전환됩니다.';
-
-  @override
-  String get watchRemoteFeature => '워치 리모컨 기능';
-
-  @override
-  String get remotePlayDesc => '워치에서 소리 선택 및 재생';
-
-  @override
-  String get emergencyBtnDesc => '원터치 최대 볼륨 퇴치 소리 재생';
-
-  @override
-  String get hapticFeedbackDesc => '재생 중 워치 진동 알림';
-
-  @override
-  String get watchConnectedHint => '워치에서 재생을 제어할 수 있습니다';
-
-  @override
-  String get watchDisconnectedHint => '워치가 페어링되어 스마트폰 근처에 있는지 확인하세요';
-
-  @override
-  String get communicationLog => '통신 로그';
-
-  @override
-  String get rescanWatchFull => '워치 다시 검색';
 
   @override
   String get customDuration => '사용자 지정 시간';

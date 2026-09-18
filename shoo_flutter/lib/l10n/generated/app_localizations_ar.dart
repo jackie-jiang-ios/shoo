@@ -189,27 +189,6 @@ class AppLocalizationsAr extends AppLocalizations {
   String get noAutoStop => 'بلا إيقاف تلقائي';
 
   @override
-  String get watchConnect => 'الساعة';
-
-  @override
-  String get watchConnected => 'الساعة متصلة';
-
-  @override
-  String get watchDisconnected => 'لا ساعة';
-
-  @override
-  String get remotePlay => 'تشغيل عن بعد';
-
-  @override
-  String get emergencyBtn => 'طرد سريع';
-
-  @override
-  String get hapticFeedback => 'اهتزاز';
-
-  @override
-  String get rescanWatch => 'إعادة المسح';
-
-  @override
   String get settings => 'الإعدادات';
 
   @override
@@ -301,9 +280,6 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get navTimer => 'مؤقت';
-
-  @override
-  String get navWatch => 'الساعة';
 
   @override
   String get navSettings => 'الإعدادات';
@@ -409,30 +385,6 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get waveformStaticDesc =>
       'المعاينة ثابتة عند الخمول وتتحرك أثناء التشغيل.';
-
-  @override
-  String get watchRemoteFeature => 'تحكم الساعة';
-
-  @override
-  String get remotePlayDesc => 'حدد وشغل الأصوات على الساعة';
-
-  @override
-  String get emergencyBtnDesc => 'شغل صوت طرد بأقصى صوت فوراً';
-
-  @override
-  String get hapticFeedbackDesc => 'الساعة تهتز أثناء التشغيل';
-
-  @override
-  String get watchConnectedHint => 'تحكم بالتشغيل من ساعتك';
-
-  @override
-  String get watchDisconnectedHint => 'تأكد من اقتران الساعة وقربها من الهاتف';
-
-  @override
-  String get communicationLog => 'سجل الاتصال';
-
-  @override
-  String get rescanWatchFull => 'إعادة مسح للساعة';
 
   @override
   String get customDuration => 'مدة مخصصة';

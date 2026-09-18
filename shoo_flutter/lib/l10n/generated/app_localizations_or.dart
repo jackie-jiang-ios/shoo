@@ -189,27 +189,6 @@ class AppLocalizationsOr extends AppLocalizations {
   String get noAutoStop => 'No auto stop';
 
   @override
-  String get watchConnect => 'Watch';
-
-  @override
-  String get watchConnected => 'Watch Connected';
-
-  @override
-  String get watchDisconnected => 'No Watch';
-
-  @override
-  String get remotePlay => 'Remote Play';
-
-  @override
-  String get emergencyBtn => 'Quick Repel';
-
-  @override
-  String get hapticFeedback => 'Haptic';
-
-  @override
-  String get rescanWatch => 'Rescan';
-
-  @override
   String get settings => 'Settings';
 
   @override
@@ -301,9 +280,6 @@ class AppLocalizationsOr extends AppLocalizations {
 
   @override
   String get navTimer => 'Timer';
-
-  @override
-  String get navWatch => 'Watch';
 
   @override
   String get navSettings => 'Settings';
@@ -409,31 +385,6 @@ class AppLocalizationsOr extends AppLocalizations {
   @override
   String get waveformStaticDesc =>
       'The preview stays static when idle and animates during playback.';
-
-  @override
-  String get watchRemoteFeature => 'Watch Remote';
-
-  @override
-  String get remotePlayDesc => 'Select and play sounds on watch';
-
-  @override
-  String get emergencyBtnDesc => 'Play max volume repelling sound instantly';
-
-  @override
-  String get hapticFeedbackDesc => 'Watch vibrates during playback';
-
-  @override
-  String get watchConnectedHint => 'Control playback from your watch';
-
-  @override
-  String get watchDisconnectedHint =>
-      'Make sure watch is paired and near phone';
-
-  @override
-  String get communicationLog => 'Communication Log';
-
-  @override
-  String get rescanWatchFull => 'Rescan for Watch';
 
   @override
   String get customDuration => 'Custom Duration';
