@@ -144,18 +144,6 @@ class AppLocalizationsJa extends AppLocalizations {
   String get intervalTime => '間隔時間';
 
   @override
-  String get soundMix => 'サウンドミックス';
-
-  @override
-  String get addSound => '音を追加';
-
-  @override
-  String get startMix => 'ミックス開始';
-
-  @override
-  String get stopMix => 'ミックス停止';
-
-  @override
   String get timer => 'タイマー';
 
   @override
@@ -274,9 +262,6 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get navSounds => 'サウンド';
-
-  @override
-  String get navMix => 'ミックス';
 
   @override
   String get navTimer => 'タイマー';

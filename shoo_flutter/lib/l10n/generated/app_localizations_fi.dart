@@ -144,18 +144,6 @@ class AppLocalizationsFi extends AppLocalizations {
   String get intervalTime => 'Intervalliaika';
 
   @override
-  String get soundMix => 'Äänisekoitus';
-
-  @override
-  String get addSound => 'Lisää ääni';
-
-  @override
-  String get startMix => 'Aloita sekoitus';
-
-  @override
-  String get stopMix => 'Lopeta sekoitus';
-
-  @override
   String get timer => 'Ajastin';
 
   @override
@@ -274,9 +262,6 @@ class AppLocalizationsFi extends AppLocalizations {
 
   @override
   String get navSounds => 'Äänet';
-
-  @override
-  String get navMix => 'Sekoitus';
 
   @override
   String get navTimer => 'Ajastin';

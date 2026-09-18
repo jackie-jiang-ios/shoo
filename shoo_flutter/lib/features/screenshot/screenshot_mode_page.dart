@@ -37,9 +37,6 @@ class _ScreenshotModePageState extends State<ScreenshotModePage> {
         case 'settings':
           context.go('/settings');
           break;
-        case 'mixer':
-          context.go('/');
-          break;
         case 'paywall':
           context.go('/paywall');
           break;

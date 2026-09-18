@@ -144,18 +144,6 @@ class AppLocalizationsEl extends AppLocalizations {
   String get intervalTime => 'Χρόνος διαλείμματος';
 
   @override
-  String get soundMix => 'Μίξη ήχων';
-
-  @override
-  String get addSound => 'Προσθήκη ήχου';
-
-  @override
-  String get startMix => 'Έναρξη μίξης';
-
-  @override
-  String get stopMix => 'Διακοπή μίξης';
-
-  @override
   String get timer => 'Χρονοδιακόπτης';
 
   @override
@@ -274,9 +262,6 @@ class AppLocalizationsEl extends AppLocalizations {
 
   @override
   String get navSounds => 'Ήχοι';
-
-  @override
-  String get navMix => 'Μίξη';
 
   @override
   String get navTimer => 'Χρονοδιακόπτης';

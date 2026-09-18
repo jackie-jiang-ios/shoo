@@ -144,18 +144,6 @@ class AppLocalizationsKo extends AppLocalizations {
   String get intervalTime => '간격 시간';
 
   @override
-  String get soundMix => '소리 믹스';
-
-  @override
-  String get addSound => '소리 추가';
-
-  @override
-  String get startMix => '믹스 시작';
-
-  @override
-  String get stopMix => '믹스 중지';
-
-  @override
   String get timer => '타이머';
 
   @override
@@ -274,9 +262,6 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get navSounds => '소리';
-
-  @override
-  String get navMix => '믹스';
 
   @override
   String get navTimer => '타이머';

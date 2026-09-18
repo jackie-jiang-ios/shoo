@@ -144,18 +144,6 @@ class AppLocalizationsFr extends AppLocalizations {
   String get intervalTime => 'Temps d\'intervalle';
 
   @override
-  String get soundMix => 'Mixage sonore';
-
-  @override
-  String get addSound => 'Ajouter un son';
-
-  @override
-  String get startMix => 'Commencer le mixage';
-
-  @override
-  String get stopMix => 'Arrêter le mixage';
-
-  @override
   String get timer => 'Minuteur';
 
   @override
@@ -274,9 +262,6 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get navSounds => 'Sons';
-
-  @override
-  String get navMix => 'Mix';
 
   @override
   String get navTimer => 'Minuteur';
@@ -607,18 +592,6 @@ class AppLocalizationsFrCa extends AppLocalizationsFr {
   String get intervalPlay => 'Intervalle';
 
   @override
-  String get soundMix => 'Mixage sonore';
-
-  @override
-  String get addSound => 'Ajouter un son';
-
-  @override
-  String get startMix => 'Commencer le mixage';
-
-  @override
-  String get stopMix => 'Arrêter le mixage';
-
-  @override
   String get timer => 'Minuteur';
 
   @override
@@ -725,9 +698,6 @@ class AppLocalizationsFrCa extends AppLocalizationsFr {
 
   @override
   String get navSounds => 'Sons';
-
-  @override
-  String get navMix => 'Mix';
 
   @override
   String get navTimer => 'Minuteur';

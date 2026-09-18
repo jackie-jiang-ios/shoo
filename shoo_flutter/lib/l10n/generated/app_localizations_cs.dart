@@ -144,18 +144,6 @@ class AppLocalizationsCs extends AppLocalizations {
   String get intervalTime => 'Čas intervalu';
 
   @override
-  String get soundMix => 'Mix zvuků';
-
-  @override
-  String get addSound => 'Přidat zvuk';
-
-  @override
-  String get startMix => 'Spustit mix';
-
-  @override
-  String get stopMix => 'Zastavit mix';
-
-  @override
   String get timer => 'Časovač';
 
   @override
@@ -274,9 +262,6 @@ class AppLocalizationsCs extends AppLocalizations {
 
   @override
   String get navSounds => 'Zvuky';
-
-  @override
-  String get navMix => 'Mix';
 
   @override
   String get navTimer => 'Časovač';

@@ -144,18 +144,6 @@ class AppLocalizationsAr extends AppLocalizations {
   String get intervalTime => 'وقت التقطع';
 
   @override
-  String get soundMix => 'مزج الصوت';
-
-  @override
-  String get addSound => 'إضافة صوت';
-
-  @override
-  String get startMix => 'ابدأ المزج';
-
-  @override
-  String get stopMix => 'أوقف المزج';
-
-  @override
   String get timer => 'مؤقت';
 
   @override
@@ -274,9 +262,6 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get navSounds => 'أصوات';
-
-  @override
-  String get navMix => 'مزج';
 
   @override
   String get navTimer => 'مؤقت';

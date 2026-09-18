@@ -144,18 +144,6 @@ class AppLocalizationsCa extends AppLocalizations {
   String get intervalTime => 'Temps d\'interval';
 
   @override
-  String get soundMix => 'Mescla de so';
-
-  @override
-  String get addSound => 'Afegir so';
-
-  @override
-  String get startMix => 'Iniciar la mescla';
-
-  @override
-  String get stopMix => 'Aturar la mescla';
-
-  @override
   String get timer => 'Temporitzador';
 
   @override
@@ -274,9 +262,6 @@ class AppLocalizationsCa extends AppLocalizations {
 
   @override
   String get navSounds => 'Sons';
-
-  @override
-  String get navMix => 'Mescla';
 
   @override
   String get navTimer => 'Temporitzador';

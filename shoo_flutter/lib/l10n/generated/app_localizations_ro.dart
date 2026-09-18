@@ -144,18 +144,6 @@ class AppLocalizationsRo extends AppLocalizations {
   String get intervalTime => 'Timp interval';
 
   @override
-  String get soundMix => 'Mix de sunete';
-
-  @override
-  String get addSound => 'Adaugă sunet';
-
-  @override
-  String get startMix => 'Pornește mixul';
-
-  @override
-  String get stopMix => 'Oprește mixul';
-
-  @override
   String get timer => 'Cronometru';
 
   @override
@@ -274,9 +262,6 @@ class AppLocalizationsRo extends AppLocalizations {
 
   @override
   String get navSounds => 'Sunete';
-
-  @override
-  String get navMix => 'Mix';
 
   @override
   String get navTimer => 'Cronometru';

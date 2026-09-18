@@ -144,18 +144,6 @@ class AppLocalizationsMs extends AppLocalizations {
   String get intervalTime => 'Masa selang';
 
   @override
-  String get soundMix => 'Campur bunyi';
-
-  @override
-  String get addSound => 'Tambah bunyi';
-
-  @override
-  String get startMix => 'Mula campur';
-
-  @override
-  String get stopMix => 'Henti campur';
-
-  @override
   String get timer => 'Pemasa';
 
   @override
@@ -274,9 +262,6 @@ class AppLocalizationsMs extends AppLocalizations {
 
   @override
   String get navSounds => 'Bunyi';
-
-  @override
-  String get navMix => 'Campur';
 
   @override
   String get navTimer => 'Pemasa';

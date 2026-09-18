@@ -144,18 +144,6 @@ class AppLocalizationsPt extends AppLocalizations {
   String get intervalTime => 'Tempo de intervalo';
 
   @override
-  String get soundMix => 'Mixagem de som';
-
-  @override
-  String get addSound => 'Adicionar som';
-
-  @override
-  String get startMix => 'Iniciar mixagem';
-
-  @override
-  String get stopMix => 'Parar mixagem';
-
-  @override
   String get timer => 'Timer';
 
   @override
@@ -274,9 +262,6 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get navSounds => 'Sons';
-
-  @override
-  String get navMix => 'Mix';
 
   @override
   String get navTimer => 'Timer';

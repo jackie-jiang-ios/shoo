@@ -144,18 +144,6 @@ class AppLocalizationsHe extends AppLocalizations {
   String get intervalTime => 'זמן מרווח';
 
   @override
-  String get soundMix => 'מיקס צלילים';
-
-  @override
-  String get addSound => 'הוסף צליל';
-
-  @override
-  String get startMix => 'התחל מיקס';
-
-  @override
-  String get stopMix => 'עצור מיקס';
-
-  @override
   String get timer => 'טיימר';
 
   @override
@@ -274,9 +262,6 @@ class AppLocalizationsHe extends AppLocalizations {
 
   @override
   String get navSounds => 'צלילים';
-
-  @override
-  String get navMix => 'מיקס';
 
   @override
   String get navTimer => 'טיימר';

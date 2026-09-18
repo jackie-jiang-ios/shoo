@@ -144,18 +144,6 @@ class AppLocalizationsZh extends AppLocalizations {
   String get intervalTime => '间隔时间';
 
   @override
-  String get soundMix => '声音混合';
-
-  @override
-  String get addSound => '添加声音';
-
-  @override
-  String get startMix => '开始混合';
-
-  @override
-  String get stopMix => '停止混合';
-
-  @override
   String get timer => '定时播放';
 
   @override
@@ -274,9 +262,6 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get navSounds => '声音';
-
-  @override
-  String get navMix => '混合';
 
   @override
   String get navTimer => '定时';
@@ -605,18 +590,6 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get intervalTime => '間隔時間';
 
   @override
-  String get soundMix => '聲音混合';
-
-  @override
-  String get addSound => '新增聲音';
-
-  @override
-  String get startMix => '開始混合';
-
-  @override
-  String get stopMix => '停止混合';
-
-  @override
   String get timer => '定時播放';
 
   @override
@@ -735,9 +708,6 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get navSounds => '聲音';
-
-  @override
-  String get navMix => '混合';
 
   @override
   String get navTimer => '定時';

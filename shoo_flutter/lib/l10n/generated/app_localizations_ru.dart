@@ -144,18 +144,6 @@ class AppLocalizationsRu extends AppLocalizations {
   String get intervalTime => 'Время интервала';
 
   @override
-  String get soundMix => 'Микширование';
-
-  @override
-  String get addSound => 'Добавить звук';
-
-  @override
-  String get startMix => 'Начать микс';
-
-  @override
-  String get stopMix => 'Остановить микс';
-
-  @override
   String get timer => 'Таймер';
 
   @override
@@ -274,9 +262,6 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get navSounds => 'Звуки';
-
-  @override
-  String get navMix => 'Микс';
 
   @override
   String get navTimer => 'Таймер';

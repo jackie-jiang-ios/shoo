@@ -144,18 +144,6 @@ class AppLocalizationsVi extends AppLocalizations {
   String get intervalTime => 'Thời gian ngắt quãng';
 
   @override
-  String get soundMix => 'Trộn âm thanh';
-
-  @override
-  String get addSound => 'Thêm âm thanh';
-
-  @override
-  String get startMix => 'Bắt đầu trộn';
-
-  @override
-  String get stopMix => 'Dừng trộn';
-
-  @override
   String get timer => 'Hẹn giờ';
 
   @override
@@ -274,9 +262,6 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get navSounds => 'Âm thanh';
-
-  @override
-  String get navMix => 'Trộn';
 
   @override
   String get navTimer => 'Hẹn giờ';

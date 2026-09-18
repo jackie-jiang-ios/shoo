@@ -144,18 +144,6 @@ class AppLocalizationsTh extends AppLocalizations {
   String get intervalTime => 'เวลาช่วงห่าง';
 
   @override
-  String get soundMix => 'ผสมเสียง';
-
-  @override
-  String get addSound => 'เพิ่มเสียง';
-
-  @override
-  String get startMix => 'เริ่มผสม';
-
-  @override
-  String get stopMix => 'หยุดผสม';
-
-  @override
   String get timer => 'ตั้งเวลา';
 
   @override
@@ -274,9 +262,6 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get navSounds => 'เสียง';
-
-  @override
-  String get navMix => 'ผสม';
 
   @override
   String get navTimer => 'ตั้งเวลา';

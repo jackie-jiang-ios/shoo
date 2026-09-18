@@ -144,18 +144,6 @@ class AppLocalizationsUr extends AppLocalizations {
   String get intervalTime => 'وقفہ کا وقت';
 
   @override
-  String get soundMix => 'آواز کا مرکب';
-
-  @override
-  String get addSound => 'آواز شامل کریں';
-
-  @override
-  String get startMix => 'مرکب شروع کریں';
-
-  @override
-  String get stopMix => 'مرکب بند کریں';
-
-  @override
   String get timer => 'ٹائمر';
 
   @override
@@ -274,9 +262,6 @@ class AppLocalizationsUr extends AppLocalizations {
 
   @override
   String get navSounds => 'آوازیں';
-
-  @override
-  String get navMix => 'مرکب';
 
   @override
   String get navTimer => 'ٹائمر';

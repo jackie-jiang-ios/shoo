@@ -144,18 +144,6 @@ class AppLocalizationsBn extends AppLocalizations {
   String get intervalTime => 'বিরতি সময়';
 
   @override
-  String get soundMix => 'সাউন্ড মিক্স';
-
-  @override
-  String get addSound => 'শব্দ যোগ করুন';
-
-  @override
-  String get startMix => 'মিক্স শুরু';
-
-  @override
-  String get stopMix => 'মিক্স বন্ধ';
-
-  @override
   String get timer => 'টাইমার';
 
   @override
@@ -274,9 +262,6 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get navSounds => 'শব্দ';
-
-  @override
-  String get navMix => 'মিক্স';
 
   @override
   String get navTimer => 'টাইমার';

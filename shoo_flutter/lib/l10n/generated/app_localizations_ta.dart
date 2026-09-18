@@ -144,18 +144,6 @@ class AppLocalizationsTa extends AppLocalizations {
   String get intervalTime => 'இடைவெளி நேரம்';
 
   @override
-  String get soundMix => 'ஒலி கலவை';
-
-  @override
-  String get addSound => 'ஒலி சேர்';
-
-  @override
-  String get startMix => 'கலவையைத் தொடங்கு';
-
-  @override
-  String get stopMix => 'கலவையை நிறுத்து';
-
-  @override
   String get timer => 'டைமர்';
 
   @override
@@ -274,9 +262,6 @@ class AppLocalizationsTa extends AppLocalizations {
 
   @override
   String get navSounds => 'ஒலிகள்';
-
-  @override
-  String get navMix => 'கலவை';
 
   @override
   String get navTimer => 'டைமர்';

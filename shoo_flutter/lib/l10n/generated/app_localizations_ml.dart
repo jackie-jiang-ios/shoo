@@ -145,18 +145,6 @@ class AppLocalizationsMl extends AppLocalizations {
   String get intervalTime => 'ഇടവേള സമയം';
 
   @override
-  String get soundMix => 'ശബ്ദ മിശ്രിതം';
-
-  @override
-  String get addSound => 'ശബ്ദം ചേർക്കുക';
-
-  @override
-  String get startMix => 'മിശ്രിതം ആരംഭിക്കുക';
-
-  @override
-  String get stopMix => 'മിശ്രിതം നിർത്തുക';
-
-  @override
   String get timer => 'ടൈമർ';
 
   @override
@@ -275,9 +263,6 @@ class AppLocalizationsMl extends AppLocalizations {
 
   @override
   String get navSounds => 'ശബ്ദങ്ങൾ';
-
-  @override
-  String get navMix => 'മിശ്രിതം';
 
   @override
   String get navTimer => 'ടൈമർ';

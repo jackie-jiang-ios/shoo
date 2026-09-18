@@ -144,18 +144,6 @@ class AppLocalizationsPa extends AppLocalizations {
   String get intervalTime => 'ਅੰਤਰਾਲ ਸਮਾਂ';
 
   @override
-  String get soundMix => 'ਆਵਾਜ਼ ਮਿਸ਼ਰਣ';
-
-  @override
-  String get addSound => 'ਆਵਾਜ਼ ਸ਼ਾਮਲ ਕਰੋ';
-
-  @override
-  String get startMix => 'ਮਿਸ਼ਰਣ ਸ਼ੁਰੂ ਕਰੋ';
-
-  @override
-  String get stopMix => 'ਮਿਸ਼ਰਣ ਬੰਦ ਕਰੋ';
-
-  @override
   String get timer => 'ਟਾਈਮਰ';
 
   @override
@@ -274,9 +262,6 @@ class AppLocalizationsPa extends AppLocalizations {
 
   @override
   String get navSounds => 'ਆਵਾਜ਼ਾਂ';
-
-  @override
-  String get navMix => 'ਮਿਸ਼ਰਣ';
 
   @override
   String get navTimer => 'ਟਾਈਮਰ';

@@ -144,18 +144,6 @@ class AppLocalizationsId extends AppLocalizations {
   String get intervalTime => 'Waktu selang';
 
   @override
-  String get soundMix => 'Mix suara';
-
-  @override
-  String get addSound => 'Tambah suara';
-
-  @override
-  String get startMix => 'Mulai mix';
-
-  @override
-  String get stopMix => 'Henti mix';
-
-  @override
   String get timer => 'Penghitung waktu';
 
   @override
@@ -274,9 +262,6 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get navSounds => 'Suara';
-
-  @override
-  String get navMix => 'Mix';
 
   @override
   String get navTimer => 'Penghitung waktu';

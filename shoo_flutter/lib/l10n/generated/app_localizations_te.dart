@@ -144,18 +144,6 @@ class AppLocalizationsTe extends AppLocalizations {
   String get intervalTime => 'విరామ సమయం';
 
   @override
-  String get soundMix => 'శబ్ద మిశ్రమం';
-
-  @override
-  String get addSound => 'శబ్దం జోడించు';
-
-  @override
-  String get startMix => 'మిశ్రమం ప్రారంభించు';
-
-  @override
-  String get stopMix => 'మిశ్రమం ఆపు';
-
-  @override
   String get timer => 'టైమర్';
 
   @override
@@ -274,9 +262,6 @@ class AppLocalizationsTe extends AppLocalizations {
 
   @override
   String get navSounds => 'శబ్దాలు';
-
-  @override
-  String get navMix => 'మిశ్రమం';
 
   @override
   String get navTimer => 'టైమర్';

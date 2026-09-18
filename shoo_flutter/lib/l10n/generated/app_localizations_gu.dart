@@ -144,18 +144,6 @@ class AppLocalizationsGu extends AppLocalizations {
   String get intervalTime => 'અંતરાલ સમય';
 
   @override
-  String get soundMix => 'ધ્વનિ મિશ્રણ';
-
-  @override
-  String get addSound => 'ધ્વનિ ઉમેરો';
-
-  @override
-  String get startMix => 'મિશ્રણ શરૂ કરો';
-
-  @override
-  String get stopMix => 'મિશ્રણ બંધ કરો';
-
-  @override
   String get timer => 'ટાઈમર';
 
   @override
@@ -274,9 +262,6 @@ class AppLocalizationsGu extends AppLocalizations {
 
   @override
   String get navSounds => 'ધ્વનિઓ';
-
-  @override
-  String get navMix => 'મિશ્રણ';
 
   @override
   String get navTimer => 'ટાઈમર';

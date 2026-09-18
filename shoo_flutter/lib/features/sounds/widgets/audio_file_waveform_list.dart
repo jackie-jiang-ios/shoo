@@ -21,6 +21,8 @@ class AudioFileWaveformList extends StatelessWidget {
   final bool isPlaybackActive;
   final ValueChanged<int> onFileTap;
   final ValueChanged<int>? onFileLongPress;
+  /// 多选模式下 toggle 选中状态的回调（仅点击圆圈区域时调用）
+  final ValueChanged<int>? onToggleSelect;
 
   const AudioFileWaveformList({
     super.key,
@@ -36,6 +38,7 @@ class AudioFileWaveformList extends StatelessWidget {
     required this.isPlaybackActive,
     required this.onFileTap,
     this.onFileLongPress,
+    this.onToggleSelect,
   });
 
   @override
@@ -80,6 +83,9 @@ class AudioFileWaveformList extends StatelessWidget {
                 isCurrentlyPlaying: isCurrentlyPlaying,
                 playbackProgress: isCurrentlyPlaying ? playbackProgress : 0,
                 onTap: () => onFileTap(index),
+                onToggleSelect: onToggleSelect != null
+                    ? () => onToggleSelect!(index)
+                    : null,
                 onLongPress: onFileLongPress != null
                     ? () => onFileLongPress!(index)
                     : null,
@@ -126,6 +132,7 @@ class _AudioFileWaveformTile extends StatelessWidget {
   final double playbackProgress;
   final VoidCallback onTap;
   final VoidCallback? onLongPress;
+  final VoidCallback? onToggleSelect;
 
   const _AudioFileWaveformTile({
     required this.title,
@@ -139,6 +146,7 @@ class _AudioFileWaveformTile extends StatelessWidget {
     required this.playbackProgress,
     required this.onTap,
     this.onLongPress,
+    this.onToggleSelect,
   });
 
   @override
@@ -151,92 +159,108 @@ class _AudioFileWaveformTile extends StatelessWidget {
         ? accentColor
         : Color.lerp(accentColor, Colors.grey, 0.45) ?? accentColor;
 
-    return Material(
-      color: Colors.transparent,
-      child: InkWell(
+    // 构建选中指示器（圆圈区域）
+    final Widget selectorWidget = isMultiSelectMode
+        ? GestureDetector(
+            onTap: onToggleSelect,
+            behavior: HitTestBehavior.opaque,
+            child: Padding(
+              padding: const EdgeInsets.only(right: 8, top: 6, bottom: 6),
+              child: Icon(
+                isSelected
+                    ? Icons.check_circle
+                    : Icons.radio_button_unchecked,
+                size: 24,
+                color: isSelected ? accentColor : (isDark ? AppColorsDark.textHint : Colors.grey[400]),
+              ),
+            ),
+          )
+        : Container(
+            width: 36,
+            height: 36,
+            decoration: BoxDecoration(
+              color: waveformColor.withValues(alpha: 0.12),
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: Icon(
+              isSelected
+                  ? Icons.music_note_rounded
+                  : Icons.audio_file_rounded,
+              size: 18,
+              color: waveformColor,
+            ),
+          );
+
+    // 构建内容区域（播放区域）
+    final Widget contentWidget = Expanded(
+      child: GestureDetector(
         onTap: onTap,
         onLongPress: onLongPress,
-        borderRadius: BorderRadius.circular(14),
-        child: Ink(
-          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
-          decoration: BoxDecoration(
-            color: isDark ? AppColorsDark.cardBackground : Colors.white,
-            borderRadius: BorderRadius.circular(14),
-            border: Border.all(color: borderColor, width: isSelected ? 1.5 : 1),
-          ),
-          child: Row(
+        behavior: HitTestBehavior.opaque,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 6),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // 选中指示器：单选模式用 radio，多选模式用 checkbox
-              if (isMultiSelectMode)
-                Padding(
-                  padding: const EdgeInsets.only(right: 8),
-                  child: Icon(
-                    isSelected
-                        ? Icons.check_circle
-                        : Icons.radio_button_unchecked,
-                    size: 20,
-                    color: isSelected ? accentColor : (isDark ? AppColorsDark.textHint : Colors.grey[400]),
-                  ),
-                )
-              else
-                Container(
-                  width: 36,
-                  height: 36,
-                  decoration: BoxDecoration(
-                    color: waveformColor.withValues(alpha: 0.12),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Icon(
-                    isSelected
-                        ? Icons.music_note_rounded
-                        : Icons.audio_file_rounded,
-                    size: 18,
-                    color: waveformColor,
-                  ),
-                ),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      title,
-                      style: TextStyle(
-                        fontSize: 13,
-                        fontWeight:
-                            isSelected ? FontWeight.w700 : FontWeight.w600,
-                        color: isSelected
-                            ? AppColors.textPrimaryOf(context)
-                            : (isDark ? AppColorsDark.textPrimary : const Color(0xFF303030)),
-                      ),
-                    ),
-                    const SizedBox(height: 3),
-                    Text(
-                      subtitle,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                        fontSize: 11,
-                        color: AppColors.textSecondaryOf(context),
-                      ),
-                    ),
-                    const SizedBox(height: 8),
-                    SizedBox(
-                      height: 34,
-                      child: CustomPaint(
-                        size: Size.infinite,
-                        painter: _AudioFileWaveformPainter(
-                          peaks: peaks,
-                          color: waveformColor,
-                          progress: playbackProgress,
-                          isCurrentlyPlaying: isCurrentlyPlaying,
-                        ),
-                      ),
-                    ),
-                  ],
+              Text(
+                title,
+                style: TextStyle(
+                  fontSize: 13,
+                  fontWeight:
+                      isSelected ? FontWeight.w700 : FontWeight.w600,
+                  color: isSelected
+                      ? AppColors.textPrimaryOf(context)
+                      : (isDark ? AppColorsDark.textPrimary : const Color(0xFF303030)),
                 ),
               ),
-              const SizedBox(width: 8),
-              Column(
+              const SizedBox(height: 3),
+              Text(
+                subtitle,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                  fontSize: 11,
+                  color: AppColors.textSecondaryOf(context),
+                ),
+              ),
+              const SizedBox(height: 8),
+              SizedBox(
+                height: 34,
+                child: CustomPaint(
+                  size: Size.infinite,
+                  painter: _AudioFileWaveformPainter(
+                    peaks: peaks,
+                    color: waveformColor,
+                    progress: playbackProgress,
+                    isCurrentlyPlaying: isCurrentlyPlaying,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+      decoration: BoxDecoration(
+        color: isDark ? AppColorsDark.cardBackground : Colors.white,
+        borderRadius: BorderRadius.circular(14),
+        border: Border.all(color: borderColor, width: isSelected ? 1.5 : 1),
+      ),
+      child: Row(
+        children: [
+          selectorWidget,
+          contentWidget,
+          const SizedBox(width: 8),
+          // 右侧时长和状态
+          GestureDetector(
+            onTap: onTap,
+            behavior: HitTestBehavior.opaque,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 6),
+              child: Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -277,9 +301,9 @@ class _AudioFileWaveformTile extends StatelessWidget {
                     ),
                 ],
               ),
-            ],
+            ),
           ),
-        ),
+        ],
       ),
     );
   }

@@ -144,18 +144,6 @@ class AppLocalizationsHu extends AppLocalizations {
   String get intervalTime => 'Időköz hossza';
 
   @override
-  String get soundMix => 'Hangkeverés';
-
-  @override
-  String get addSound => 'Hang hozzáadása';
-
-  @override
-  String get startMix => 'Keverés indítása';
-
-  @override
-  String get stopMix => 'Keverés leállítása';
-
-  @override
   String get timer => 'Időzítő';
 
   @override
@@ -274,9 +262,6 @@ class AppLocalizationsHu extends AppLocalizations {
 
   @override
   String get navSounds => 'Hangok';
-
-  @override
-  String get navMix => 'Keverés';
 
   @override
   String get navTimer => 'Időzítő';

@@ -144,18 +144,6 @@ class AppLocalizationsNo extends AppLocalizations {
   String get intervalTime => 'Intervalltid';
 
   @override
-  String get soundMix => 'Lydmiks';
-
-  @override
-  String get addSound => 'Legg til lyd';
-
-  @override
-  String get startMix => 'Start miks';
-
-  @override
-  String get stopMix => 'Stopp miks';
-
-  @override
   String get timer => 'Tidtaker';
 
   @override
@@ -274,9 +262,6 @@ class AppLocalizationsNo extends AppLocalizations {
 
   @override
   String get navSounds => 'Lyder';
-
-  @override
-  String get navMix => 'Miks';
 
   @override
   String get navTimer => 'Tidtaker';

@@ -144,18 +144,6 @@ class AppLocalizationsHr extends AppLocalizations {
   String get intervalTime => 'Vrijeme intervala';
 
   @override
-  String get soundMix => 'Miks zvukova';
-
-  @override
-  String get addSound => 'Dodaj zvuk';
-
-  @override
-  String get startMix => 'Pokreni miks';
-
-  @override
-  String get stopMix => 'Zaustavi miks';
-
-  @override
   String get timer => 'Timer';
 
   @override
@@ -274,9 +262,6 @@ class AppLocalizationsHr extends AppLocalizations {
 
   @override
   String get navSounds => 'Zvukovi';
-
-  @override
-  String get navMix => 'Miks';
 
   @override
   String get navTimer => 'Timer';

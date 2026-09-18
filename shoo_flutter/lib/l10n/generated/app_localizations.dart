@@ -452,30 +452,6 @@ abstract class AppLocalizations {
   /// **'Interval Time'**
   String get intervalTime;
 
-  /// No description provided for @soundMix.
-  ///
-  /// In en, this message translates to:
-  /// **'Sound Mix'**
-  String get soundMix;
-
-  /// No description provided for @addSound.
-  ///
-  /// In en, this message translates to:
-  /// **'Add Sound'**
-  String get addSound;
-
-  /// No description provided for @startMix.
-  ///
-  /// In en, this message translates to:
-  /// **'Start Mix'**
-  String get startMix;
-
-  /// No description provided for @stopMix.
-  ///
-  /// In en, this message translates to:
-  /// **'Stop Mix'**
-  String get stopMix;
-
   /// No description provided for @timer.
   ///
   /// In en, this message translates to:
@@ -715,12 +691,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Sounds'**
   String get navSounds;
-
-  /// No description provided for @navMix.
-  ///
-  /// In en, this message translates to:
-  /// **'Mix'**
-  String get navMix;
 
   /// No description provided for @navTimer.
   ///

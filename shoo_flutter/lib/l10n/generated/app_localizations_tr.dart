@@ -144,18 +144,6 @@ class AppLocalizationsTr extends AppLocalizations {
   String get intervalTime => 'Aralık süresi';
 
   @override
-  String get soundMix => 'Ses karıştırma';
-
-  @override
-  String get addSound => 'Ses ekle';
-
-  @override
-  String get startMix => 'Karıştırmayı başlat';
-
-  @override
-  String get stopMix => 'Karıştırmayı durdur';
-
-  @override
   String get timer => 'Zamanlayıcı';
 
   @override
@@ -274,9 +262,6 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get navSounds => 'Sesler';
-
-  @override
-  String get navMix => 'Karıştır';
 
   @override
   String get navTimer => 'Zamanlayıcı';

@@ -144,18 +144,6 @@ class AppLocalizationsKn extends AppLocalizations {
   String get intervalTime => 'ಮಧ್ಯಂತರ ಸಮಯ';
 
   @override
-  String get soundMix => 'ಶಬ್ದ ಮಿಶ್ರಣ';
-
-  @override
-  String get addSound => 'ಶಬ್ದ ಸೇರಿಸಿ';
-
-  @override
-  String get startMix => 'ಮಿಶ್ರಣ ಪ್ರಾರಂಭಿಸಿ';
-
-  @override
-  String get stopMix => 'ಮಿಶ್ರಣ ನಿಲ್ಲಿಸಿ';
-
-  @override
   String get timer => 'ಟೈಮರ್';
 
   @override
@@ -274,9 +262,6 @@ class AppLocalizationsKn extends AppLocalizations {
 
   @override
   String get navSounds => 'ಶಬ್ದಗಳು';
-
-  @override
-  String get navMix => 'ಮಿಶ್ರಣ';
 
   @override
   String get navTimer => 'ಟೈಮರ್';

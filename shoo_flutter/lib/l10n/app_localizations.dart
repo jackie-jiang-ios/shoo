@@ -173,10 +173,7 @@ class S {
   String get continuous => _l10n.continuous;
   String get intervalPlay => _l10n.intervalPlay;
   String get intervalTime => _l10n.intervalTime;
-  String get soundMix => _l10n.soundMix;
-  String get addSound => _l10n.addSound;
-  String get startMix => _l10n.startMix;
-  String get stopMix => _l10n.stopMix;
+  
   String get timer => _l10n.timer;
   String get setTimer => _l10n.setTimer;
   String get selectDuration => _l10n.selectDuration;
@@ -217,8 +214,7 @@ class S {
   String get frequencyRange => _l10n.frequencyRange;
   String get navHome => _l10n.navHome;
   String get navSounds => _l10n.navSounds;
-  String get navMix => _l10n.navMix;
-  String get navTimer => _l10n.navTimer;
+    String get navTimer => _l10n.navTimer;
   String get navSettings => _l10n.navSettings;
   String get iconStyle => _l10n.iconStyle;
   String get mode => _l10n.mode;

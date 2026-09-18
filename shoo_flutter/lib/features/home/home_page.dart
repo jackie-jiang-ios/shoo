@@ -1255,19 +1255,24 @@ class _AnimalDetailSheetState extends ConsumerState<_AnimalDetailSheet> {
                   _showPaywall(context);
                   return;
                 }
-                if (currentPlayMode == SoundPlayMode.single) {
-                  // 单曲循环模式：点击选中该文件并播放
-                  _playSoundSelection(
-                    idx,
-                    sound,
-                    fileIndex: fileIndex,
-                    overridePlayMode: SoundPlayMode.single,
-                  );
-                } else {
-                  // 列表循环模式：点击 toggle 该文件的选中状态
-                  _onSoundMultiSelectionToggled(sound.soundGroup, fileIndex);
-                }
+                // 点击行区域：切换到该文件播放
+                _playSoundSelection(
+                  idx,
+                  sound,
+                  fileIndex: fileIndex,
+                  overridePlayMode: currentPlayMode,
+                );
               },
+              onToggleSelect: currentPlayMode == SoundPlayMode.sequence
+                  ? (fileIndex) {
+                      if (isSoundLocked) {
+                        _showPaywall(context);
+                        return;
+                      }
+                      // 点击圆圈：toggle 选中状态
+                      _onSoundMultiSelectionToggled(sound.soundGroup, fileIndex);
+                    }
+                  : null,
             ),
             // 模式切换 segmented control（仅多文件且未锁定时显示）
             if (sound.soundCount > 1 && !isSoundLocked) ...[
