@@ -101,33 +101,23 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
                 ListTile(
                   leading: const Icon(Icons.language),
                   title: Text(s.language),
-                  trailing: PopupMenuButton<String>(
-                    onSelected: (value) {
-                      setState(() => _language = value);
-                      prefs.language = value;
-                      ref.read(localeProvider.notifier).state = resolveLocale(value);
-                    },
-                    itemBuilder: (context) => [
-                      PopupMenuItem(value: 'system', child: Text(s.followSystem)),
-                      ...S.nativeLanguageNames.entries.map((entry) =>
-                        PopupMenuItem(value: entry.key, child: Text(entry.value)),
+                  trailing: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        _language == 'system'
+                            ? s.followSystem
+                            : S.nativeLanguageNames[_language] ?? _language,
+                        style: Theme.of(context).textTheme.bodyMedium,
                       ),
+                      const SizedBox(width: 4),
+                      const Icon(Icons.chevron_right, size: 20, color: Colors.grey),
                     ],
-                    padding: EdgeInsets.zero,
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Text(
-                          _language == 'system'
-                              ? s.followSystem
-                              : S.nativeLanguageNames[_language] ?? _language,
-                          style: Theme.of(context).textTheme.bodyMedium,
-                        ),
-                        const SizedBox(width: 6),
-                        const Icon(Icons.arrow_drop_down, size: 22),
-                      ],
-                    ),
                   ),
+                  onTap: () async {
+                    await context.push('/language-select');
+                    if (mounted) setState(() => _language = prefs.language);
+                  },
                 ),
               ],
             ),

@@ -7,6 +7,7 @@ import 'core/screenshot/screenshot_helper.dart';
 import 'core/storage/preferences.dart';
 import 'features/home/home_page.dart';
 import 'features/settings/settings_page.dart';
+import 'features/settings/language_select_page.dart';
 import 'features/settings/web_view_page.dart';
 import 'features/paywall/paywall_page.dart';
 import 'features/splash/splash_page.dart';
@@ -76,6 +77,11 @@ final _router = GoRouter(
     GoRoute(path: '/splash', name: 'splash', builder: (context, state) => const SplashPage()),
     GoRoute(path: '/', name: 'home', builder: (context, state) => const HomePage()),
     GoRoute(path: '/settings', name: 'settings', builder: (context, state) => const SettingsPage()),
+    GoRoute(
+      path: '/language-select',
+      name: 'language-select',
+      builder: (context, state) => const LanguageSelectPage(),
+    ),
     GoRoute(
       path: '/webview',
       name: 'webview',
